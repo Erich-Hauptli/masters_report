@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import sql.SQL_DB;
 
 /*  Implements all Profile commands.  */
-public class UserProfile implements Profile{
+public class UserProfile implements User_Interface{
 		String profile_db = "profile";
 		String[] profile_headers = {"id", "first_name", "middle_name", "lastname", "gender", "birthday", "e-mail", "phone"};
 		String education_db = "education";

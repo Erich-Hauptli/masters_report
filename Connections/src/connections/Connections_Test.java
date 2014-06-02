@@ -1,7 +1,7 @@
 package connections;
 
 /*  Test file for the connections package.  */
-public class ConnectionsDemo {
+public class Connections_Test {
 	public static void main(String[] args) {
 
 		ConnectionsCheck connection = new ConnectionsCheck();

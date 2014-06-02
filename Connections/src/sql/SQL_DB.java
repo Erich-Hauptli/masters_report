@@ -10,9 +10,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import files.ReadFile;
+import files.Files;
 
-public class SQL_DB implements MYsqlDB{
+public class SQL_DB implements SQL_Interface{
 	
 	public void download_all(String database) {
 		String Manager = "jdbc:sqlite:" + database + ".db";			  //Define database as sqlite.
@@ -248,24 +248,20 @@ public class SQL_DB implements MYsqlDB{
 
     	SQL_DB sql_upload = new SQL_DB();
     	
-		try{
-			ReadFile file = new ReadFile(filename);
-			String[] aryLines = file.OpenFile();		//Read in the file.
-			
-			int i;
-			for(i=0; i<aryLines.length; i++){
-				String line = aryLines[i];
-				String[] split = line.split("\\s*,\\s*");		//Split the data based on ","s.
-				try {
-					sql_upload.upload_line(database, headers, split);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}  //Upload each line of the file into the database.
-			}
-		}
-		catch(IOException e){
-			System.out.println(e.getMessage());
+		Files file = new Files();
+		file.ReadFile(filename);
+		String[] aryLines = file.OpenFile();		//Read in the file.
+		
+		int i;
+		for(i=0; i<aryLines.length; i++){
+			String line = aryLines[i];
+			String[] split = line.split("\\s*,\\s*");		//Split the data based on ","s.
+			try {
+				sql_upload.upload_line(database, headers, split);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}  //Upload each line of the file into the database.
 		}
     }
 }

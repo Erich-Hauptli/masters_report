@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import user.UserProfile;
 
 /*  Contains commands that draws connections between users.  */
-public class ConnectionsCheck implements Connections{
+public class ConnectionsCheck implements Connections_Interface{
 	
 	ArrayList<String> results = new ArrayList<String>();
 	ArrayList<String> collumns = new ArrayList<String>();

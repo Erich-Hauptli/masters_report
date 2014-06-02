@@ -2,7 +2,7 @@ package sql;
 
 import java.util.ArrayList;
 
-public interface MYsqlDB {
+public interface SQL_Interface {
 
 	void download_all(String database);
 	

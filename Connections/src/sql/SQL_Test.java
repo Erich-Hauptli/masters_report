@@ -4,9 +4,8 @@ import java.util.ArrayList;
 
 /*  Test file to test out SQL Database code.  */
 
-public class DBDemo {
+public class SQL_Test {
 	public static void main(String[] args) throws Exception {
-
     	
 		String file_name = "Test.csv";  	//File to be read in.
 		String database = "user";			//Database to be created.

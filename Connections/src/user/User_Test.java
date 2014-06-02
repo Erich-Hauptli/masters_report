@@ -1,7 +1,7 @@
 package user;
 
 /*  Test file for user package.  */
-public class ProfileDemo {
+public class User_Test {
 	public static void main(String[] args) {
 
         // Create User objects
