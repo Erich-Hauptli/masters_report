@@ -14,7 +14,7 @@ import files.Files;
 
 public class SQL_DB implements SQL_Interface{
 	
-	public void download_all(String database) {
+	public void print_all(String database) {
 		String Manager = "jdbc:sqlite:" + database + ".db";			  //Define database as sqlite.
         Connection conn = null;
         Statement stat = null;
@@ -51,7 +51,7 @@ public class SQL_DB implements SQL_Interface{
     }
 	
 	/*  download_matches only prints out the rows that contain the field value for a defined field.  */
-	public void download_matches(String database, String field, String field_value) {
+	public void print_matches(String database, String field, String field_value) {
 		String Manager = "jdbc:sqlite:" + database + ".db";
         Connection conn = null;
         Statement stat = null;

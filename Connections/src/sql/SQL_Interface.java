@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public interface SQL_Interface {
 
-	void download_all(String database);
+	void print_all(String database);
 	
-	void download_matches(String database, String field, String field_value);
+	void print_matches(String database, String field, String field_value);
 	
 	ArrayList<String> collect_matches(String database, String field, String field_value);
 	

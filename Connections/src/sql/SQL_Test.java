@@ -23,13 +23,13 @@ public class SQL_Test {
 			System.out.println(Collumn);		//Printout the headers of the database.
 		}
     	
-    	sql_download.download_all(database);  //Printout the contents of the database.
+    	sql_download.print_all(database);  //Printout the contents of the database.
     	
     	sql_upload.modify_line(database, "1", "work", "ESPN");  //Update database, id=1  set work field.
     	
-    	sql_download.download_all(database);   //Printout the contents of the database.
+    	sql_download.print_all(database);   //Printout the contents of the database.
     	
-    	sql_download.download_matches(database, "education", "MSU");  //Printout only the entries that education == MSU.
+    	sql_download.print_matches(database, "education", "MSU");  //Printout only the entries that education == MSU.
 				
     }
 }

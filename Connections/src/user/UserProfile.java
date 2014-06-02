@@ -73,7 +73,7 @@ public class UserProfile implements User_Interface{
 	    public void display_all_users(String database) {
 	    	SQL_DB sql_download = new SQL_DB();
 	        try {
-	        	sql_download.download_all(database);
+	        	sql_download.print_all(database);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
