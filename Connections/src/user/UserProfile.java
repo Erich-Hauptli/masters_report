@@ -51,7 +51,8 @@ public class UserProfile implements User_Interface{
 	    		return;
 	    	}
 	        try {
-	        	sql_upload.upload_file(database, headers, file);
+	        	sql_upload.declare_database(database, headers);
+	        	sql_upload.upload_file(file);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -84,7 +85,7 @@ public class UserProfile implements User_Interface{
 	    public void display_user(String database, String field, String search_term) {
 	    	SQL_DB sql_download = new SQL_DB();
 	        try {
-	        	sql_download.download_matches(database, field, search_term);
+	        	sql_download.print_matches(database, field, search_term);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

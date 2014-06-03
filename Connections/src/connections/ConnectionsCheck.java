@@ -8,14 +8,14 @@ import user.UserProfile;
 public class ConnectionsCheck implements Connections_Interface{
 	
 	ArrayList<String> results = new ArrayList<String>();
-	ArrayList<String> collumns = new ArrayList<String>();
+	ArrayList<String> columns = new ArrayList<String>();
 	
 	/*  Prints out paths taken by common users as percentages.  */
     public void find_same(String common_field, String common_field_value, String[] compare_fields) {
         try {
         	UserProfile user = new UserProfile();
-        	//results = user.collect_users(common_field, common_field_value);  //Queries common users
-        	//collumns = user.query_collumns();								//Queries headers for users
+        	results = user.collect_users(common_field, common_field_value, null);  //Queries common users
+        	columns = user.query_collumns(null);								//Queries headers for users
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -23,8 +23,8 @@ public class ConnectionsCheck implements Connections_Interface{
         
         for(String compare_field : compare_fields){
         	int i = 0;
-        	for(String collumn : collumns){
-        		if(collumn.equalsIgnoreCase(compare_field)){	//Determine if column is one of the comparison fields.
+        	for(String column : columns){
+        		if(column.equalsIgnoreCase(compare_field)){	//Determine if column is one of the comparison fields.
         			break;
         		}
         		else i++;

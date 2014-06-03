@@ -16,5 +16,9 @@ public interface SQL_Interface {
 	
 	void modify_line(String database, String id, String field, String field_value);
 	
-	void upload_file(String database, String[] headers, String filename);
+	void upload_file(String filename);
+	
+	void declare_database(String database, String[] headers);
+	
+	void setup();
 }
