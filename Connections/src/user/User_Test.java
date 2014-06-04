@@ -9,21 +9,17 @@ public class User_Test {
         
         String database = "profile";
 
-        String[] Nick = {"8", "Nick Ellis", "7/5/1982", "MSU", "BS", "Lawyer", "Detroit"};
-        user.add_users(database, "Test.csv");
+        user.database_setup();
+        user.add_users("Test.csv");
         System.out.println("Display all users who attented MSU");
-        user.display_user(database, "education", "MSU");
-        //user.add_user(Nick);
+        user.display_matching_users("education", "school", "MSU");
         System.out.println("Display all users.");
         user.display_all_users(database);
+        user.modify_field("education", "1", "school", "Michigan State University");
         System.out.println("Display all users who attented MSU");
-        user.display_user(database, "education", "MSU");
-        user.modify_field(database, "6", "name", "Krista Hauptli Teller");
-        user.modify_field(database, "7", "birthday", "8/10/1985");
-        user.modify_field(database, "2", "education", "Michigan State University");
-        user.display_user(database, "work", "engineer");
-        user.modify_field(database, "1", "work", "IBM");
+        user.display_matching_users("education", "school", "MSU");
+        user.display_matching_users("job", "company", "IBM");
         System.out.println("Display all users.");
-        user.display_all_users(database);
+        user.display_all_users("job");
     }
 }

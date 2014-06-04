@@ -14,7 +14,7 @@ public class ConnectionsCheck implements Connections_Interface{
     public void find_same(String common_field, String common_field_value, String[] compare_fields) {
         try {
         	UserProfile user = new UserProfile();
-        	results = user.collect_users(common_field, common_field_value, null);  //Queries common users
+        	results = user.collect_matching_users(common_field, common_field_value, null);  //Queries common users
         	columns = user.query_collumns(null);								//Queries headers for users
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

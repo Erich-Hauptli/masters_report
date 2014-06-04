@@ -248,18 +248,24 @@ public class SQL_DB implements SQL_Interface{
 		String[] aryLines = file.OpenFile();		//Read in the file.
 		ArrayList<String> matches = null;
 		
-		int i;
-		for(i=0; i<aryLines.length; i++){
+		for(int i=0; i<aryLines.length; i++){
+			String database = null;
 			String line = aryLines[i];
-			ArrayList<String> split_array = new ArrayList<String>(Arrays.asList(line.split("\\s*,\\s*")));		//Split the data based on ","s.
-			String database = split_array.get(0);
-			split_array.remove(0);
-			String[] split = new String[split_array.size()];
-			split = split_array.toArray(split);
+			String[] data = line.split("\\s*,\\s*");		//Split the data based on ","s.
+			ArrayList<String> data_list = new ArrayList<String>();
+			for(int j=0; j<data.length; j++){
+				if(j==0){
+					database = data[j];
+				}else{
+					data_list.add(data[j]);
+				}
+			}
+			String[] filedata=data_list.toArray(new String[data_list.size()]);
+			
 			try {
 				matches = sql_download.collect_matches("headers", "database", database);
 				if(matches.size() == 0){
-					throw new Exception("Please declare database: " + database);
+					throw new Exception("Please declare database: " + database + ":\n");
 				}
 				else if(matches.size() > 1){
 					throw new Exception("headers.db broken!");
@@ -271,16 +277,15 @@ public class SQL_DB implements SQL_Interface{
 					String[] headers = new String[header_array.size()];
 					headers = header_array.toArray(headers);
 					int h_size = headers.length;
-					int s_size = split.length;
+					int s_size = filedata.length;
 					if (h_size == s_size){
-						sql_upload.upload_line(database, headers, split);
+						sql_upload.upload_line(database, headers, filedata);
 					}
 					else{
 						throw new Exception("Line does not contain correct information for database.\n   Header: " + h_size + "\n   Data: " + s_size);
 					}
 				}
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}  //Upload each line of the file into the database.
 		}

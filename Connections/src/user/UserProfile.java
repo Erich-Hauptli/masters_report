@@ -7,12 +7,19 @@ import sql.SQL_DB;
 /*  Implements all Profile commands.  */
 public class UserProfile implements User_Interface{
 		String profile_db = "profile";
-		String[] profile_headers = {"id", "first_name", "middle_name", "lastname", "gender", "birthday", "e-mail", "phone"};
+		String[] profile_headers = {"id", "first_name", "middle_name", "lastname", "gender", "birthday", "email", "phone"};
 		String education_db = "education";
 		String[] education_headers = {"id", "degree", "specialization", "school", "start_date", "end_date"};
 		String job_db = "job";
 		String[] job_headers = {"id", "title", "company", "location", "start_date", "end_date"};
 
+		public void database_setup(){
+			SQL_DB setup = new SQL_DB();
+			setup.setup();
+			setup.declare_database(profile_db, profile_headers);
+			setup.declare_database(education_db, education_headers);
+			setup.declare_database(job_db, job_headers);
+		}
 		/*  add_user  adds a single user to the database.  */
 	    public void add_user(String[] user_profile, ArrayList<String[]> user_educations, ArrayList<String[]> user_jobs) {
 	    	SQL_DB sql_upload = new SQL_DB();
@@ -37,21 +44,9 @@ public class UserProfile implements User_Interface{
 	    }
 		
 	    /* add_users add a comma separated file list of users to the database*/
-	    public void add_users(String file, String database) {
+	    public void add_users(String file) {
 	    	SQL_DB sql_upload = new SQL_DB();
-	    	String[] headers = null;
-	    	if(database.equals("profile")){
-	    		headers = profile_headers;
-	    	}else if(database.equals("education")){
-	    		headers = education_headers;
-	    	}else if(database.equals("job")){
-	    		headers = job_headers;
-	    	}else{
-	    		System.out.println("Failed to determine column headers");
-	    		return;
-	    	}
 	        try {
-	        	sql_upload.declare_database(database, headers);
 	        	sql_upload.upload_file(file);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -60,7 +55,7 @@ public class UserProfile implements User_Interface{
 	    }
 	    
 	    /*  modify_field changes one element of one row to the requested value.  */
-	    public void modify_field(String id, String database, String field, String field_value) {
+	    public void modify_field(String database, String id, String field, String field_value) {
 	    	SQL_DB sql_upload = new SQL_DB();
 	        try {
 	        	sql_upload.modify_line(database, id, field, field_value);
@@ -82,7 +77,7 @@ public class UserProfile implements User_Interface{
 	    }
 	    
 	    /*  display_user prints out all users that meet search criteria.  */
-	    public void display_user(String database, String field, String search_term) {
+	    public void display_matching_users(String database, String field, String search_term) {
 	    	SQL_DB sql_download = new SQL_DB();
 	        try {
 	        	sql_download.print_matches(database, field, search_term);
@@ -93,7 +88,7 @@ public class UserProfile implements User_Interface{
 	    }
 	    
 	    /*  collect_users returns all users that meet search criteria as an ArrayList.  */
-	    public ArrayList<String> collect_users(String database, String field, String search_term) {
+	    public ArrayList<String> collect_matching_users(String database, String field, String search_term) {
 	    	ArrayList<String> results = new ArrayList<String>();
 	    	SQL_DB sql_download = new SQL_DB();
 	        try {
@@ -117,5 +112,6 @@ public class UserProfile implements User_Interface{
 			}
 	        return results;
 	    }
+
 
 }
