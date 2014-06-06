@@ -39,6 +39,14 @@ foreach $line (<YEARS>) {
  	push(@years, $line); 		#Add all years from file to years array.
  }
  close (YEARS);
+ 
+open(COLLEGES, "Colleges.txt") or die("Could not open first names file.");	#Open file containing list of last names.
+foreach $line (<COLLEGES>) {
+	chomp;
+ 	$line =~ s/^\s+|\s+$//g;	#Remove whitespace
+ 	push(@colleges, $line); 	#Add all names from file to last_names array.
+}
+close (LAST_NAMES);
 
 ##############  Create USERS #########################
  for($i=0;$i<$users;$i++){
@@ -71,6 +79,10 @@ foreach $line (<YEARS>) {
  	############## Print out user information ################################
  	#profile, id, first name, last name, sex, birthday, e-mail,  phone number
  	print USERS "profile,$i,$first_name,$last_name,$sex,$month/$day/$year,$email,$num \n";
+ 	
+ 	
+
+ 	
  	
  	###### Arrays below will be selected from at random ######################
  	@age_exit_hs = (16,17,17,18,18,18,18,18,19,19);			#Array containing age of high school graduation
@@ -110,9 +122,17 @@ foreach $line (<YEARS>) {
  			}else{
  				$time = $time - $end_ug_year;
  			}
+ 			
+ 			$college_index = rand @colleges;
+ 			$college = $colleges[$college_index];
+ 			@univ = split(':',$college);
+ 			$school_ug = $univ[0];
+ 			@spec = split(',',$univ[1]);
+ 			$spec_index = rand @spec;
+ 			$specialization_ug = $spec[$spec_index];
  			#Print out education instance
  			#education, id, degree, specialization, school, start_date, end_date
- 			print USERS "education,$i,Bacholers,specialization,school,$start_ug,$end_ug \n";
+ 			print USERS "education,$i,Bacholers,$specialization_ug,$school_ug,$start_ug,$end_ug \n";
  		}
  	
  		$prob_index = rand @prob;			#Roll probability dice
