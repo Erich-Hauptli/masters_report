@@ -1,0 +1,25 @@
+Wal-Mart:Business,Law,ND
+Exxon Mobil:Business,Science,Law,Engineering,ND
+General Motors:Business,Law,Enineering,ND
+Citigroup:Business,Law,PolySci,ND
+Chevron:Business,Science,Law,Engineering,ND
+IBM:Business,Engineering,Law,Science,Healthcare
+Verizon:Engineering,Business
+General Electric:Business,Science,Engineering
+AT&T:Engineering,Science
+Intel:Science,Engineering
+Boeing:Business,Engineering,Science
+Bank of America:Law,Business,ND
+J.P. Morgan Chase:Law,Business,ND
+Kroger:Business,Healthcare,ND
+Hewlit-Packard:Engineering,Science
+State of Texas:Education,PolySci
+US Government:Education,PolySci,Science
+Berkshire Hathaway:Business,Science,Law
+Dell Computer:Business,Engineering,Science,Law
+DOW Chemical:Business,Engineering,Science,Law
+Motorola:Business,Engineering,Healthcare,Science
+Delphi:Business,Engineering,Law
+Microsoft:Business,Engineering
+Lockheed Martin:Engineering,Science,Healthcare
+Cisco Systems:Engineering,Healthcare,Buisness

@@ -1,11 +1,9 @@
 $users = 10;		#Adjust number of users generated.
 $job_chance = 4;	#Adjust rate of users obtaining jobs.
-$b_chance = 1;		#Adjust rate of users obtaining Bachelor Degrees.
+$b_chance = 2;		#Adjust rate of users obtaining Bachelor Degrees.
 $m_chance = 5;		#Adjust rate of users obtaining Master Degrees.
 $phd_chance = 7;	#Adjust rate of users obtaining PHDs.
 
-@first_names = ();
-@last_names = ();
 @months = ("1", "2", "3","4","5","6","7","8","9","10","11","12");
 @days_10s = ("0","1","2");  #ignoring 30th and 31st
 @days_1s = ("1","2","3","4","5","6","7","8","9");  #ignoring 10th and 20th
@@ -15,8 +13,9 @@ $phd_chance = 7;	#Adjust rate of users obtaining PHDs.
 open(USERS, ">Users.csv") or die("Could not open first names file.");	#File to be generated.
 
 open(FIRST_NAMES, "First_Names.csv") or die("Could not open first names file.");	#Open file containg list of first names.
+@first_names = ();
 foreach $line (<FIRST_NAMES>) {
- 	chomp;
+ 	chomp $line;
  	$line =~ s/^\s+|\s+$//g;	#Remove whitespace
  	push(@first_names, $line); 	#Add all names from file to first_names array.
  }
@@ -24,26 +23,29 @@ foreach $line (<FIRST_NAMES>) {
  
 
  
-open(LAST_NAMES, "Last_Names.csv") or die("Could not open first names file.");	#Open file containing list of last names.
+open(LAST_NAMES, "Last_Names.csv") or die("Could not open last names file.");	#Open file containing list of last names.
+@last_names = ();
 foreach $line (<LAST_NAMES>) {
- 	chomp;
+ 	chomp $line;
  	$line =~ s/^\s+|\s+$//g;	#Remove whitespace
  	push(@last_names, $line); 	#Add all names from file to last_names array.
  }
  close (LAST_NAMES);
  
-open(YEARS, "Years.csv") or die("Could not open first names file.");	#Open file containing list of eligable birth years.
+open(YEARS, "Years.csv") or die("Could not open years file.");	#Open file containing list of eligable birth years.
+@years = ();
 foreach $line (<YEARS>) {
- 	chomp;
+ 	chomp $line;
  	$line =~ s/^\s+|\s+$//g;	#Remove whitespace
  	push(@years, $line); 		#Add all years from file to years array.
  }
  close (YEARS);
  
-open(COLLEGES, "Colleges.txt") or die("Could not open first names file.");	#Open file containing list of last names.
+open(COLLEGES, "Colleges.txt") or die("Could not open colleges file.");	#Open file containing list of last names.
+@colleges = ();
 foreach $line (<COLLEGES>) {
-	chomp;
- 	$line =~ s/^\s+|\s+$//g;	#Remove whitespace
+	chomp $line;
+	$line =~ s/\r\n?/\n/g;
  	push(@colleges, $line); 	#Add all names from file to last_names array.
 }
 close (LAST_NAMES);
@@ -101,6 +103,7 @@ close (LAST_NAMES);
  	$UG = 0;
  	$MS = 0;
  	$PHD = 0;
+ 	$specialization_ug = "ND";			#Initialize people to no degree
  	 	
  	$start = $year + $hs;					#Set start to highschool graduation
  	while($time > 0){						#Decrement time for each job/education until at current year
@@ -125,8 +128,10 @@ close (LAST_NAMES);
  			
  			$college_index = rand @colleges;
  			$college = $colleges[$college_index];
+ 			@univ = ();
  			@univ = split(':',$college);
  			$school_ug = $univ[0];
+ 			@spec = ();
  			@spec = split(',',$univ[1]);
  			$spec_index = rand @spec;
  			$specialization_ug = $spec[$spec_index];
@@ -152,9 +157,27 @@ close (LAST_NAMES);
  			}else{
  				$time = $time - $end_ms_year;
  			}
+ 			
+ 			open(COLLEGES, "Colleges.txt") or die("Could not open colleges file.");	#Open file containing list of last names.
+ 			@advanced_schools = ();
+			foreach $line (<COLLEGES>) {
+				chomp $line;
+				$line =~ s/\r\n?/\n/g;
+				if ($line =~ /$specialization_ug/){
+					@univ_m = ();
+					@univ_m = split(':',$line);
+ 					$school_m = $univ_m[0];
+ 					push(@advanced_schools, $school_m); 	#Add all schools for undergrad specialty.
+				}	
+			}
+			close (COLLEGES);
+
+			$m_school_index = rand @advanced_schools;			#Select number of years to complete masters degree		
+ 			$master_school = $advanced_schools[$m_school_index];	
+ 			
  			#Print out education instance
  			#education, id, degree, specialization, school, start_date, end_date
- 			print USERS "education,$i,Masters,specialization,school,$start_ms,$end_ms \n";
+ 			print USERS "education,$i,Masters,specialization,$master_school,$start_ms,$end_ms \n";
  		}
  	
  		$prob_index = rand @prob;			#Roll probability dice
@@ -174,9 +197,27 @@ close (LAST_NAMES);
  			}else{
  				$time = $time - $end_phd_year;
  			}
+
+ 			open(COLLEGES, "Colleges.txt") or die("Could not open colleges file.");	#Open file containing list of last names.
+ 			@advanced_schools = ();
+			foreach $line (<COLLEGES>) {
+				chomp $line;
+				$line =~ s/\r\n?/\n/g;
+				if ($line =~ /$specialization_ug/){
+					@univ_m = ();
+					@univ_m = split(':',$line);
+ 					$school_m = $univ_m[0];
+ 					push(@advanced_schools, $school_m); 	#Add all schools for undergrad specialty.
+				}	
+			}
+			close (COLLEGES);
+ 			
+			$phd_school_index = rand @advanced_schools;			#Select number of years to complete masters degree		
+ 			$phd_school = $advanced_schools[$phd_school_index];
+ 			
  			#Print out education instance
  			#education, id, degree, specialization, school, start_date, end_date
- 			print USERS "education,$i,PHD,specialization,school,$start_phd,$end_phd \n";
+ 			print USERS "education,$i,PHD,specialization,$phd_school,$start_phd,$end_phd \n";
  		}
  		
  		$prob_index = rand @prob;			#Roll probability dice
@@ -195,9 +236,30 @@ close (LAST_NAMES);
  				$time = $time - $end_job_year;
  			}
  			$jobs_held++;
+ 			
+ 			open(COMPANIES, "Companies.txt") or die("Could not open companies file.");	#Open file containing list of last names.
+ 			@companies = ();
+			foreach $line (<COMPANIES>) {
+				chomp $line;
+				$line =~ s/\r\n?/\n/g;
+				if ($line =~ /$specialization_ug/){
+					@comp = ();
+					@comp = split(':',$line);
+ 					$company_tmp = $comp[0];
+ 					print "$specialization_ug --- $line \n";
+ 					push(@companies, $company_tmp); 	#Add all schools for undergrad specialty.
+				}	
+			}
+			close (COLLEGES);
+
+			$company_index = rand @companies;			#Select number of years to complete masters degree		
+ 			$company = $companies[$company_index];
+ 			print "$company \n";
+ 			
  			#Print out job instance
  			#job, id, title, company, location, start_date, end_date
- 			print USERS "job,$i,title,company,location,$start_job,$end_job \n";
+ 			print USERS "job,$i,title,$company,location,$start_job,$end_job \n";
  		}
- 	}  	
+ 	} 	
  }
+ print "Script complete."; 

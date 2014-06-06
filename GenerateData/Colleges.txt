@@ -1,25 +1,25 @@
-Princeton University:Business,Education,Law,Healthcare,Political Science
-Harvard University:Business,Education,Science,Law,Political Science
-Yale University:Business,Law,Political Science
-Columbia University:Business,Law,Political Science
-Stanford University:Engineering,Science,Healthcare 
-Duke University:Business,Education,Engineering,Healthcare 
-Massachusetts Institute of Technology:Engineering,Science,Healthcare 
-University of Pennsylvania:Business,Education,Science,Law,Political Science
+Princeton University:Business,Education,Law,Healthcare,PolySci
+Harvard University:Business,Education,Science,Law,PolySci
+Yale University:Business,Law,PolySci
+Columbia University:Business,Law,PolySci
+Stanford University:Engineering,Science,Healthcare
+Duke University:Business,Education,Engineering,Healthcare
+Massachusetts Institute of Technology:Engineering,Science,Healthcare
+University of Pennsylvania:Business,Education,Science,Law,PolySci
 California Institute of Technology:Engineering,Science,Healthcare
 Johns Hopkins University:Education,Science,Law,Healthcare
-Northwestern University:Business,Education,Law,Healthcare,Political Science 
-Cornell University:Education,Law,Political Science
-Rice University:Business,Law,Healthcare,Political Science
+Northwestern University:Business,Education,Law,Healthcare,PolySci
+Cornell University:Education,Law,PolySci
+Rice University:Business,Law,Healthcare,PolySci
 University of Notre Dame:Business,Education,Law
-Georgetown University:Education,Law,Political Science
+Georgetown University:Education,Law,PolySci
 University of California--Berkeley:Engineering,Science
-Carnegie Mellon University:Business,Engineering,Science,Political Science
+Carnegie Mellon University:Business,Engineering,Science,PolySci
 University of California--Los Angeles:Business,Education,Science,Law
 University of Southern California:Business,Engineering,Science,Law
 University of Michigan:Education,Engineering,Science,Law
-University of North Carolina:Business,Engineering,Law,Healthcare,Political Science 
-Boston College:Business,Education,Law,Political Science
-New York University:Business,Education,Law,Healthcare,Political Science 
-University of Texas:Engineering,Science,Healthcare,Political Science
+University of North Carolina:Business,Engineering,Law,Healthcare,PolySci
+Boston College:Business,Education,Law,PolySci
+New York University:Business,Education,Law,Healthcare,PolySci
+University of Texas:Engineering,Science,Healthcare,PolySci
 Michigan State University:Education,Engineering,Healthcare
