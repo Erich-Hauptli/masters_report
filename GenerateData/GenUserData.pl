@@ -1,3 +1,4 @@
+$users = 10;
 @first_names = ();
 @last_names = ();
 @months = ("1", "2", "3","4","5","6","7","8","9","10","11","12");
@@ -33,7 +34,7 @@ foreach $line (<YEARS>) {
  }
  close (LAST_NAMES);
 
- for($i=0;$i<5;$i++){
+ for($i=0;$i<$users;$i++){
  	$index   = rand @first_names;
  	$first_name = $first_names[$index];
   	$index1   = rand @last_names;
@@ -76,76 +77,92 @@ foreach $line (<YEARS>) {
  	$time_index = rand @age_exit_hs;
  	$hs = $age_exit_hs[$time_index];
  	$time = $age - $hs;
- 	
- 	$prob_index = rand @prob;
- 	$probability = $prob[$prob_index];
- 	if ($time > 0 && $probability > 2 ){
- 		$UG = 1;
- 		$start_ug = $year + $hs;
- 		$end_ug_index = rand @years_undergrad;
- 		$end_ug_year = $years_undergrad[$end_ug_index];
- 		$end_ug = $start_ug + $end_ug_year;
- 		if($end_ug >= $Current_Year){
- 			$time = 0;
- 			$end_ug = "Current";
- 		}else{
- 			$time = $time - $end_ug_year;
+ 	$jobs_held = 0;
+ 	$UG = 0;
+ 	$MS = 0;
+ 	$PHD = 0;
+ 	 	
+ 	$start = $year + $hs;
+ 	while($time > 0){
+ 		
+ 		$prob_index = rand @prob;
+ 		$probability = $prob[$prob_index];
+ 		$chance = $jobs_held + 1;
+ 		if ($UG < 1 && $probability > $chance ){
+ 			$UG = 1;
+ 			$start_ug = $start;
+ 			$end_ug_index = rand @years_undergrad;
+ 			$end_ug_year = $years_undergrad[$end_ug_index];
+ 			$end_ug = $start_ug + $end_ug_year;
+ 			$start = $end_ug;
+ 			if($end_ug >= $Current_Year){
+ 				$time = 0;
+ 				$end_ug = "Current";
+ 			}else{
+ 				$time = $time - $end_ug_year;
+ 			}
+ 			#education, id, degree, specialization, school, start_date, end_date
+ 			print "education,$i,Bacholers,specialization,school,$start_ug,$end_ug \n";
  		}
- 		#education, id, degree, specialization, school, start_date, end_date
- 		print "education,$i,Bacholers,specialization,school,$start_ug,$end_ug \n";
- 	}
  	
- 	$prob_index = rand @prob;
- 	$probability = $prob[$prob_index];
- 	if($time > 0 && $UG == 1 && $probability > 6){
- 		$MS = 1;
- 		$start_ms = $end_ug;
- 		$end_ms_index = rand @years_masters;
- 		$end_ms_year = $years_masters[$end_ms_index];
- 		$end_ms = $start_ms + $end_ms_year;
- 		if($end_ms >= $Current_Year){
- 			$time = 0;
- 			$end_ms = "Current";
- 		}else{
- 			$time = $time - $end_ms_year;
+ 		$prob_index = rand @prob;
+ 		$probability = $prob[$prob_index];
+ 		$chance = $jobs_held + 7;
+ 		if($MS < 1 && $UG == 1 && $probability > $chance){
+ 			$MS = 1;
+ 			$start_ms = $start;
+ 			$end_ms_index = rand @years_masters;
+ 			$end_ms_year = $years_masters[$end_ms_index];
+ 			$end_ms = $start_ms + $end_ms_year;
+ 			$start = $end_ms;
+ 			if($end_ms >= $Current_Year){
+ 				$time = 0;
+ 				$end_ms = "Current";
+ 			}else{
+ 				$time = $time - $end_ms_year;
+ 			}
+ 			#education, id, degree, specialization, school, start_date, end_date
+ 			print "education,$i,Masters,specialization,school,$start_ms,$end_ms \n";
  		}
- 		#education, id, degree, specialization, school, start_date, end_date
- 		print "education,$i,Masters,specialization,school,$start_ms,$end_ms \n";
- 	}
  	
- 	$prob_index = rand @prob;
- 	$probability = $prob[$prob_index];
- 	if($time > 0 && $MS == 1 && $probability > 8){
- 		$MS = 1;
- 		$start_phd = $end_ms;
- 		$end_phd_index = rand @years_phd;
- 		$end_phd_year = $years_phd[$end_phd_index];
- 		$end_phd = $start_phd + $end_phd_year;
- 		if($end_phd >= $Current_Year){
- 			$time = 0;
- 			$end_ms = "Current";
- 		}else{
- 			$time = $time - $end_phd_year;
+ 		$prob_index = rand @prob;
+ 		$probability = $prob[$prob_index];
+ 		$chance = $jobs_held + 7;
+ 		if($PHD < 1 && $MS == 1 && $probability > $chance){
+ 			$PHD = 1;
+ 			$start_phd = $start;
+ 			$end_phd_index = rand @years_phd;
+ 			$end_phd_year = $years_phd[$end_phd_index];
+ 			$end_phd = $start_phd + $end_phd_year;
+ 			$start = $end_phd;
+ 			if($end_phd >= $Current_Year){
+ 				$time = 0;
+ 				$end_ms = "Current";
+ 			}else{
+ 				$time = $time - $end_phd_year;
+ 			}
+ 			#education, id, degree, specialization, school, start_date, end_date
+ 			print "education,$i,PHD,specialization,school,$start_phd,$end_phd \n";
  		}
- 		#education, id, degree, specialization, school, start_date, end_date
- 		print "education,$i,PHD,specialization,school,$start_phd,$end_phd \n";
- 	}
- 	
- 	until($time <= 0){
- 		$start_job = $Current_Year - $time;
- 		$end_job_index = rand @years_job;
- 		$end_job_year = $years_job[$end_job_index];
- 		$end_job = $start_job + $end_job_year;
- 		if($end_job >= $Current_Year){
- 			$time = 0;
- 			$end_job = "Current";
- 		}else{
- 			$time = $time - $end_job_year;
+ 		
+ 		$prob_index = rand @prob;
+ 		$probability = $prob[$prob_index];
+ 		$chance = $jobs_held + 4;
+ 		if($probability <= $chance){
+ 			$start_job = $start;
+ 			$end_job_index = rand @years_job;
+ 			$end_job_year = $years_job[$end_job_index];
+ 			$end_job = $start_job + $end_job_year;
+ 			$start = $end_job;
+ 			if($end_job >= $Current_Year){
+ 				$time = 0;
+ 				$end_job = "Current";
+ 			}else{
+ 				$time = $time - $end_job_year;
+ 			}
+ 			$jobs_held++;
+ 			#job, id, title, company, location, start_date, end_date
+ 			print "job,$i,title,company,location,$start_job,$end_job \n";
  		}
- 		#job, id, title, company, location, start_date, end_date
- 		print "job,$i,title,company,location,$start_job,$end_job \n";
- 	} 
- 	
- 	
- 	
+ 	}  	
  }
