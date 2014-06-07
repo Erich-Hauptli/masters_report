@@ -1,0 +1,7 @@
+Business:Analytics,Economics,Accounting,Management,Finance
+Education:Elementary,English,Math,History
+Engineering:Chemical,Computer,Electrical,Management,Mechanical
+Healthcare:Pharmaceutical,Nursing,Athletics,Dental,Medical
+Law:Corporate,Civil Rights,Criminal,Family,Intellectual Property
+PolySci:Local Government,National Government,International Relations
+Science:Chemist,Biologist,Physicist,Nuclear,Earth

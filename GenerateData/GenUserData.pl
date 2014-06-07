@@ -188,9 +188,26 @@ close (LOCATIONS);
 			$m_school_index = rand @advanced_schools;			#Select number of years to complete masters degree		
  			$master_school = $advanced_schools[$m_school_index];	
  			
+ 			open(MASTERS, "Masters.txt") or die("Could not open Masters file.");	#Open file containing list of last names.
+ 			@m_special = ();
+			foreach $line (<MASTERS>) {
+				chomp $line;
+				$line =~ s/\r\n?/\n/g;
+				if ($line =~ /$specialization_ug/){
+					@spec_m = ();
+					@spec_m = split(':',$line);
+ 					$special_m = $spec_m[0];
+ 					push(@m_special, $special_m); 	
+				}	
+			}
+			close (MASTERS);
+ 			
+			$m_special_index = rand @m_special;			
+ 			$m_specialization = $m_special[$m_special_index];
+ 			
  			#Print out education instance
  			#education, id, degree, specialization, school, start_date, end_date
- 			print USERS "education,$i,Masters,specialization,$master_school,$start_ms,$end_ms \n";
+ 			print USERS "education,$i,Masters,$m_specialization,$master_school,$start_ms,$end_ms \n";
  		}
  	
  		$prob_index = rand @prob;			#Roll probability dice
@@ -228,9 +245,26 @@ close (LOCATIONS);
 			$phd_school_index = rand @advanced_schools;			#Select number of years to complete masters degree		
  			$phd_school = $advanced_schools[$phd_school_index];
  			
+ 			open(PHD, "PHD.txt") or die("Could not open PHD file.");	#Open file containing list of last names.
+ 			@phd_special = ();
+			foreach $line (<PHD>) {
+				chomp $line;
+				$line =~ s/\r\n?/\n/g;
+				if ($line =~ /$specialization_m/){
+					@spec_phd = ();
+					@spec_phd = split(':',$line);
+ 					$special_phd = $spec_phd[0];
+ 					push(@phd_special, $special_phd); 	
+				}	
+			}
+			close (PHD);
+ 			
+			$phd_special_index = rand @phd_special;			
+ 			$phd_specialization = $phd_special[$phd_special_index];
+ 			
  			#Print out education instance
  			#education, id, degree, specialization, school, start_date, end_date
- 			print USERS "education,$i,PHD,specialization,$phd_school,$start_phd,$end_phd \n";
+ 			print USERS "education,$i,PHD,$phd_specialization,$phd_school,$start_phd,$end_phd \n";
  		}
  		
  		$prob_index = rand @prob;			#Roll probability dice
@@ -276,7 +310,6 @@ close (LOCATIONS);
  				$probability = $prob[$prob_index];
  				if($location == "NL"){
  					$probabilty = 11;
- 					print "initialize\n"
  				}
  				if($probabilty > $move){
  					$location_index = rand @locations;			#Roll probability dice
