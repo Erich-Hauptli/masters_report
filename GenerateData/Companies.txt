@@ -13,7 +13,7 @@ Bank of America:Law,Business,ND
 J.P. Morgan Chase:Law,Business,ND
 Kroger:Business,Healthcare,ND
 Hewlit-Packard:Engineering,Science
-State of Texas:Education,PolySci
+State Department:Education,PolySci
 US Government:Education,PolySci,Science
 Berkshire Hathaway:Business,Science,Law
 Dell Computer:Business,Engineering,Science,Law

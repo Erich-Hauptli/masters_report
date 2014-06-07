@@ -1,81 +1,318 @@
-profile,0,Erasmo,Demesa,F,9/16/1984,Erasmo.Demesa@hotmail.com,595-596-1578 
-education,0,Bacholers,Business,University of Notre Dame,2003,2006 
-education,0,Masters,specialization,Rice University,2006,2007 
-job,0,title,Motorola,location,2007,2008 
-job,0,title,Exxon Mobil,location,2008,Current 
-profile,1,Rebecca,Delman,M,3/29/1974,Rebecca.Delman@yahoo.com,816-885-7113 
-education,1,Bacholers,Education,Princeton University,1991,1995 
-job,1,title,State of Texas,location,1995,2001 
-job,1,title,State of Texas,location,2001,2006 
-job,1,title,US Government,location,2006,Current 
-profile,2,Rashida,Toaston,F,3/16/1977,Rashida.Toaston@yahoo.com,573-727-2829 
-education,2,Bacholers,Science,Carnegie Mellon University,1996,2001 
-education,2,Masters,specialization,University of Michigan,2001,2003 
-education,2,PHD,specialization,University of Texas,2003,2006 
-job,2,title,General Electric,location,2006,2011 
-job,2,title,AT&T,location,2011,Current 
-profile,3,Marquis,Kinlock,M,2/21/1957,Marquis.Kinlock@yahoo.com,694-852-8998 
-education,3,Bacholers,PolySci,Yale University,1975,1979 
-job,3,title,State of Texas,location,1979,1980 
-job,3,title,US Government,location,1980,1982 
-job,3,title,Citigroup,location,1982,1985 
-job,3,title,State of Texas,location,1985,1992 
-job,3,title,Citigroup,location,1992,2001 
-job,3,title,State of Texas,location,2001,2002 
-job,3,title,State of Texas,location,2002,2008 
-job,3,title,US Government,location,2008,2011 
-job,3,title,State of Texas,location,2011,2013 
-job,3,title,State of Texas,location,2013,Current 
-profile,4,Shantelle,Kenaan,F,10/01/1955,Shantelle.Kenaan@hotmail.com,537-987-4971 
-education,4,Bacholers,Law,Johns Hopkins University,1971,1975 
-education,4,Masters,specialization,University of Notre Dame,1975,1976 
-education,4,PHD,specialization,Columbia University,1976,1979 
-job,4,title,Citigroup,location,1979,1983 
-job,4,title,Dell Computer,location,1983,1988 
-job,4,title,Bank of America,location,1988,1998 
-job,4,title,Berkshire Hathaway,location,1998,2002 
-job,4,title,Exxon Mobil,location,2002,2005 
-job,4,title,Bank of America,location,2005,2007 
-job,4,title,Citigroup,location,2007,Current 
-profile,5,Margit,Mclachlan,F,12/02/1956,Margit.Mclachlan@gmail.com,758-784-4552 
-education,5,Bacholers,Education,New York University,1974,1978 
-education,5,Masters,specialization,Johns Hopkins University,1978,1980 
-job,5,title,State of Texas,location,1980,1987 
-job,5,title,State of Texas,location,1987,1994 
-job,5,title,US Government,location,1994,1998 
-job,5,title,State of Texas,location,1998,2001 
-job,5,title,US Government,location,2001,2009 
-job,5,title,US Government,location,2009,2013 
-job,5,title,State of Texas,location,2013,Current 
-profile,6,Jessie,Cales,F,1/24/1964,Jessie.Cales@gmail.com,314-182-2183 
-education,6,Bacholers,Engineering,California Institute of Technology,1981,1985 
-job,6,title,Lockheed Martin,location,1985,1991 
-job,6,title,Exxon Mobil,location,1991,1997 
-job,6,title,Cisco Systems,location,1997,2002 
-job,6,title,Verizon,location,2002,2003 
-job,6,title,Exxon Mobil,location,2003,2007 
-job,6,title,Hewlit-Packard,location,2007,2013 
-job,6,title,Delphi,location,2013,Current 
-profile,7,Melva,Sapinski,M,11/08/1961,Melva.Sapinski@gmail.com,363-427-1641 
-job,7,title,Citigroup,location,1979,1983 
-education,7,Bacholers,Science,University of California--Berkeley,1983,1987 
-education,7,Masters,specialization,University of Michigan,1987,1988 
-job,7,title,Motorola,location,1988,1991 
-job,7,title,Berkshire Hathaway,location,1991,1997 
-job,7,title,Chevron,location,1997,2005 
-job,7,title,Berkshire Hathaway,location,2005,2006 
-job,7,title,Dell Computer,location,2006,2009 
-job,7,title,AT&T,location,2009,2010 
-job,7,title,Chevron,location,2010,2013 
-job,7,title,Berkshire Hathaway,location,2013,Current 
-profile,8,Alisha,Ramella,M,3/26/1986,Alisha.Ramella@hotmail.com,139-166-7289 
-education,8,Bacholers,Law,Rice University,2004,2009 
-education,8,Masters,specialization,Columbia University,2009,2010 
-job,8,title,Chevron,location,2010,2012 
-job,8,title,Citigroup,location,2012,Current 
-profile,9,Garfield,Kaukola,F,3/01/1977,Garfield.Kaukola@hotmail.com,655-485-1949 
-education,9,Bacholers,Science,University of California--Los Angeles,1996,2001 
-job,9,title,Hewlit-Packard,location,2001,2002 
-job,9,title,General Electric,location,2002,2006 
-education,9,Masters,specialization,University of California--Berkeley,2006,2008 
-job,9,title,IBM,location,2008,Current 
+profile,0,Milford,Petrillo,M,7/16/1987,Milford.Petrillo@yahoo.com,813-114-7614 
+education,0,Bacholers,PolySci,Rice University,2005,2009 
+education,0,Masters,specialization,Princeton University,2009,2010 
+job,0,title,State Department,Milwaukee WI,2010,Current 
+profile,1,Marchelle,Imada,F,12/16/1971,Marchelle.Imada@gmail.com,246-679-9121 
+education,1,Bacholers,Law,Boston College,1989,1994 
+education,1,Masters,specialization,University of Michigan,1994,1996 
+job,1,title,Exxon Mobil,Cleveland OH,1996,2003 
+job,1,title,Exxon Mobil,Cleveland OH,2003,2008 
+job,1,title,Exxon Mobil,Cleveland OH,2008,2011 
+job,1,title,IBM,Houston TX,2011,Current 
+profile,2,Tim,Houska,F,4/04/1953,Tim.Houska@hotmail.com,253-544-7452 
+education,2,Bacholers,Engineering,University of Michigan,1970,1975 
+education,2,Masters,specialization,California Institute of Technology,1975,1977 
+job,2,title,AT&T,Las Vegas NV,1977,1985 
+job,2,title,Verizon,Las Vegas NV,1985,1986 
+job,2,title,Verizon,Las Vegas NV,1986,1994 
+job,2,title,Verizon,Las Vegas NV,1994,1998 
+job,2,title,Verizon,Las Vegas NV,1998,2002 
+job,2,title,Verizon,Las Vegas NV,2002,2005 
+job,2,title,Verizon,Las Vegas NV,2005,2008 
+job,2,title,Lockheed Martin,Phoenix AZ,2008,Current 
+profile,3,Eartha,Tarazon,F,3/14/1961,Eartha.Tarazon@yahoo.com,251-812-6458 
+education,3,Bacholers,Education,Georgetown University,1979,1983 
+job,3,title,State Department,Portland OR,1983,1988 
+education,3,Masters,specialization,University of Pennsylvania,1988,1990 
+job,3,title,State Department,Portland OR,1990,2000 
+job,3,title,State Department,Portland OR,2000,2001 
+job,3,title,State Department,Oklahoma City OK,2001,2005 
+job,3,title,State Department,Oklahoma City OK,2005,Current 
+profile,4,Jon,Favaron,M,10/15/1969,Jon.Favaron@yahoo.com,155-381-2447 
+education,4,Bacholers,Engineering,Duke University,1985,1988 
+education,4,Masters,specialization,Massachusetts Institute of Technology,1988,1990 
+job,4,title,AT&T,Cleveland OH,1990,1992 
+job,4,title,AT&T,Cleveland OH,1992,1995 
+job,4,title,AT&T,Cleveland OH,1995,1998 
+job,4,title,AT&T,Cleveland OH,1998,2002 
+job,4,title,Verizon,Albuquerque NM,2002,2007 
+job,4,title,Verizon,Albuquerque NM,2007,Current 
+profile,5,Vertie,Tyndall,M,8/13/1977,Vertie.Tyndall@gmail.com,968-783-8484 
+education,5,Bacholers,Science,Carnegie Mellon University,1996,2000 
+education,5,Masters,specialization,University of California--Berkeley,2000,2002 
+job,5,title,Exxon Mobil,Milwaukee WI,2002,2005 
+job,5,title,Chevron,Cleveland OH,2005,Current 
+profile,6,Alica,Tagaloe,F,10/14/1957,Alica.Tagaloe@gmail.com,351-713-4582 
+education,6,Bacholers,Education,University of Michigan,1975,1978 
+education,6,Masters,specialization,Georgetown University,1978,1980 
+job,6,title,State Department,Milwaukee WI,1980,1982 
+job,6,title,State Department,Milwaukee WI,1982,1992 
+job,6,title,State Department,Milwaukee WI,1992,1995 
+job,6,title,State Department,Milwaukee WI,1995,1998 
+job,6,title,State Department,Milwaukee WI,1998,2003 
+job,6,title,US Government,Detroit MI,2003,2009 
+job,6,title,US Government,Detroit MI,2009,2010 
+job,6,title,US Government,Detroit MI,2010,Current 
+profile,7,Miss,Lamax,F,1/06/1948,Miss.Lamax@gmail.com,641-626-6453 
+education,7,Bacholers,Education,University of Pennsylvania,1964,1970 
+education,7,Masters,specialization,Michigan State University,1970,1972 
+job,7,title,US Government,Orlando FL,1972,1975 
+job,7,title,US Government,Orlando FL,1975,1978 
+job,7,title,US Government,Orlando FL,1978,1982 
+job,7,title,US Government,Orlando FL,1982,1983 
+job,7,title,State Department,Denver CO,1983,1984 
+job,7,title,State Department,Washington DC,1984,1989 
+job,7,title,US Government,Austin TX,1989,1994 
+job,7,title,US Government,Austin TX,1994,1997 
+job,7,title,US Government,Austin TX,1997,2000 
+job,7,title,US Government,Austin TX,2000,2006 
+job,7,title,US Government,Austin TX,2006,2007 
+job,7,title,US Government,Detroit MI,2007,Current 
+profile,8,Mike,Prest,F,2/27/1963,Mike.Prest@hotmail.com,478-293-1866 
+education,8,Bacholers,Healthcare,Johns Hopkins University,1981,1986 
+education,8,Masters,specialization,Northwestern University,1986,1988 
+job,8,title,Motorola,Milwaukee WI,1988,1991 
+job,8,title,Motorola,Milwaukee WI,1991,1998 
+job,8,title,Motorola,Philadelphia PA,1998,2002 
+job,8,title,Motorola,Philadelphia PA,2002,2009 
+job,8,title,Motorola,Philadelphia PA,2009,Current 
+profile,9,Dewayne,Mannis,M,7/04/1960,Dewayne.Mannis@yahoo.com,937-957-7672 
+education,9,Bacholers,Healthcare,Michigan State University,1978,1982 
+job,9,title,Motorola,Los Angeles CA,1982,1985 
+education,9,Masters,specialization,Massachusetts Institute of Technology,1985,1987 
+job,9,title,Motorola,Los Angeles CA,1987,1991 
+job,9,title,Motorola,Los Angeles CA,1991,1995 
+job,9,title,Motorola,Los Angeles CA,1995,1997 
+job,9,title,Kroger,Las Vegas NV,1997,2000 
+job,9,title,Lockheed Martin,Houston TX,2000,2001 
+job,9,title,Lockheed Martin,Houston TX,2001,2007 
+job,9,title,Lockheed Martin,Houston TX,2007,2012 
+job,9,title,Lockheed Martin,Houston TX,2012,Current 
+profile,10,Evonne,Ballina,M,2/18/1971,Evonne.Ballina@gmail.com,468-928-1445 
+education,10,Bacholers,Business,Rice University,1989,1993 
+education,10,Masters,specialization,New York University,1993,1995 
+job,10,title,Dell Computer,San Fransico CA,1995,1998 
+job,10,title,Dell Computer,San Fransico CA,1998,2002 
+job,10,title,Dell Computer,San Fransico CA,2002,2010 
+job,10,title,Dell Computer,San Fransico CA,2010,Current 
+profile,11,Donald,Edem,M,11/02/1985,Donald.Edem@gmail.com,671-765-1971 
+education,11,Bacholers,Science,University of Texas,2003,2007 
+education,11,Masters,specialization,Carnegie Mellon University,2007,2009 
+job,11,title,DOW Chemical,Austin TX,2009,2011 
+job,11,title,Boeing,Milwaukee WI,2011,Current 
+profile,12,Angeles,Latouf,M,4/28/1973,Angeles.Latouf@gmail.com,591-721-9129 
+education,12,Bacholers,Education,Duke University,1992,1996 
+job,12,title,State Department,Orlando FL,1996,1997 
+education,12,Masters,specialization,Harvard University,1997,1999 
+job,12,title,State Department,Orlando FL,1999,2006 
+job,12,title,State Department,Orlando FL,2006,2012 
+job,12,title,US Government,Atlanta GA,2012,Current 
+profile,13,Keshia,Barhydt,M,8/24/1954,Keshia.Barhydt@gmail.com,715-743-3796 
+education,13,Bacholers,Science,Carnegie Mellon University,1971,1976 
+job,13,title,Chevron,Chicago IL,1976,1978 
+job,13,title,Hewlit-Packard,Denver CO,1978,1982 
+job,13,title,Hewlit-Packard,Denver CO,1982,1983 
+job,13,title,Chevron,Atlanta GA,1983,1991 
+job,13,title,Chevron,Atlanta GA,1991,1992 
+job,13,title,Chevron,Atlanta GA,1992,1995 
+job,13,title,Chevron,Atlanta GA,1995,2003 
+job,13,title,Chevron,Atlanta GA,2003,2006 
+job,13,title,Chevron,Atlanta GA,2006,2013 
+job,13,title,AT&T,Minneapolis MN,2013,Current 
+profile,14,Nieves,Auffrey,F,3/18/1952,Nieves.Auffrey@gmail.com,128-524-4314 
+education,14,Bacholers,Science,University of California--Berkeley,1970,1975 
+job,14,title,General Electric,Los Angeles CA,1975,1985 
+education,14,Masters,specialization,Johns Hopkins University,1985,1987 
+job,14,title,General Electric,Los Angeles CA,1987,1997 
+job,14,title,General Electric,Los Angeles CA,1997,2003 
+job,14,title,General Electric,Atlanta GA,2003,2010 
+job,14,title,General Electric,Atlanta GA,2010,2012 
+job,14,title,AT&T,Milwaukee WI,2012,Current 
+profile,15,Nelly,Sonnenburg,M,10/14/1962,Nelly.Sonnenburg@hotmail.com,953-927-8797 
+education,15,Bacholers,Science,University of California--Berkeley,1980,1984 
+education,15,Masters,specialization,California Institute of Technology,1984,1985 
+job,15,title,Exxon Mobil,San Fransico CA,1985,1995 
+job,15,title,Exxon Mobil,San Fransico CA,1995,1999 
+job,15,title,Exxon Mobil,San Fransico CA,1999,2005 
+job,15,title,Exxon Mobil,San Fransico CA,2005,2011 
+job,15,title,Exxon Mobil,San Fransico CA,2011,Current 
+profile,16,Kiera,Santio,F,1/07/1982,Kiera.Santio@gmail.com,577-484-9583 
+education,16,Bacholers,PolySci,Rice University,2000,2004 
+education,16,Masters,specialization,University of Texas,2004,2005 
+education,16,PHD,specialization,Carnegie Mellon University,2005,2008 
+job,16,title,US Government,Philadelphia PA,2008,2010 
+job,16,title,US Government,Chicago IL,2010,Current 
+profile,17,Hildegard,Paker,F,10/01/1954,Hildegard.Paker@gmail.com,523-978-2128 
+education,17,Bacholers,Education,Johns Hopkins University,1970,1975 
+job,17,title,State Department,Oklahoma City OK,1975,1979 
+education,17,Masters,specialization,Harvard University,1979,1981 
+job,17,title,State Department,Oklahoma City OK,1981,1984 
+job,17,title,State Department,Oklahoma City OK,1984,1991 
+job,17,title,State Department,Oklahoma City OK,1991,1998 
+job,17,title,State Department,Las Vegas NV,1998,2003 
+job,17,title,US Government,Orlando FL,2003,2010 
+job,17,title,US Government,Washington DC,2010,2012 
+job,17,title,US Government,Washington DC,2012,Current 
+profile,18,Yesenia,Champney,M,1/03/1952,Yesenia.Champney@yahoo.com,533-643-6337 
+education,18,Bacholers,Business,University of Notre Dame,1970,1974 
+job,18,title,Kroger,Austin TX,1974,1975 
+education,18,Masters,specialization,University of North Carolina,1975,1977 
+job,18,title,Verizon,Los Angeles CA,1977,1980 
+job,18,title,Verizon,Los Angeles CA,1980,1985 
+job,18,title,J.P. Morgan Chase,Houston TX,1985,1993 
+job,18,title,J.P. Morgan Chase,Houston TX,1993,2001 
+job,18,title,J.P. Morgan Chase,Houston TX,2001,2005 
+job,18,title,J.P. Morgan Chase,Houston TX,2005,2008 
+job,18,title,J.P. Morgan Chase,Houston TX,2008,2011 
+job,18,title,Verizon,Austin TX,2011,Current 
+profile,19,Siu,Diemer,F,10/03/1966,Siu.Diemer@hotmail.com,683-294-1612 
+education,19,Bacholers,Science,Massachusetts Institute of Technology,1985,1989 
+job,19,title,DOW Chemical,Los Angeles CA,1989,1995 
+education,19,Masters,specialization,Massachusetts Institute of Technology,1995,1996 
+job,19,title,DOW Chemical,Los Angeles CA,1996,1998 
+job,19,title,DOW Chemical,Los Angeles CA,1998,2008 
+job,19,title,Berkshire Hathaway,Las Vegas NV,2008,2009 
+job,19,title,Berkshire Hathaway,Las Vegas NV,2009,Current 
+profile,20,Haydee,Ash,F,5/07/1986,Haydee.Ash@gmail.com,175-131-2486 
+education,20,Bacholers,Business,Yale University,2004,2008 
+education,20,Masters,specialization,University of Southern California,2008,2010 
+job,20,title,J.P. Morgan Chase,Los Angeles CA,2010,Current 
+profile,21,Louis,Luter,M,5/24/1978,Louis.Luter@hotmail.com,848-589-1991 
+education,21,Bacholers,Engineering,California Institute of Technology,1996,2000 
+education,21,Masters,specialization,Duke University,2000,2002 
+job,21,title,Verizon,Denver CO,2002,2005 
+job,21,title,Verizon,Denver CO,2005,Current 
+profile,22,Juliane,Decock,F,10/13/1972,Juliane.Decock@hotmail.com,446-732-1292 
+education,22,Bacholers,Law,University of Michigan,1989,1992 
+job,22,title,Citigroup,Washington DC,1992,1994 
+education,22,Masters,specialization,University of North Carolina,1994,1996 
+job,22,title,Citigroup,Washington DC,1996,1998 
+job,22,title,Citigroup,Washington DC,1998,2007 
+job,22,title,Citigroup,Washington DC,2007,Current 
+profile,23,Victoria,Langager,F,3/18/1985,Victoria.Langager@gmail.com,368-756-4948 
+job,23,title,Bank of America,New York NY,2001,2005 
+education,23,Bacholers,Education,New York University,2005,2009 
+job,23,title,Bank of America,New York NY,2009,2012 
+job,23,title,Bank of America,New York NY,2012,Current 
+profile,24,Kristie,Bargstadt,M,5/12/1988,Kristie.Bargstadt@hotmail.com,521-983-3665 
+job,24,title,Exxon Mobil,Austin TX,2006,Current 
+profile,25,Jeannie,Townsell,F,10/07/1951,Jeannie.Townsell@hotmail.com,852-314-3754 
+education,25,Bacholers,Education,Northwestern University,1968,1972 
+education,25,Masters,specialization,Duke University,1972,1973 
+job,25,title,US Government,Orlando FL,1973,1977 
+job,25,title,US Government,Orlando FL,1977,1982 
+job,25,title,US Government,Orlando FL,1982,1988 
+job,25,title,US Government,Orlando FL,1988,1993 
+job,25,title,US Government,Orlando FL,1993,1995 
+job,25,title,State Department,Oklahoma City OK,1995,1997 
+job,25,title,US Government,Las Vegas NV,1997,2004 
+job,25,title,US Government,Las Vegas NV,2004,2010 
+job,25,title,State Department,San Fransico CA,2010,Current 
+profile,26,Alayna,Sebastiano,M,12/07/1981,Alayna.Sebastiano@hotmail.com,767-317-6649 
+education,26,Bacholers,Science,Massachusetts Institute of Technology,1998,2002 
+education,26,Masters,specialization,California Institute of Technology,2002,2003 
+education,26,PHD,specialization,University of California--Los Angeles,2003,2006 
+job,26,title,Berkshire Hathaway,Detroit MI,2006,2012 
+job,26,title,Berkshire Hathaway,Detroit MI,2012,Current 
+profile,27,Masako,Hollerman,F,5/27/1952,Masako.Hollerman@gmail.com,869-796-1765 
+education,27,Bacholers,Business,New York University,1969,1973 
+education,27,Masters,specialization,Yale University,1973,1974 
+job,27,title,Microsoft,Minneapolis MN,1974,1976 
+job,27,title,Microsoft,Minneapolis MN,1976,1979 
+job,27,title,Microsoft,Minneapolis MN,1979,1985 
+job,27,title,Verizon,Cleveland OH,1985,1986 
+job,27,title,Verizon,Cleveland OH,1986,1989 
+job,27,title,Verizon,Cleveland OH,1989,1992 
+job,27,title,Verizon,Cleveland OH,1992,2002 
+job,27,title,Verizon,Cleveland OH,2002,2006 
+job,27,title,Verizon,Cleveland OH,2006,2011 
+job,27,title,Verizon,Cleveland OH,2011,2013 
+job,27,title,Verizon,Cleveland OH,2013,Current 
+profile,28,Wiley,Hammontree,M,9/14/1956,Wiley.Hammontree@gmail.com,315-342-6121 
+education,28,Bacholers,Engineering,University of California--Berkeley,1974,1978 
+education,28,Masters,specialization,University of California--Berkeley,1978,1980 
+job,28,title,Lockheed Martin,Atlanta GA,1980,1983 
+job,28,title,Dell Computer,Portland OR,1983,1988 
+job,28,title,Dell Computer,Portland OR,1988,1993 
+job,28,title,Intel,Minneapolis MN,1993,1995 
+job,28,title,Boeing,Portland OR,1995,1996 
+job,28,title,Boeing,Portland OR,1996,2002 
+job,28,title,Boeing,Portland OR,2002,2006 
+job,28,title,Boeing,Portland OR,2006,2007 
+job,28,title,AT&T,Los Angeles CA,2007,2013 
+job,28,title,AT&T,Los Angeles CA,2013,Current 
+profile,29,Celeste,Hoppman,F,12/28/1990,Celeste.Hoppman@yahoo.com,622-229-2841 
+education,29,Bacholers,Business,University of Southern California,2009,Current 
+education,29,Masters,specialization,New York University,2014,Current 
+profile,30,Carmelita,Danese,F,3/29/1984,Carmelita.Danese@gmail.com,496-114-1986 
+education,30,Bacholers,Healthcare,Princeton University,2002,2005 
+job,30,title,Lockheed Martin,Los Angeles CA,2005,2011 
+education,30,Masters,specialization,Rice University,2011,2012 
+job,30,title,Lockheed Martin,Los Angeles CA,2012,2013 
+job,30,title,Lockheed Martin,Los Angeles CA,2013,Current 
+profile,31,Alethea,Mate,F,2/16/1956,Alethea.Mate@gmail.com,773-365-7543 
+education,31,Bacholers,Law,University of Notre Dame,1973,1978 
+education,31,Masters,specialization,Princeton University,1978,1979 
+job,31,title,Bank of America,Washington DC,1979,1988 
+job,31,title,Bank of America,Washington DC,1988,1994 
+job,31,title,Berkshire Hathaway,Austin TX,1994,1995 
+job,31,title,Berkshire Hathaway,Austin TX,1995,2001 
+job,31,title,Bank of America,Phoenix AZ,2001,2006 
+job,31,title,Bank of America,Phoenix AZ,2006,2010 
+job,31,title,Delphi,Austin TX,2010,Current 
+profile,32,Emogene,Sulser,F,7/23/1988,Emogene.Sulser@hotmail.com,558-728-8921 
+education,32,Bacholers,Law,Georgetown University,2005,2008 
+job,32,title,J.P. Morgan Chase,Detroit MI,2008,2011 
+job,32,title,DOW Chemical,Chicago IL,2011,Current 
+profile,33,Cami,Scheiner,F,4/14/1955,Cami.Scheiner@yahoo.com,273-793-7991 
+education,33,Bacholers,Engineering,Massachusetts Institute of Technology,1973,1976 
+job,33,title,Hewlit-Packard,Oklahoma City OK,1976,1983 
+job,33,title,Hewlit-Packard,Oklahoma City OK,1983,1988 
+job,33,title,Verizon,Austin TX,1988,1992 
+job,33,title,Verizon,Austin TX,1992,1993 
+job,33,title,Verizon,Austin TX,1993,1997 
+job,33,title,Microsoft,Milwaukee WI,1997,2000 
+job,33,title,Microsoft,Milwaukee WI,2000,2007 
+job,33,title,Verizon,Milwaukee WI,2007,Current 
+profile,34,Asia,Heibult,F,2/09/1981,Asia.Heibult@hotmail.com,962-729-7212 
+education,34,Bacholers,Law,University of North Carolina,1999,2002 
+job,34,title,Berkshire Hathaway,Phoenix AZ,2002,2004 
+job,34,title,Berkshire Hathaway,Phoenix AZ,2004,2008 
+job,34,title,Berkshire Hathaway,Phoenix AZ,2008,Current 
+profile,35,Vida,Ways,F,11/07/1955,Vida.Ways@gmail.com,595-682-1277 
+education,35,Bacholers,Healthcare,Massachusetts Institute of Technology,1973,1979 
+education,35,Masters,specialization,Stanford University,1979,1980 
+job,35,title,Motorola,Phoenix AZ,1980,1983 
+job,35,title,Motorola,Phoenix AZ,1983,1985 
+job,35,title,Motorola,Phoenix AZ,1985,1994 
+job,35,title,Lockheed Martin,Minneapolis MN,1994,2004 
+job,35,title,Lockheed Martin,Minneapolis MN,2004,2011 
+job,35,title,Lockheed Martin,Minneapolis MN,2011,Current 
+profile,36,Raylene,Dovenmuehler,F,5/17/1951,Raylene.Dovenmuehler@yahoo.com,529-594-5155 
+education,36,Bacholers,PolySci,Yale University,1967,1972 
+education,36,Masters,specialization,Carnegie Mellon University,1972,1973 
+job,36,title,Citigroup,Albuquerque NM,1973,1983 
+job,36,title,Citigroup,Albuquerque NM,1983,1987 
+job,36,title,Citigroup,Denver CO,1987,1997 
+job,36,title,Citigroup,Denver CO,1997,2007 
+job,36,title,Citigroup,Denver CO,2007,2013 
+job,36,title,Citigroup,Denver CO,2013,Current 
+profile,37,Shawn,Siebenthal,M,11/26/1966,Shawn.Siebenthal@hotmail.com,625-744-5583 
+education,37,Bacholers,Education,Princeton University,1984,1988 
+education,37,Masters,specialization,Northwestern University,1988,1989 
+job,37,title,State Department,Los Angeles CA,1989,1993 
+job,37,title,State Department,Cleveland OH,1993,1997 
+job,37,title,US Government,Austin TX,1997,1998 
+job,37,title,US Government,Austin TX,1998,2003 
+job,37,title,State Department,Chicago IL,2003,2009 
+job,37,title,State Department,Phoenix AZ,2009,Current 
+profile,38,Zane,Shwab,F,2/07/1977,Zane.Shwab@yahoo.com,866-216-4989 
+education,38,Bacholers,Healthcare,Johns Hopkins University,1996,1999 
+job,38,title,Kroger,Denver CO,1999,2004 
+education,38,Masters,specialization,Duke University,2004,2005 
+job,38,title,Kroger,Minneapolis MN,2005,2013 
+job,38,title,IBM,Philadelphia PA,2013,Current 
+profile,39,Rosaura,Streif,F,5/18/1990,Rosaura.Streif@gmail.com,143-836-9586 
+education,39,Bacholers,Business,Princeton University,2008,2013 
+education,39,Masters,specialization,University of Southern California,2013,Current 
+job,39,title,IBM,Chicago IL,2014,Current 

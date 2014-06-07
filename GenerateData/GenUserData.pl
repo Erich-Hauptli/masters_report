@@ -1,8 +1,10 @@
-$users = 10;		#Adjust number of users generated.
-$job_chance = 4;	#Adjust rate of users obtaining jobs.
-$b_chance = 2;		#Adjust rate of users obtaining Bachelor Degrees.
-$m_chance = 5;		#Adjust rate of users obtaining Master Degrees.
-$phd_chance = 7;	#Adjust rate of users obtaining PHDs.
+$users = 40;			#Adjust number of users generated.
+$job_chance = 4;		#Adjust rate of users obtaining jobs.
+$b_chance = 2;			#Adjust rate of users obtaining Bachelor Degrees.
+$m_chance = 5;			#Adjust rate of users obtaining Master Degrees.
+$phd_chance = 7;		#Adjust rate of users obtaining PHDs.
+$change_companies = 7;	#Adjust rate of users changing companies in a job change.
+$move = 9;				#Frequency users move for a job
 
 @months = ("1", "2", "3","4","5","6","7","8","9","10","11","12");
 @days_10s = ("0","1","2");  #ignoring 30th and 31st
@@ -49,6 +51,15 @@ foreach $line (<COLLEGES>) {
  	push(@colleges, $line); 	#Add all names from file to last_names array.
 }
 close (LAST_NAMES);
+
+open(LOCATIONS, "Locations.csv") or die("Could not open locations file.");	#Open file containing list of last names.
+@locations = ();
+foreach $line (<LOCATIONS>) {
+	chomp $line;
+	$line =~ s/\r\n?/\n/g;
+ 	push(@locations, $line); 	#Add all names from file to last_names array.
+}
+close (LOCATIONS);
 
 ##############  Create USERS #########################
  for($i=0;$i<$users;$i++){
@@ -104,6 +115,8 @@ close (LAST_NAMES);
  	$MS = 0;
  	$PHD = 0;
  	$specialization_ug = "ND";			#Initialize people to no degree
+ 	$company = "NJ";					#Initialize people to no job
+ 	$location = "NL";					#Initialize job to no location
  	 	
  	$start = $year + $hs;					#Set start to highschool graduation
  	while($time > 0){						#Decrement time for each job/education until at current year
@@ -237,28 +250,42 @@ close (LAST_NAMES);
  			}
  			$jobs_held++;
  			
- 			open(COMPANIES, "Companies.txt") or die("Could not open companies file.");	#Open file containing list of last names.
- 			@companies = ();
-			foreach $line (<COMPANIES>) {
-				chomp $line;
-				$line =~ s/\r\n?/\n/g;
-				if ($line =~ /$specialization_ug/){
-					@comp = ();
-					@comp = split(':',$line);
- 					$company_tmp = $comp[0];
- 					print "$specialization_ug --- $line \n";
- 					push(@companies, $company_tmp); 	#Add all schools for undergrad specialty.
-				}	
-			}
-			close (COLLEGES);
-
-			$company_index = rand @companies;			#Select number of years to complete masters degree		
- 			$company = $companies[$company_index];
- 			print "$company \n";
- 			
+ 			$prob_index = rand @prob;			#Roll probability dice
+ 			$probability = $prob[$prob_index];
+ 			if ($company eq "NJ"){
+ 				$probability = 11;	#If no previous company exists, probabilty is guarenteed to generate new company.
+ 			}
+ 			if($probability > $change_companies){
+ 				open(COMPANIES, "Companies.txt") or die("Could not open companies file.");	#Open file containing list of last names.
+ 				@companies = ();
+				foreach $line (<COMPANIES>) {
+					chomp $line;
+					$line =~ s/\r\n?/\n/g;
+					if ($line =~ /$specialization_ug/){
+						@comp = ();
+						@comp = split(':',$line);
+ 						$company_tmp = $comp[0];
+ 						push(@companies, $company_tmp); 	#Add all schools for undergrad specialty.
+					}	
+				}
+				close (COLLEGES);
+				$company_index = rand @companies;			#Select number of years to complete masters degree		
+ 				$company = $companies[$company_index];
+ 				
+ 				$prob_index = rand @prob;			#Roll probability dice
+ 				$probability = $prob[$prob_index];
+ 				if($location == "NL"){
+ 					$probabilty = 11;
+ 					print "initialize\n"
+ 				}
+ 				if($probabilty > $move){
+ 					$location_index = rand @locations;			#Roll probability dice
+ 					$location = $locations[$location_index];
+ 				}
+ 			}
  			#Print out job instance
  			#job, id, title, company, location, start_date, end_date
- 			print USERS "job,$i,title,$company,location,$start_job,$end_job \n";
+ 			print USERS "job,$i,title,$company,$location,$start_job,$end_job \n";
  		}
  	} 	
  }
