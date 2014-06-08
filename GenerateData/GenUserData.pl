@@ -196,14 +196,13 @@ close (LOCATIONS);
 				if ($line =~ /$specialization_ug/){
 					@spec_m = ();
 					@spec_m = split(':',$line);
- 					$special_m = $spec_m[0];
- 					push(@m_special, $special_m); 	
+ 					@special_m = split(',',$spec_m[1]);	
 				}	
 			}
 			close (MASTERS);
  			
-			$m_special_index = rand @m_special;			
- 			$m_specialization = $m_special[$m_special_index];
+			$m_special_index = rand @special_m;			
+ 			$m_specialization = $special_m[$m_special_index];
  			
  			#Print out education instance
  			#education, id, degree, specialization, school, start_date, end_date
@@ -253,8 +252,7 @@ close (LOCATIONS);
 				if ($line =~ /$specialization_m/){
 					@spec_phd = ();
 					@spec_phd = split(':',$line);
- 					$special_phd = $spec_phd[0];
- 					push(@phd_special, $special_phd); 	
+ 					@phd_special = split(',',$spec_phd[1]);	 	
 				}	
 			}
 			close (PHD);
