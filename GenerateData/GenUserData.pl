@@ -314,9 +314,34 @@ close (LOCATIONS);
  					$location = $locations[$location_index];
  				}
  			}
+ 			
+ 			open(TITLES, "Titles.txt") or die("Could not open titles file.");	#Open file containing list of titles names.
+ 			@titles = ();
+			foreach $line (<TITLES>) {
+				chomp $line;
+				$line =~ s/\r\n?/\n/g;
+				if ($line =~ /$specialization_ug/){
+					@title_split = ();
+					@title_split = split(':',$line);
+					@titles = split(',',$title_split[1]);
+				}	
+			}
+			close (TITLES);
+ 			
+ 			$job_index = $jobs_held-2;
+ 			$size = scalar @titles;
+ 			
+ 			if ($size < $job_index+1){
+ 				print "Size: $size\n";
+ 				$title = $titles[$size-1];	
+ 			}else{	
+ 				print "Job Index: $job_index\n";
+ 				$title = $titles[$job_index];
+ 			}
+ 			
  			#Print out job instance
  			#job, id, title, company, location, start_date, end_date
- 			print USERS "job,$i,title,$company,$location,$start_job,$end_job \n";
+ 			print USERS "job,$i,$title,$company,$location,$start_job,$end_job \n";
  		}
  	} 	
  }

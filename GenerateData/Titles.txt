@@ -1,0 +1,8 @@
+ND:Hourly
+Business:Entry,Staff,Advisory,Senior,Lead,Chief
+Education:Entry,Staff,Advisory,Senior,Lead,Chief
+Engineering:Entry,Staff,Advisory,Senior,Lead,Chief
+Healthcare:Entry,Staff,Advisory,Senior,Lead,Chief
+Law:Entry,Staff,Advisory,Senior,Lead,Chief
+PolySci:Entry,Staff,Advisory,Senior,Lead,Chief
+Science:Entry,Staff,Advisory,Senior,Lead,Chief
