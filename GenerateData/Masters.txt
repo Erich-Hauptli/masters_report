@@ -1,7 +1,7 @@
-Business:Entry,Staff,Advisory,Lead,Senior,Chief
-Education:Entry,Staff,Advisory,Lead,Senior,Chief
-Engineering:Entry,Staff,Advisory,Lead,Senior,Chief
-Healthcare:Entry,Staff,Advisory,Lead,Senior,Chief
-Law:Entry,Staff,Advisory,Lead,Senior,Chief
-PolySci:Entry,Staff,Advisory,Lead,Senior,Chief
-Science:Entry,Staff,Advisory,Lead,Senior,Chief
+Business:Analytics,Economics,Accounting,Management,Finance
+Education:Elementary,English,Math,History
+Engineering:Chemical,Computer,Electrical,Management,Mechanical
+Healthcare:Pharmaceutical,Nursing,Athletics,Dental,Medical
+Law:Corporate,Civil Rights,Criminal,Family,Intellectual Property
+PolySci:Local Government,National Government,International Relations
+Science:Chemist,Biologist,Physicist,Nuclear,Earth

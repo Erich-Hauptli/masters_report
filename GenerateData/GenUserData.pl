@@ -121,6 +121,7 @@ close (LOCATIONS);
  	$start = $year + $hs;					#Set start to highschool graduation
  	while($time > 0){						#Decrement time for each job/education until at current year
  		
+ 		############  BACHELORS DEGREE ######################################################################
  		$prob_index = rand @prob;			#Roll probability dice
  		$probability = $prob[$prob_index];	
  		$chance = $jobs_held + $b_chance;	#Determine score needed to add to job/education history
@@ -153,6 +154,7 @@ close (LOCATIONS);
  			print USERS "education,$i,Bacholers,$specialization_ug,$school_ug,$start_ug,$end_ug \n";
  		}
  	
+ 		############  MASTERS DEGREE ######################################################################
  		$prob_index = rand @prob;			#Roll probability dice
  		$probability = $prob[$prob_index];
  		$chance = $jobs_held + $m_chance;	#Determine score needed to add to job/education history
@@ -209,6 +211,7 @@ close (LOCATIONS);
  			print USERS "education,$i,Masters,$m_specialization,$master_school,$start_ms,$end_ms \n";
  		}
  	
+ 		###############  PHD ######################################################################
  		$prob_index = rand @prob;			#Roll probability dice
  		$probability = $prob[$prob_index];
  		$chance = $jobs_held + 7;			#Determine score needed to add to job/education history
@@ -265,6 +268,7 @@ close (LOCATIONS);
  			print USERS "education,$i,PHD,$phd_specialization,$phd_school,$start_phd,$end_phd \n";
  		}
  		
+ 		################  JOBS ######################################################################
  		$prob_index = rand @prob;			#Roll probability dice
  		$probability = $prob[$prob_index];
  		$chance = $jobs_held + $job_chance;	#Determine score needed to add to job/education history
