@@ -50,6 +50,57 @@ public class SQL_DB implements SQL_Interface{
         }
     }
 	
+	/*  collect_matches duplicates the above class, except it returns the result as a ArrayList.  */
+	public ArrayList<String> return_all(String database) {
+		String Manager = "jdbc:sqlite:" + database + ".db";
+        Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(Manager);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        Statement stat = null;
+        String query = "SELECT * FROM " + database;					  //Define query as all of database.
+        ArrayList<String> results = new ArrayList<String>();
+        ArrayList<String> headers = null;
+        SQL_DB sql_query = new SQL_DB();
+		try {
+			headers = sql_query.query_headers(database);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        try {
+            stat = conn.createStatement();
+            ResultSet rs = stat.executeQuery(query);
+                        
+            while (rs.next()) {
+            	int i = 0;
+            	String result = null;
+            	for(String header : headers){
+            		if (i == 0){
+            			result = rs.getString(header);
+            			i++;
+            		}
+            		else{
+            			result = result + "," + rs.getString(header);
+            		}
+            	}
+            	results.add(result);
+            }
+        } catch (SQLException e ) {
+        } finally {
+            if (stat != null) { try {
+				stat.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} }
+        }
+		return results;
+    }
+	
 	/*  download_matches only prints out the rows that contain the field value for a defined field.  */
 	public void print_matches(String database, String field, String field_value) {
 		String Manager = "jdbc:sqlite:" + database + ".db";
@@ -99,6 +150,70 @@ public class SQL_DB implements SQL_Interface{
 		}
         Statement stat = null;
         String query = "SELECT * FROM " + database + " WHERE " + field + " LIKE '" + field_value + "'";
+        ArrayList<String> results = new ArrayList<String>();
+        ArrayList<String> headers = null;
+        SQL_DB sql_query = new SQL_DB();
+		try {
+			headers = sql_query.query_headers(database);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        try {
+            stat = conn.createStatement();
+            ResultSet rs = stat.executeQuery(query);
+                        
+            while (rs.next()) {
+            	int i = 0;
+            	String result = null;
+            	for(String header : headers){
+            		if (i == 0){
+            			result = rs.getString(header);
+            			i++;
+            		}
+            		else{
+            			result = result + "," + rs.getString(header);
+            		}
+            	}
+            	results.add(result);
+            }
+        } catch (SQLException e ) {
+        } finally {
+            if (stat != null) { try {
+				stat.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} }
+        }
+		return results;
+    }
+	
+	/*  collect_matches duplicates the above class, except it returns the result as a ArrayList.  */
+	public ArrayList<String> collect_matches_or(String database, String field, String[] field_values) {
+		String Manager = "jdbc:sqlite:" + database + ".db";
+        Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(Manager);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		int query_count = 0;
+		String query_values = null;
+		for(String field_value: field_values){
+			if(query_count == 0){
+				query_count++;
+				query_values = field + " LIKE '" + field_value + "'";
+			}else{
+				query_count++;
+				query_values = query_values + " OR " + field + " LIKE '" + field_value + "'";
+			}
+		}
+		
+        Statement stat = null;
+        String query = "SELECT * FROM " + database + " WHERE " + query_values;
         ArrayList<String> results = new ArrayList<String>();
         ArrayList<String> headers = null;
         SQL_DB sql_query = new SQL_DB();

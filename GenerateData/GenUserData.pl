@@ -1,4 +1,4 @@
-$users = 40;			#Adjust number of users generated.
+$users = 50;			#Adjust number of users generated.
 $job_chance = 4;		#Adjust rate of users obtaining jobs.
 $b_chance = 2;			#Adjust rate of users obtaining Bachelor Degrees.
 $m_chance = 5;			#Adjust rate of users obtaining Master Degrees.
@@ -336,10 +336,10 @@ close (LOCATIONS);
  			$size = scalar @titles;
  			
  			if ($size < $job_index+1){
- 				print "Size: $size\n";
+ 				#print "Size: $size\n";
  				$title = $titles[$size-1];	
  			}else{	
- 				print "Job Index: $job_index\n";
+ 				#print "Job Index: $job_index\n";
  				$title = $titles[$job_index];
  			}
  			

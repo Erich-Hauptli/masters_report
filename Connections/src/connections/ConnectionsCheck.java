@@ -7,6 +7,7 @@ import user.UserProfile;
 /*  Contains commands that draws connections between users.  */
 public class ConnectionsCheck implements Connections_Interface{
 	
+	ArrayList<String> headers = new ArrayList<String>();
 	ArrayList<String> results = new ArrayList<String>();
 	ArrayList<String> columns = new ArrayList<String>();
 	
@@ -14,13 +15,18 @@ public class ConnectionsCheck implements Connections_Interface{
     public void find_same(String common_field, String common_field_value, String[] compare_fields) {
         try {
         	UserProfile user = new UserProfile();
-        	results = user.collect_matching_users(common_field, common_field_value, null);  //Queries common users
-        	columns = user.query_collumns(null);								//Queries headers for users
+        	headers = user.return_headers();
+        	//results = user.collect_matching_users(common_field, common_field_value, null);  //Queries common users
+        	//columns = user.query_collumns(null);								//Queries headers for users
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        
+        for(String header:headers){
+        	System.out.println(header + "\n");
+        }
+       
+        /*
         for(String compare_field : compare_fields){
         	int i = 0;
         	for(String column : columns){
@@ -61,6 +67,7 @@ public class ConnectionsCheck implements Connections_Interface{
 	        }
 	        System.out.println("\n");
         }
+    	*/
     }
-
+	
 }

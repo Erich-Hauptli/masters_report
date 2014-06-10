@@ -16,10 +16,14 @@ public interface User_Interface {
     
     void display_all_users(String database);		//Print out all users.
     
+    void display_user(String id);		//Print out all user info for one user
+    
     void display_matching_users(String database, String field, String search_term);	//Display a specific set of users.
     
     ArrayList<String> collect_matching_users(String database, String field, String search_term);  //Produce an ArrayList of specific users.
     
     ArrayList<String> query_collumns(String database);  //Determine user categories.
+    
+    ArrayList<String> return_headers();  //Determine user categories.
 	
 }

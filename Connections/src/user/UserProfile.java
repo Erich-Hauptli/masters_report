@@ -7,7 +7,7 @@ import sql.SQL_DB;
 /*  Implements all Profile commands.  */
 public class UserProfile implements User_Interface{
 		String profile_db = "profile";
-		String[] profile_headers = {"id", "first_name", "middle_name", "lastname", "gender", "birthday", "email", "phone"};
+		String[] profile_headers = {"id", "first_name", "lastname", "gender", "birthday", "email", "phone"};
 		String education_db = "education";
 		String[] education_headers = {"id", "degree", "specialization", "school", "start_date", "end_date"};
 		String job_db = "job";
@@ -87,6 +87,19 @@ public class UserProfile implements User_Interface{
 			}
 	    }
 	    
+	    /*  display_user prints out all users that meet search criteria.  */
+	    public void display_user(String id) {
+	    	SQL_DB sql_download = new SQL_DB();
+	        try {
+	        	sql_download.print_matches("profile", "id", id);
+	        	sql_download.print_matches("education", "id", id);
+	        	sql_download.print_matches("job", "id", id);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    }
+	    
 	    /*  collect_users returns all users that meet search criteria as an ArrayList.  */
 	    public ArrayList<String> collect_matching_users(String database, String field, String search_term) {
 	    	ArrayList<String> results = new ArrayList<String>();
@@ -113,5 +126,17 @@ public class UserProfile implements User_Interface{
 	        return results;
 	    }
 
+	    /*  query_collumns returns an ArrayList of all the column headers within the user database. */
+	    public ArrayList<String> return_headers() {
+	    	SQL_DB sql_query = new SQL_DB();
+	    	ArrayList<String> results = new ArrayList<String>();
+	        try {
+	        	results = sql_query.return_all("headers");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        return results;
+	    }
 
 }

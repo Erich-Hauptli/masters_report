@@ -18,7 +18,7 @@ public class SQL_Test {
 		SQL_DB sql_upload = new SQL_DB();
 		SQL_DB sql_query = new SQL_DB();
 		SQL_DB sql_download = new SQL_DB();
-		 
+		/* 
 		sql_upload.setup();
 		sql_upload.declare_database(profile_db, profile_headers);
 		sql_upload.declare_database(education_db, education_headers);
@@ -26,20 +26,27 @@ public class SQL_Test {
 		sql_download.print_all("headers");
 		
 		sql_upload.upload_file(file_name);  //Upload the file.
-		
+		*/
 		/*ArrayList<String> Columns = sql_query.query_headers(profile_db);
 		
 		for(String Column : Columns){
 			System.out.println(Column);		//Printout the headers of the database.
 		}
 		*/
+		
+		String[] ids = {"1","2","3","4"};
+		
+		ArrayList<String> Users = sql_query.collect_matches_or(job_db, "id", ids);
+		for(String User: Users){
+			System.out.println(User);
+		}
     	
     	//sql_download.print_all(education_db);  //Printout the contents of the database.
     	
     	//sql_upload.modify_line(education_db, "1", "school", "UT");  //Update database, id=1  set work field.
     	
     	//sql_download.print_all(profile_db);   //Printout the contents of the database.
-    	
+    	/*
 		for(int i=1; i<3; i++){
 			String id = Integer.toString(i);
 			System.out.println("User " + id + "\n");
@@ -47,6 +54,6 @@ public class SQL_Test {
 			sql_download.print_matches(education_db, "id", id);
 			sql_download.print_matches(job_db, "id", id);
 		}
-				
+		*/		
     }
 }

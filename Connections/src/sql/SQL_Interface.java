@@ -6,9 +6,13 @@ public interface SQL_Interface {
 
 	void print_all(String database);
 	
+	ArrayList<String> return_all(String database);
+	
 	void print_matches(String database, String field, String field_value);
 	
 	ArrayList<String> collect_matches(String database, String field, String field_value);
+	
+	ArrayList<String> collect_matches_or(String database, String field, String[] field_values);
 	
 	ArrayList<String> query_headers(String database);
 	
