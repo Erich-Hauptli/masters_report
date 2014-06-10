@@ -1,30 +1,69 @@
 package connections;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import user.UserProfile;
 
 /*  Contains commands that draws connections between users.  */
 public class ConnectionsCheck implements Connections_Interface{
-	
+	HashSet<String> compare_databases = new HashSet<String>();
+	HashSet<String> ids = new HashSet<String>();
 	ArrayList<String> headers = new ArrayList<String>();
 	ArrayList<String> results = new ArrayList<String>();
-	ArrayList<String> columns = new ArrayList<String>();
+	ArrayList<String> jobs = new ArrayList<String>();
 	
 	/*  Prints out paths taken by common users as percentages.  */
     public void find_same(String common_field, String common_field_value, String[] compare_fields) {
         try {
         	UserProfile user = new UserProfile();
         	headers = user.return_headers();
-        	//results = user.collect_matching_users(common_field, common_field_value, null);  //Queries common users
         	//columns = user.query_collumns(null);								//Queries headers for users
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        for(String header:headers){
-        	System.out.println(header + "\n");
+        String common_database = null;
+        for(String header:headers){							//Determine which database is needed to find common element
+        	if (header.toLowerCase().contains(common_field.toLowerCase())){
+        		String[] headerArray = header.split(",");
+        		common_database = headerArray[0];
+        	}
+        	for(String compare_field : compare_fields){		//Determine which database is needed to find comparison elements
+        		if(header.toLowerCase().contains(compare_field.toLowerCase())){
+        			String[] headerArray = header.split(",");
+        			compare_databases.add(headerArray[0]);
+        		}
+        	}
         }
+        try {
+        	UserProfile user = new UserProfile();			//Find all users with common element
+        	results = user.collect_matching_users(common_database, common_field, common_field_value);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        for(String result : results){						//Put all user ids of users with common element into String[]
+        	String[] resultArray = result.split(",");
+        	ids.add(resultArray[0]);
+        }
+        String[] user_ids = ids.toArray(new String[ids.size()]);
+        
+        try {												//Pull all user data for comparison elements.
+        	UserProfile user = new UserProfile();
+        	jobs = user.collect_matched_users("job", user_ids);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+
+        for(String job : jobs){
+        	System.out.println(job);
+        }
+
+
        
         /*
         for(String compare_field : compare_fields){

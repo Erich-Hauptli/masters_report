@@ -113,6 +113,19 @@ public class UserProfile implements User_Interface{
 	        return results;
 	    }
 	    
+	    /*  collect_users returns all users that meet search criteria as an ArrayList.  */
+	    public ArrayList<String> collect_matched_users(String database, String[] ids) {
+	    	ArrayList<String> results = new ArrayList<String>();
+	    	SQL_DB sql_download = new SQL_DB();
+	        try {
+	        	results = sql_download.collect_matches_or(database, "id", ids);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        return results;
+	    }
+	    
 	    /*  query_collumns returns an ArrayList of all the column headers within the user database. */
 	    public ArrayList<String> query_collumns(String database) {
 	    	SQL_DB sql_query = new SQL_DB();
