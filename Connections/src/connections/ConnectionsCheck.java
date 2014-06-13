@@ -83,7 +83,7 @@ public class ConnectionsCheck implements Connections_Interface{
         					System.out.println(compare_field);
         					j = i - 1;
         					found = 1;
-        					if(headerArray[0].equals("profile")){
+        					if(headerArray[0].equals("profile")){			//Determine which database needs to be searched.
         						compares = profiles;
         					}else if (headerArray[0].equals("job")){
         						compares = jobs;
