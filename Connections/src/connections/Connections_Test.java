@@ -6,8 +6,7 @@ public class Connections_Test {
 
 		ConnectionsCheck connection = new ConnectionsCheck();
 		
-		String[] fields = {"company", "degree", "school"}; 
-		connection.find_same("title", "Eng-Chief", fields);  //Search for users who work as engineers, 
+		connection.find_same("title", "Eng-Chief");  //Search for users who work as engineers, 
 														   //print out similar education, degree and city.
 	}
 }

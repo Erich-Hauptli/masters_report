@@ -90,8 +90,8 @@ close (LOCATIONS);
  		}
  	}
  	############## Print out user information ################################
- 	#profile, id, first name, last name, sex, birthday, e-mail,  phone number
- 	print USERS "profile,$i,$first_name,$last_name,$sex,$month/$day/$year,$email,$num \n";
+ 	#profile, id, last name, first name, birthday, sex, e-mail,  phone number
+ 	print USERS "profile,$i,$last_name,$first_name,$month/$day/$year,$sex,$email,$num \n";
  	
  	
 
@@ -150,8 +150,8 @@ close (LOCATIONS);
  			$spec_index = rand @spec;
  			$specialization_ug = $spec[$spec_index];
  			#Print out education instance
- 			#education, id, degree, specialization, school, start_date, end_date
- 			print USERS "education,$i,Bacholers,$specialization_ug,$school_ug,$start_ug,$end_ug \n";
+ 			#education, id, degree, school, start_date, end_date, specialization 
+ 			print USERS "education,$i,Bacholers,$school_ug,$start_ug,$end_ug,$specialization_ug\n";
  		}
  	
  		############  MASTERS DEGREE ######################################################################
@@ -207,8 +207,8 @@ close (LOCATIONS);
  			$m_specialization = $special_m[$m_special_index];
  			
  			#Print out education instance
- 			#education, id, degree, specialization, school, start_date, end_date
- 			print USERS "education,$i,Masters,$m_specialization,$master_school,$start_ms,$end_ms \n";
+ 			#education, id, degree, school, start_date, end_date, specialization 
+ 			print USERS "education,$i,Masters,$master_school,$start_ms,$end_ms,$m_specialization\n";
  		}
  	
  		###############  PHD ######################################################################
@@ -264,8 +264,8 @@ close (LOCATIONS);
  			$phd_specialization = $phd_special[$phd_special_index];
  			
  			#Print out education instance
- 			#education, id, degree, specialization, school, start_date, end_date
- 			print USERS "education,$i,PHD,$phd_specialization,$phd_school,$start_phd,$end_phd \n";
+ 			#education, id, degree, school, start_date, end_date, specialization 
+ 			print USERS "education,$i,PHD,$phd_school,$start_phd,$end_phd,$phd_specialization\n";
  		}
  		
  		################  JOBS ######################################################################
@@ -344,8 +344,8 @@ close (LOCATIONS);
  			}
  			
  			#Print out job instance
- 			#job, id, title, company, location, start_date, end_date
- 			print USERS "job,$i,$title,$company,$location,$start_job,$end_job \n";
+ 			#job, id, title, company, start_date, end_date, location 
+ 			print USERS "job,$i,$title,$company,$start_job,$end_job, $location \n";
  		}
  	} 	
  }

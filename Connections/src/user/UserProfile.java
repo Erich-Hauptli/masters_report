@@ -7,11 +7,11 @@ import sql.SQL_DB;
 /*  Implements all Profile commands.  */
 public class UserProfile implements User_Interface{
 		String profile_db = "profile";
-		String[] profile_headers = {"id", "first_name", "lastname", "gender", "birthday", "email", "phone"};
+		String[] profile_headers = {"id", "last_name", "first_name", "birthday", "gender", "email", "phone" };
 		String education_db = "education";
-		String[] education_headers = {"id", "degree", "specialization", "school", "start_date", "end_date"};
+		String[] education_headers = {"id", "degree", "school", "start_date", "end_date", "specialization" };
 		String job_db = "job";
-		String[] job_headers = {"id", "title", "company", "location", "start_date", "end_date"};
+		String[] job_headers = {"id", "title", "company", "start_date", "end_date", "location" };
 
 		public void database_setup(){
 			SQL_DB setup = new SQL_DB();
