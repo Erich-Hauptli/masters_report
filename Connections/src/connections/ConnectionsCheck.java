@@ -10,23 +10,18 @@ import user.UserProfile;
 public class ConnectionsCheck implements Connections_Interface{
 	
 	int display_limitor = 5;  //Match percentage required for node to be displayed. 
-	
-	TreeSet<String> compare_databases = new TreeSet<String>();
-	TreeSet<String> ids = new TreeSet<String>();
-	ArrayList<String> headers = new ArrayList<String>();
-	ArrayList<String> results = new ArrayList<String>();
-	ArrayList<String> profiles = new ArrayList<String>();
-	ArrayList<String> jobs = new ArrayList<String>();
-	ArrayList<String> educations = new ArrayList<String>();
+
 	ArrayList<String> compares = new ArrayList<String>();
 	ArrayList<String> Points = new ArrayList<String>();
-	ArrayList<String> Nodes = new ArrayList<String>();
-	ArrayList<String> User = new ArrayList<String>();
-	ArrayList<String> Connects = new ArrayList<String>();
-	
+
 	
 	/*  Prints out paths taken by common users as percentages.  */
-    public void find_same(String common_field, String common_field_value) {
+    public TreeSet<String> find_same(String common_field, String common_field_value) {
+    	TreeSet<String> compare_databases = new TreeSet<String>();
+    	TreeSet<String> ids = new TreeSet<String>();
+    	ArrayList<String> headers = new ArrayList<String>();
+    	ArrayList<String> results = new ArrayList<String>();
+    	
         try {
         	UserProfile user = new UserProfile();
         	headers = user.return_headers();
@@ -56,23 +51,34 @@ public class ConnectionsCheck implements Connections_Interface{
         	String[] resultArray = result.split(",");
         	ids.add(resultArray[0]);
         }
+        
+        return ids;
+    }    
+        /*
+
+        */
+        
+    public ArrayList<String> database_pull(TreeSet<String> ids, String database) {
+        ArrayList<String> results = new ArrayList<String>();
+        
         String[] user_ids = ids.toArray(new String[ids.size()]);
-        
-        String printout_header = "For " + ids.size() + " users who had " + common_field +  " = ";
-        printout_header = printout_header + common_field_value + " at some point in their career.\n";
-        System.out.println(printout_header);
-        
+            
         try {												//Pull all user data for comparison elements.
         	UserProfile user = new UserProfile();
-        	profiles = user.collect_matched_users("profile", user_ids);
-        	jobs = user.collect_matched_users("job", user_ids);
-        	educations = user.collect_matched_users("education",user_ids);
+        	results = user.collect_matched_users(database,user_ids);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return results;
+	}
 
-        
+	public ArrayList<String> find_edges(TreeSet<String> ids, ArrayList<String> profiles, ArrayList<String> jobs, ArrayList<String> educations) {
+	
+		ArrayList<String> Connects = new ArrayList<String>();
+		ArrayList<String> Nodes = new ArrayList<String>();
+		ArrayList<String> User = new ArrayList<String>();
+	
         for(String id : ids){
         	User.clear();
         	Nodes.clear();
@@ -141,11 +147,22 @@ public class ConnectionsCheck implements Connections_Interface{
         		}
         	}
         }
-        
-        for (String result : Connects){
-        	System.out.println(result);
-        }
-        
+        return Connects;
+	}
+
+	public void find_nodes(TreeSet<String> ids, ArrayList<String> profiles, ArrayList<String> jobs, ArrayList<String> educations) {
+		
+		
+		ArrayList<String> headers = new ArrayList<String>();
+        try {
+        	UserProfile user = new UserProfile();
+        	headers = user.return_headers();								//Queries headers for users
+        	
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
         for(String header:headers){							//Determine which database is needed to find common element
         	
         	int j = 0;
@@ -204,4 +221,15 @@ public class ConnectionsCheck implements Connections_Interface{
         }
 	
     }
+	
+	public void print_data(String common_field, String common_field_value, TreeSet<String> ids, ArrayList<String> Connects){
+		
+        String printout_header = "For " + ids.size() + " users who had " + common_field +  " = ";
+        printout_header = printout_header + common_field_value + " at some point in their career.\n";
+        System.out.println(printout_header);
+		
+        for (String result : Connects){
+        	System.out.println(result);
+        }
+	}
 }
