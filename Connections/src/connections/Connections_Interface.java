@@ -12,9 +12,11 @@ public interface Connections_Interface {
 	TreeSet<String> 	find_same(String common_field, String common_field_value);
 	ArrayList<String> 	database_pull(TreeSet<String> ids, String database);
 	ArrayList<String> 	find_edges(TreeSet<String> ids, ArrayList<String> profiles, ArrayList<String> jobs, ArrayList<String> educations);
+	ArrayList<String> 	find_node_order(ArrayList<String> Connections);
 
-	void print_data(String common_field, String common_field_value, TreeSet<String> ids, ArrayList<String> Connects);
+	void 				print_data(String common_field, String common_field_value, TreeSet<String> ids, ArrayList<String> Connects, ArrayList<String> Order);
 	
-	void find_nodes(TreeSet<String> ids, ArrayList<String> profiles, ArrayList<String> jobs, ArrayList<String> educations);
+	void 				find_nodes(TreeSet<String> ids, ArrayList<String> profiles, ArrayList<String> jobs, ArrayList<String> educations);
+	
 	
 }

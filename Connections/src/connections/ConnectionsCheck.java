@@ -2,9 +2,11 @@ package connections;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.TreeSet;
 
 import user.UserProfile;
+import tools.Tools;
 
 /*  Contains commands that draws connections between users.  */
 public class ConnectionsCheck implements Connections_Interface{
@@ -74,10 +76,14 @@ public class ConnectionsCheck implements Connections_Interface{
 	}
 
 	public ArrayList<String> find_edges(TreeSet<String> ids, ArrayList<String> profiles, ArrayList<String> jobs, ArrayList<String> educations) {
+		
+		int edge_intervals = 10;
 	
 		ArrayList<String> Connects = new ArrayList<String>();
+		ArrayList<String> Connections = new ArrayList<String>();
 		ArrayList<String> Nodes = new ArrayList<String>();
 		ArrayList<String> User = new ArrayList<String>();
+
 	
         for(String id : ids){
         	User.clear();
@@ -147,7 +153,126 @@ public class ConnectionsCheck implements Connections_Interface{
         		}
         	}
         }
-        return Connects;
+        
+        int num_users = ids.size();			//Convert all node interchanges to weight of # of edge intervals.
+        for (String Connect : Connects){
+        	String[] node = Connect.split("\\s*,\\s*");
+        	int node_users = Integer.parseInt(node[2]);
+        	float weight = (node_users / ( num_users / edge_intervals));
+        	int line_weight = (int) weight;
+        	if(line_weight > 0){
+        		String Connect_temp = node[0] + "," + node[1] + "," + line_weight;
+        		Connections.add(Connect_temp);
+        	}
+        }
+        return Connections;
+	}
+     
+	public ArrayList<String> find_node_order(ArrayList<String> Connections) {
+		HashSet<String> AllNodes = new HashSet<String>();
+		ArrayList<String> Nodes = new ArrayList<String>();
+		ArrayList<String> HeavyEdges = new ArrayList<String>();
+		ArrayList<String> Node0 = new ArrayList<String>();
+		ArrayList<String> NodeFinal = new ArrayList<String>();
+		ArrayList<String> NodeTemp = new ArrayList<String>();
+		ArrayList<String> NodeStore = new ArrayList<String>();
+		
+		for(String Connect : Connections){				//Get HashSet of all nodes
+			String[] node = Connect.split("\\s*,\\s*");
+			AllNodes.add(node[0]);
+			AllNodes.add(node[1]);
+		}
+		
+		for(String node : AllNodes){
+			System.out.println(node);
+			int weight = 0;
+			int weight_tmp =0;
+			String node_tmp = null;
+			String nodeSave = null;
+			for(String Connect : Connections){
+				String[] nodes = Connect.split("\\s*,\\s*");
+				if(node.equalsIgnoreCase(nodes[0])){
+					weight = Integer.parseInt(nodes[2]);
+					node_tmp = Connect;
+				}
+				if(weight > weight_tmp && node_tmp != null){
+					nodeSave = node_tmp;
+				}
+			}
+			if(nodeSave != null){
+				HeavyEdges.add(nodeSave);
+			}
+		}
+		
+        for(String Connect : HeavyEdges){				//Find Starting Node
+        	int found = 0;
+        	String[] node = Connect.split("\\s*,\\s*");
+        	String nodeA = node[0];
+    		for(String test : Connections){
+    			String[] node_temp = test.split("\\s*,\\s*");
+    			String nodeB = node_temp[1];
+    			if(nodeA.equalsIgnoreCase(nodeB)){
+    				found = 1;
+    				break;
+    			}
+    		}
+    		if(found == 0){
+    			Node0.add(nodeA);
+    		}
+    	}
+        for(String Connect : HeavyEdges){
+        	int found = 0;
+        	String[] node = Connect.split("\\s*,\\s*");
+        	String nodeB = node[1];
+        	String node_A = node[0];
+        	if(!nodeB.equalsIgnoreCase(node_A)){
+        		for(String test : Connections){
+        			String[] node_temp = test.split("\\s*,\\s*");
+        			String nodeA = node_temp[0];
+        			if(nodeB.equalsIgnoreCase(nodeA)){
+        				found = 1;
+        				break;
+        			}
+        		}
+    		}
+    		if(found == 0){
+    			NodeFinal.add(nodeB);
+    		}
+    	}
+        
+        Tools tools = new Tools();
+        NodeStore = Node0;
+        for(String node : Node0){
+        	Nodes.add(node + ",0");
+        }
+        
+        int group = 1;
+        while(tools.compare_arraylist_string(NodeStore, NodeFinal) == false){
+        	String NS = null;
+        	NS = NodeStore.toString();
+        	NS = NS.substring(1, NS.length()-1);
+        	//System.out.println(NS);
+        	String [] NSarray = null;
+        	NSarray = NS.split("\\s*,\\s*");
+        	for(String node : NSarray){
+        		NodeTemp.clear();
+        		//System.out.println("Group " + group + ": " + node);
+        		for(String test : HeavyEdges){
+        			String[] node_temp = test.split("\\s*,\\s*");
+        			String nodeA = node_temp[0];
+        			String nodeB = node_temp[1];
+        			if(node.equalsIgnoreCase(nodeA)){
+        				NodeTemp.add(nodeB);
+        				Nodes.add(nodeB + "," + group);
+        			}
+        		}
+        	}
+        	
+        	group++;
+    		NodeStore = NodeTemp;
+        }
+        
+        return Nodes;
 	}
 
 	public void find_nodes(TreeSet<String> ids, ArrayList<String> profiles, ArrayList<String> jobs, ArrayList<String> educations) {
@@ -222,13 +347,19 @@ public class ConnectionsCheck implements Connections_Interface{
 	
     }
 	
-	public void print_data(String common_field, String common_field_value, TreeSet<String> ids, ArrayList<String> Connects){
+	public void print_data(String common_field, String common_field_value, TreeSet<String> ids, ArrayList<String> Connects, ArrayList<String> Order){
 		
         String printout_header = "For " + ids.size() + " users who had " + common_field +  " = ";
         printout_header = printout_header + common_field_value + " at some point in their career.\n";
         System.out.println(printout_header);
 		
+        System.out.println("Edge Transitions");
         for (String result : Connects){
+        	System.out.println(result);
+        }
+        
+        System.out.println("\n\nNode Ordering");
+        for (String result : Order){
         	System.out.println(result);
         }
 	}
