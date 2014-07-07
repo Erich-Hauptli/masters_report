@@ -171,11 +171,14 @@ public class ConnectionsCheck implements Connections_Interface{
 	public ArrayList<String> find_node_order(ArrayList<String> Connections) {
 		HashSet<String> AllNodes = new HashSet<String>();
 		ArrayList<String> Nodes = new ArrayList<String>();
-		ArrayList<String> HeavyEdges = new ArrayList<String>();
+		HashSet<String> HeavyEdges = new HashSet<String>();
 		ArrayList<String> Node0 = new ArrayList<String>();
 		ArrayList<String> NodeFinal = new ArrayList<String>();
 		ArrayList<String> NodeTemp = new ArrayList<String>();
 		ArrayList<String> NodeStore = new ArrayList<String>();
+		ArrayList<String> NodeReturn = new ArrayList<String>();
+		
+		//System.out.println("Find Order");
 		
 		for(String Connect : Connections){				//Get HashSet of all nodes
 			String[] node = Connect.split("\\s*,\\s*");
@@ -184,12 +187,11 @@ public class ConnectionsCheck implements Connections_Interface{
 		}
 		
 		for(String node : AllNodes){
-			System.out.println(node);
 			int weight = 0;
 			int weight_tmp =0;
 			String node_tmp = null;
 			String nodeSave = null;
-			for(String Connect : Connections){
+			for(String Connect : Connections){					//Find worst edge to node
 				String[] nodes = Connect.split("\\s*,\\s*");
 				if(node.equalsIgnoreCase(nodes[0])){
 					weight = Integer.parseInt(nodes[2]);
@@ -202,52 +204,73 @@ public class ConnectionsCheck implements Connections_Interface{
 			if(nodeSave != null){
 				HeavyEdges.add(nodeSave);
 			}
+			
+			for(String Connect : Connections){					//Find worst edge from node
+				String[] nodes = Connect.split("\\s*,\\s*");
+				if(node.equalsIgnoreCase(nodes[1])){
+					weight = Integer.parseInt(nodes[2]);
+					node_tmp = Connect;
+				}
+				if(weight > weight_tmp && node_tmp != null){
+					nodeSave = node_tmp;
+				}
+			}
+			if(nodeSave != null){
+				HeavyEdges.add(nodeSave);
+			}
 		}
 		
-        for(String Connect : HeavyEdges){				//Find Starting Node
-        	int found = 0;
-        	String[] node = Connect.split("\\s*,\\s*");
-        	String nodeA = node[0];
-    		for(String test : Connections){
-    			String[] node_temp = test.split("\\s*,\\s*");
-    			String nodeB = node_temp[1];
-    			if(nodeA.equalsIgnoreCase(nodeB)){
-    				found = 1;
-    				break;
-    			}
-    		}
-    		if(found == 0){
-    			Node0.add(nodeA);
-    		}
-    	}
-        for(String Connect : HeavyEdges){
-        	int found = 0;
-        	String[] node = Connect.split("\\s*,\\s*");
-        	String nodeB = node[1];
-        	String node_A = node[0];
-        	if(!nodeB.equalsIgnoreCase(node_A)){
-        		for(String test : Connections){
-        			String[] node_temp = test.split("\\s*,\\s*");
-        			String nodeA = node_temp[0];
-        			if(nodeB.equalsIgnoreCase(nodeA)){
-        				found = 1;
-        				break;
-        			}
-        		}
-    		}
-    		if(found == 0){
-    			NodeFinal.add(nodeB);
-    		}
-    	}
+		if(HeavyEdges != null){
+			for(String Connect : HeavyEdges){				//Find Starting Node
+				//System.out.println(Connect);
+				int found = 0;
+				String[] node = Connect.split("\\s*,\\s*");
+				String nodeA = node[0];
+				for(String test : Connections){
+					String[] node_temp = test.split("\\s*,\\s*");
+					String nodeB = node_temp[1];
+					if(nodeA.equalsIgnoreCase(nodeB)){
+						found = 1;
+						break;
+					}
+				}
+				if(found == 0){
+					Node0.add(nodeA);
+					//System.out.println("Start: " + nodeA);
+				}
+			}
+			for(String Connect : HeavyEdges){				//Find Final Node
+				int found = 0;
+				String[] node = Connect.split("\\s*,\\s*");
+				String nodeB = node[1];
+				String node_A = node[0];
+				if(!nodeB.equalsIgnoreCase(node_A)){
+					for(String test : Connections){
+						String[] node_temp = test.split("\\s*,\\s*");
+						String nodeA = node_temp[0];
+						if(nodeB.equalsIgnoreCase(nodeA)){
+							found = 1;
+							break;
+						}
+					}
+				}
+				if(found == 0){
+					NodeFinal.add(nodeB);
+					//System.out.println("Final: " + nodeB);
+				}
+			}
+		}
         
-        Tools tools = new Tools();
         NodeStore = Node0;
         for(String node : Node0){
         	Nodes.add(node + ",0");
         }
         
+       
+        
         int group = 1;
-        while(tools.compare_arraylist_string(NodeStore, NodeFinal) == false){
+        Tools tools = new Tools();
+        while(tools.compare_arraylist_string(NodeStore, NodeFinal) == false){	//Find potential node ordering
         	String NS = null;
         	NS = NodeStore.toString();
         	NS = NS.substring(1, NS.length()-1);
@@ -271,8 +294,25 @@ public class ConnectionsCheck implements Connections_Interface{
         	group++;
     		NodeStore = NodeTemp;
         }
+        //System.out.println("Testing");
         
-        return Nodes;
+        for(String each_node : AllNodes){
+        	String node_store = null;
+        	for(String node : Nodes){		//Eliminate duplicate node by using later node.
+        		String[] node_temp = node.split("\\s*,\\s*");
+        		if(node_temp[0].equalsIgnoreCase(each_node) && node_store == null){
+        			node_store = node;
+        		}else if(node_temp[0].equalsIgnoreCase(each_node)){
+        			String[] node_store_split = node_store.split("\\s*,\\s*");
+        			if(Integer.parseInt(node_store_split[1]) < Integer.parseInt(node_temp[1])){  //Keep the later duplicate node
+        				node_store = node;
+        			}
+        		}
+        	}
+        	NodeReturn.add(node_store);
+        }
+        
+        return NodeReturn;
 	}
 
 	public void find_nodes(TreeSet<String> ids, ArrayList<String> profiles, ArrayList<String> jobs, ArrayList<String> educations) {
@@ -359,8 +399,13 @@ public class ConnectionsCheck implements Connections_Interface{
         }
         
         System.out.println("\n\nNode Ordering");
-        for (String result : Order){
-        	System.out.println(result);
+        for(int i=0; i<Order.size(); i++){
+        	for (String result : Order){
+        		String[] result_split = result.split("\\s*,\\s*");
+        		if(Integer.parseInt(result_split[1]) == i){				//Sort into numerical order
+        			System.out.println(result);
+        		}
+        	}
         }
 	}
 }
