@@ -22,8 +22,16 @@ public class Connections_Test {
 		ArrayList<String> edges = connection.find_edges(ids, profiles, jobs, educations);
 		ArrayList<String> order = connection.find_node_order(edges);
 		
-		connection.print_data(common_field, common_field_value, ids, edges, order);
+		connection.print_connection_data(common_field, common_field_value, ids, edges, order);
+		System.out.println("\n");
 		
-		//connection.find_nodes(ids, profiles, jobs, educations);
+		/*for(String node_order: order){
+			String[] node = node_order.split("\\s*,\\s*");
+			System.out.println(node[0]);
+			connection.find_node_info(ids, node[0], profiles, jobs, educations);
+			connection.print_node_data(node[0]);
+		}*/
+		ArrayList<String> node = connection.find_node_info(ids, "Eng-Advisory", profiles, jobs, educations);
+		connection.print_node_data(node);
 	}
 }

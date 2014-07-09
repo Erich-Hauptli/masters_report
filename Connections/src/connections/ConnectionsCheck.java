@@ -315,9 +315,9 @@ public class ConnectionsCheck implements Connections_Interface{
         return NodeReturn;
 	}
 
-	public void find_nodes(TreeSet<String> ids, ArrayList<String> profiles, ArrayList<String> jobs, ArrayList<String> educations) {
+	public ArrayList<String> find_node_info(TreeSet<String> ids, String node, ArrayList<String> profiles, ArrayList<String> jobs, ArrayList<String> educations) {
 		
-		
+		ArrayList<String> results = new ArrayList<String>();
 		ArrayList<String> headers = new ArrayList<String>();
         try {
         	UserProfile user = new UserProfile();
@@ -333,6 +333,7 @@ public class ConnectionsCheck implements Connections_Interface{
         	int j = 0;
         	String output = null;
         	String[] headerArray = header.split(",");
+        	
         	for(int i=1; i<headerArray.length; i++){
         		Points.clear();
         		j = i - 1;
@@ -345,21 +346,24 @@ public class ConnectionsCheck implements Connections_Interface{
         		}else{
         			System.out.println("Error: Need statement for " + headerArray[0]);
         		}
-        		System.out.println(headerArray[i]);
+        		
         		
         		for (String compare : compares){
-        	       	String[] split = compare.split("\\s*,\\s*");		//Read in each user data and split on ",".
-        	       	boolean exist = false;
-        	       	for (String point : Points) {
-        	       	    if (point.equals(split[j])) {			
-        	       	    	exist = true;							//Check if content of field has been seen before.
-        	       	        break;
-        	       	    }
-        	       	}
-        	       	if(exist == false){
-        	       		Points.add(split[j]);						//If not previously seen, make note of data in field.
-        	       	}
+        			if (compare.toLowerCase().contains(node.toLowerCase())){
+        				String[] split = compare.split("\\s*,\\s*");		//Read in each user data and split on ",".
+        				boolean exist = false;
+        				for (String point : Points) {
+        					if (point.equals(split[j])) {			
+        						exist = true;							//Check if content of field has been seen before.
+        						break;
+        					}
+        				}
+        				if(exist == false){
+        					Points.add(split[j]);						//If not previously seen, make note of data in field.
+        				}
+        			}
         		}
+        		
         	    float size = ids.size();
         	    for(String point : Points){
         	       	float count = 0;
@@ -377,28 +381,29 @@ public class ConnectionsCheck implements Connections_Interface{
         	       	float percentage = ((count * 100) / size);		//Determine percentage of users match each piece of data.
         	       	if(percentage > display_limitor){
         	       		String percent = String.format("%.2f", percentage);
-        	       		output = point + ": " + percent + "%";
-        	       		System.out.println(output);						//Print out results.
+        	       		output =  headerArray[i] + "," + point + "," + percent + "%";
+        	       		results.add(output);
         	       	}
         	    }
-        	    System.out.println("\n");
            	}
         }
-	
+        return results;
     }
 	
-	public void print_data(String common_field, String common_field_value, TreeSet<String> ids, ArrayList<String> Connects, ArrayList<String> Order){
+	public void print_connection_data(String common_field, String common_field_value, TreeSet<String> ids, ArrayList<String> Connects, ArrayList<String> Order){
 		
         String printout_header = "For " + ids.size() + " users who had " + common_field +  " = ";
         printout_header = printout_header + common_field_value + " at some point in their career.\n";
         System.out.println(printout_header);
 		
         System.out.println("Edge Transitions");
+        System.out.println("----------------");
         for (String result : Connects){
         	System.out.println(result);
         }
         
         System.out.println("\n\nNode Ordering");
+        System.out.println("-------------");
         for(int i=0; i<Order.size(); i++){
         	for (String result : Order){
         		String[] result_split = result.split("\\s*,\\s*");
@@ -406,6 +411,22 @@ public class ConnectionsCheck implements Connections_Interface{
         			System.out.println(result);
         		}
         	}
-        }
+        }   
+	}
+	
+	public void print_node_data(ArrayList<String> node_data){
+		String header = null;
+		for(String node : node_data){
+			String[] split = node.split("\\s*,\\s*");
+			if(!split[1].equalsIgnoreCase("")){
+				if(!split[0].equalsIgnoreCase(header)){
+					System.out.println("\n" + split[0] + "\n-----------------");
+					System.out.println(split[1] + ": " + split[2]);
+					header = split[0];
+				}else{
+					System.out.println(split[1] + ": " + split[2]);
+				}
+			}
+		}
 	}
 }
