@@ -324,9 +324,11 @@ public class ConnectionsCheck implements Connections_Interface{
 		ArrayList<String> relevant = new ArrayList<String>();
 		HashSet<String> store = new HashSet<String>();
 		
+		int user_count = 0;
 		for(String profile : profiles){
 			String profile_tmp = "profile," + profile;
 			complete.add(profile_tmp);
+			user_count++;
 		}
 		for(String job : jobs){
 			String job_tmp = "job," + job;
@@ -418,6 +420,7 @@ public class ConnectionsCheck implements Connections_Interface{
 					store.add(value);
 				}
 			
+				float other = 0;
 				for(String value : store){
 					float value_count = 0;
 					for(String nodes : relevant){
@@ -425,11 +428,22 @@ public class ConnectionsCheck implements Connections_Interface{
 							value_count++;
 						}
 					}
-					float percentage = ((value_count * 100) / size);		//Determine percentage of users match each piece of data.
+					float percentage = 0;
+					if(value.equalsIgnoreCase(node)){
+						percentage = ((value_count * 100) / user_count);		//Determine percentage of users match each piece of data.
+					}else{
+						percentage = ((value_count * 100) / size);		//Determine percentage of users match each piece of data.
+					}
 					if(percentage > display_limitor){
 						String output = column_header + "," + value + "," + percentage + "%";
 						results.add(output);
+					}else{
+						other = other + percentage;
 					}
+				}
+				if(other > 0){
+					String output = column_header + ",Other," + other + "%";
+					results.add(output);
 				}
 			}
 		}
