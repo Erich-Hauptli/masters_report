@@ -2,6 +2,7 @@ package connections;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.TreeSet;
 
@@ -315,11 +316,42 @@ public class ConnectionsCheck implements Connections_Interface{
         return NodeReturn;
 	}
 
-	public ArrayList<String> find_node_info(TreeSet<String> ids, String node, ArrayList<String> profiles, ArrayList<String> jobs, ArrayList<String> educations) {
+	public ArrayList<String> find_node_info(int display_limitor, String node, ArrayList<String> profiles, ArrayList<String> jobs, ArrayList<String> educations) {
 		
 		ArrayList<String> results = new ArrayList<String>();
 		ArrayList<String> headers = new ArrayList<String>();
-        try {
+		ArrayList<String> complete = new ArrayList<String>();
+		ArrayList<String> relevant = new ArrayList<String>();
+		HashSet<String> store = new HashSet<String>();
+		
+		for(String profile : profiles){
+			String profile_tmp = "profile," + profile;
+			complete.add(profile_tmp);
+		}
+		for(String job : jobs){
+			String job_tmp = "job," + job;
+			complete.add(job_tmp);
+		}
+		for(String education : educations){
+			String education_tmp = "education," + education;
+			complete.add(education_tmp);
+		}
+		
+
+		float size = 0;
+		int count = 0;
+		String node_type = null;
+		for(String nodes : complete){
+			String[] split = nodes.split("\\s*,\\s*");
+			count = split.length;
+			if(nodes.contains(node)){
+				node_type = split[0];
+				size++;
+				relevant.add(nodes);
+			}
+		}
+		
+		try {
         	UserProfile user = new UserProfile();
         	headers = user.return_headers();								//Queries headers for users
         	
@@ -328,66 +360,80 @@ public class ConnectionsCheck implements Connections_Interface{
 			e.printStackTrace();
 		}
 		
-        for(String header:headers){							//Determine which database is needed to find common element
-        	
-        	int j = 0;
-        	String output = null;
-        	String[] headerArray = header.split(",");
-        	
-        	for(int i=1; i<headerArray.length; i++){
-        		Points.clear();
-        		j = i - 1;
-        		if(headerArray[0].equals("profile")){			//Determine which database needs to be searched.
-        			compares = profiles;
-        		}else if (headerArray[0].equals("job")){
-        			compares = jobs;
-        		}else if(headerArray[0].equals("education")){
-        			compares = educations;
-        		}else{
-        			System.out.println("Error: Need statement for " + headerArray[0]);
-        		}
-        		
-        		
-        		for (String compare : compares){
-        			if (compare.toLowerCase().contains(node.toLowerCase())){
-        				String[] split = compare.split("\\s*,\\s*");		//Read in each user data and split on ",".
-        				boolean exist = false;
-        				for (String point : Points) {
-        					if (point.equals(split[j])) {			
-        						exist = true;							//Check if content of field has been seen before.
-        						break;
-        					}
-        				}
-        				if(exist == false){
-        					Points.add(split[j]);						//If not previously seen, make note of data in field.
-        				}
-        			}
-        		}
-        		
-        	    float size = ids.size();
-        	    for(String point : Points){
-        	       	float count = 0;
-        	       	String id = "0";
-        	       	String prev_id = "0";
-        	       	for (String compare : compares){
-        	       		String[] split = compare.split("\\s*,\\s*");
-        	       		id = split[0];
-        	       		if(split[j].equals(point) && !id.equals(prev_id)){
-        	       			prev_id = id;
-        	       			count++;								//Count number of times each new piece of data seen.
-        	       		}
-        	       	}
-        	       	//System.out.println(count + "/" + size);
-        	       	float percentage = ((count * 100) / size);		//Determine percentage of users match each piece of data.
-        	       	if(percentage > display_limitor){
-        	       		String percent = String.format("%.2f", percentage);
-        	       		output =  headerArray[i] + "," + point + "," + percent + "%";
-        	       		results.add(output);
-        	       	}
-        	    }
-           	}
-        }
-        return results;
+		String header_store = null;
+		for(String header : headers){
+			if(header.contains(node_type)){
+				header_store = header;
+			}
+		}
+		
+		for(int i=1; i<count-1; i++){
+			store.clear();
+			String[] column_headers = header_store.split("\\s*,\\s*");
+			String column_header = column_headers[i+1];
+			if(column_header.equals("start_date")){
+				column_header = "Years";
+				for(String nodes : relevant){
+					String[] split = nodes.split("\\s*,\\s*");
+					int start_date = Integer.parseInt(split[i+1]);
+					int end_date = start_date;
+					if(split[i+2].equalsIgnoreCase("Current")){
+						end_date = Calendar.getInstance().get(Calendar.YEAR);
+					}else{
+						end_date = Integer.parseInt(split[i+2]);
+					}
+					int years = end_date - start_date;
+					String value = Integer.toString(years);
+					store.add(value);
+				}
+			
+				for(String value : store){
+					float value_count = 0;
+					for(String nodes : relevant){
+						String[] split = nodes.split("\\s*,\\s*");
+						int start_date = Integer.parseInt(split[i+1]);
+						int end_date = start_date;
+						if(split[i+2].equalsIgnoreCase("Current")){
+							end_date = Calendar.getInstance().get(Calendar.YEAR);
+						}else{
+							end_date = Integer.parseInt(split[i+2]);
+						}
+						int years = end_date - start_date;
+						String year = Integer.toString(years);
+						if(year.contains(value)){
+							value_count++;
+						}
+					}
+					float percentage = ((value_count * 100) / size);		//Determine percentage of users match each piece of data.
+					if(percentage > display_limitor){
+						String output = column_header + "," + value + "," + percentage + "%";
+						results.add(output);
+					}
+				}
+				i++;
+			}else{
+				for(String nodes : relevant){
+					String[] split = nodes.split("\\s*,\\s*");
+					String value = split[i+1];
+					store.add(value);
+				}
+			
+				for(String value : store){
+					float value_count = 0;
+					for(String nodes : relevant){
+						if(nodes.contains(value)){
+							value_count++;
+						}
+					}
+					float percentage = ((value_count * 100) / size);		//Determine percentage of users match each piece of data.
+					if(percentage > display_limitor){
+						String output = column_header + "," + value + "," + percentage + "%";
+						results.add(output);
+					}
+				}
+			}
+		}
+		return results;
     }
 	
 	public void print_connection_data(String common_field, String common_field_value, TreeSet<String> ids, ArrayList<String> Connects, ArrayList<String> Order){
@@ -421,9 +467,11 @@ public class ConnectionsCheck implements Connections_Interface{
 			if(!split[1].equalsIgnoreCase("")){
 				if(!split[0].equalsIgnoreCase(header)){
 					System.out.println("\n" + split[0] + "\n-----------------");
+					//System.out.println(split[1] + ": " + split[2]);
 					System.out.println(split[1] + ": " + split[2]);
 					header = split[0];
 				}else{
+					//System.out.println(split[1] + ": " + split[2]);
 					System.out.println(split[1] + ": " + split[2]);
 				}
 			}

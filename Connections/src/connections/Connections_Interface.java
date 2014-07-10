@@ -13,7 +13,7 @@ public interface Connections_Interface {
 	ArrayList<String> 	database_pull(TreeSet<String> ids, String database);
 	ArrayList<String> 	find_edges(TreeSet<String> ids, ArrayList<String> profiles, ArrayList<String> jobs, ArrayList<String> educations);
 	ArrayList<String> 	find_node_order(ArrayList<String> Connections);
-	ArrayList<String>	find_node_info(TreeSet<String> ids, String node, ArrayList<String> profiles, ArrayList<String> jobs, ArrayList<String> educations);
+	ArrayList<String>	find_node_info(int display_limitor, String node, ArrayList<String> profiles, ArrayList<String> jobs, ArrayList<String> educations);
 
 	void 				print_connection_data(String common_field, String common_field_value, TreeSet<String> ids, ArrayList<String> Connects, ArrayList<String> Order);
 	void				print_node_data(ArrayList<String> node_data);

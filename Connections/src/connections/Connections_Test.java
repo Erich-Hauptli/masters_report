@@ -25,13 +25,12 @@ public class Connections_Test {
 		connection.print_connection_data(common_field, common_field_value, ids, edges, order);
 		System.out.println("\n");
 		
-		/*for(String node_order: order){
-			String[] node = node_order.split("\\s*,\\s*");
-			System.out.println(node[0]);
-			connection.find_node_info(ids, node[0], profiles, jobs, educations);
-			connection.print_node_data(node[0]);
-		}*/
-		ArrayList<String> node = connection.find_node_info(ids, "Eng-Advisory", profiles, jobs, educations);
-		connection.print_node_data(node);
+		for(String node_order: order){
+			String[] node_split = node_order.split("\\s*,\\s*");
+			System.out.println("\n\n" + node_split[0]+ "\n------------------");
+			ArrayList<String> node = connection.find_node_info(5, node_split[0], profiles, jobs, educations);
+			connection.print_node_data(node);
+		}
+
 	}
 }
