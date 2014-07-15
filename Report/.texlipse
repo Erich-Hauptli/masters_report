@@ -1,0 +1,14 @@
+#TeXlipse project settings
+#Tue Jul 15 12:41:43 CDT 2014
+markTmpDer=true
+builderNum=2
+outputDir=
+makeIndSty=
+bibrefDir=
+outputFormat=pdf
+tempDir=tmp
+mainTexFile=ejh_mastersreport.tex
+outputFile=ejh_mastersreport.pdf
+langSpell=en
+markDer=true
+srcDir=

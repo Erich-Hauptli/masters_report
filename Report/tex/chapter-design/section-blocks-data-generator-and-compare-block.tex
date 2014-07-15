@@ -1,0 +1,14 @@
+\subsection{Data Generator and Compare}
+\label{sect:bg-blocks-data-generator-and-compare-block}
+Data can come from the instruction register or the data generator.  A mux select signal is generated based on the current operation.  For user data patterns, the data from the instruction register is selected and written to memory.  For NPSF patterns, the data generator outputs the word to be written to memory.  The comparator checks if the data read from memory matches what is expected and generates the pass/fail signal.
+
+\subsubsection{Data Generator}
+The data generator (DG) replaces the auxiliary memory in the proposed design.  Rather than use the scan-path to write the data background pattern to the MUT, the DG will dynamically create the pattern to allow the BIST to write the background to memory.  A more detailed description of the DG can be found in Section \ref{sec:dg}.
+
+\subsubsection{Data Comparator}
+Each read march element is checked with the data comparator.  The comparator accepts as inputs the TDS bus and the output of the MUT.  If the MUT output matches the TDS value, a pass signal is generated.  If there is any discrepancy, the fail signal is generated.  
+
+\subsubsection{Polarity and Data Register}
+The polarity signal from the current march operation is used to invert the data.  If the polarity signal is false (0), the data is unmodified and stored to the data register.  If the polarity signal is true (1), the data is inverted, then stored in the data register.  
+
+
