@@ -4,7 +4,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashSet;
+import java.util.List;
 import java.util.TreeSet;
+import java.util.regex.Pattern;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import user.UserProfile;
 import tools.Tools;
@@ -477,6 +483,7 @@ public class ConnectionsCheck implements Connections_Interface{
 	public void print_node_data(ArrayList<String> node_data){
 		String header = null;
 		for(String node : node_data){
+			System.out.println(node);
 			String[] split = node.split("\\s*,\\s*");
 			if(!split[1].equalsIgnoreCase("")){
 				if(!split[0].equalsIgnoreCase(header)){
@@ -490,5 +497,40 @@ public class ConnectionsCheck implements Connections_Interface{
 				}
 			}
 		}
+	}
+	
+	public JSONArray return_json(JSONObject search_term){
+		List<String> list = new ArrayList<String>();
+		JSONArray array = new JSONArray();
+		ConnectionsCheck connection = new ConnectionsCheck();
+		
+		System.out.println(search_term);
+		String search = search_term.toString();
+		search = search.substring(1, search.length()-1);
+		String[] search_split = search.split(":");
+		String common_field = search_split[0];
+		common_field = common_field.substring(1, common_field.length()-1);
+		String common_field_value = search_split[1];
+		common_field_value = common_field_value.substring(1, common_field_value.length()-1);
+
+		TreeSet<String> ids = connection.find_same(common_field, common_field_value);  //Search for users who work as engineers, 
+														   					//print out similar education, degree and city.
+		ArrayList<String> profiles = connection.database_pull(ids, "profile");
+		ArrayList<String> educations = connection.database_pull(ids, "education");
+		ArrayList<String> jobs = connection.database_pull(ids, "job");
+		
+		ArrayList<String> edges = connection.find_edges(ids, profiles, jobs, educations);
+		ArrayList<String> order = connection.find_node_order(edges);
+		
+		//connection.print_connection_data(common_field, common_field_value, ids, edges, order);
+		//System.out.println("\n");
+		
+		for(String node_order: order){
+			String[] node_split = node_order.split("\\s*,\\s*");
+			//System.out.println("\n\n" + node_split[0]+ "\n------------------");
+			ArrayList<String> node = connection.find_node_info(5, node_split[0], profiles, jobs, educations);
+			//connection.print_node_data(node);
+		}
+		return array;		
 	}
 }

@@ -3,6 +3,9 @@ package connections;
 import java.util.ArrayList;
 import java.util.TreeSet;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 /*  Defines various methods in the connections class to draw connections between users.  */
 public interface Connections_Interface {
 
@@ -17,6 +20,7 @@ public interface Connections_Interface {
 
 	void 				print_connection_data(String common_field, String common_field_value, TreeSet<String> ids, ArrayList<String> Connects, ArrayList<String> Order);
 	void				print_node_data(ArrayList<String> node_data);
+	JSONArray 			return_json(JSONObject search_term);
 	
 	
 	
