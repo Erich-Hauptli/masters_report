@@ -1,4 +1,4 @@
-$users = 500;			#Adjust number of users generated.
+$users = 5000;			#Adjust number of users generated.
 $job_chance = 4;		#Adjust rate of users obtaining jobs.
 $b_chance = 2;			#Adjust rate of users obtaining Bachelor Degrees.
 $m_chance = 5;			#Adjust rate of users obtaining Master Degrees.
