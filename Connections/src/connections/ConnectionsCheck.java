@@ -1,19 +1,18 @@
 package connections;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashSet;
-import java.util.List;
 import java.util.TreeSet;
-import java.util.regex.Pattern;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import user.UserProfile;
+import tools.MultiReturn;
 import tools.Tools;
+
+
 
 /*  Contains commands that draws connections between users.  */
 public class ConnectionsCheck implements Connections_Interface{
@@ -82,7 +81,7 @@ public class ConnectionsCheck implements Connections_Interface{
 		return results;
 	}
 
-	public ArrayList<String> find_edges(TreeSet<String> ids, ArrayList<String> profiles, ArrayList<String> jobs, ArrayList<String> educations) {
+	public MultiReturn find_edges(TreeSet<String> ids, ArrayList<String> profiles, ArrayList<String> jobs, ArrayList<String> educations) {
 		
 		int edge_intervals = 10;
 	
@@ -95,7 +94,6 @@ public class ConnectionsCheck implements Connections_Interface{
         for(String id : ids){
         	User.clear();
         	Nodes.clear();
-        	//System.out.println(id);
         	for(String job : jobs){
         		if(job.toLowerCase().startsWith(id.toLowerCase() + ",")){
         			Nodes.add(job);
@@ -105,7 +103,6 @@ public class ConnectionsCheck implements Connections_Interface{
         	for(String education : educations){
         		if(education.toLowerCase().startsWith(id.toLowerCase() + ",")){
         			Nodes.add(education);
-        			//System.out.println(education);
         		}
         	}
         	
@@ -162,6 +159,7 @@ public class ConnectionsCheck implements Connections_Interface{
         }
         
         int num_users = ids.size();			//Convert all node interchanges to weight of # of edge intervals.
+        JSONArray ja = new JSONArray();
         for (String Connect : Connects){
         	String[] node = Connect.split("\\s*,\\s*");
         	int node_users = Integer.parseInt(node[2]);
@@ -170,12 +168,31 @@ public class ConnectionsCheck implements Connections_Interface{
         	if(line_weight > 0){
         		String Connect_temp = node[0] + "," + node[1] + "," + line_weight;
         		Connections.add(Connect_temp);
+        		JSONObject jo = new JSONObject();
+            	try {
+            		jo.put("node A", node[0]);
+    				jo.put("node B", node[1]);
+    				jo.put("transition frequency", line_weight);
+    			} catch (JSONException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}
+            	ja.put(jo);
         	}
         }
-        return Connections;
+        JSONObject node_connections = new JSONObject();
+        try {
+			node_connections.put("Node Connections", ja);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        MultiReturn result = new MultiReturn(node_connections, Connections);
+        return result;
 	}
      
-	public ArrayList<String> find_node_order(ArrayList<String> Connections) {
+	public MultiReturn find_node_order(ArrayList<String> Connections) {
 		HashSet<String> AllNodes = new HashSet<String>();
 		ArrayList<String> Nodes = new ArrayList<String>();
 		HashSet<String> HeavyEdges = new HashSet<String>();
@@ -184,8 +201,6 @@ public class ConnectionsCheck implements Connections_Interface{
 		ArrayList<String> NodeTemp = new ArrayList<String>();
 		ArrayList<String> NodeStore = new ArrayList<String>();
 		ArrayList<String> NodeReturn = new ArrayList<String>();
-		
-		//System.out.println("Find Order");
 		
 		for(String Connect : Connections){				//Get HashSet of all nodes
 			String[] node = Connect.split("\\s*,\\s*");
@@ -229,7 +244,6 @@ public class ConnectionsCheck implements Connections_Interface{
 		
 		if(HeavyEdges != null){
 			for(String Connect : HeavyEdges){				//Find Starting Node
-				//System.out.println(Connect);
 				int found = 0;
 				String[] node = Connect.split("\\s*,\\s*");
 				String nodeA = node[0];
@@ -243,7 +257,6 @@ public class ConnectionsCheck implements Connections_Interface{
 				}
 				if(found == 0){
 					Node0.add(nodeA);
-					//System.out.println("Start: " + nodeA);
 				}
 			}
 			for(String Connect : HeavyEdges){				//Find Final Node
@@ -263,7 +276,6 @@ public class ConnectionsCheck implements Connections_Interface{
 				}
 				if(found == 0){
 					NodeFinal.add(nodeB);
-					//System.out.println("Final: " + nodeB);
 				}
 			}
 		}
@@ -281,12 +293,10 @@ public class ConnectionsCheck implements Connections_Interface{
         	String NS = null;
         	NS = NodeStore.toString();
         	NS = NS.substring(1, NS.length()-1);
-        	//System.out.println(NS);
         	String [] NSarray = null;
         	NSarray = NS.split("\\s*,\\s*");
         	for(String node : NSarray){
         		NodeTemp.clear();
-        		//System.out.println("Group " + group + ": " + node);
         		for(String test : HeavyEdges){
         			String[] node_temp = test.split("\\s*,\\s*");
         			String nodeA = node_temp[0];
@@ -303,6 +313,7 @@ public class ConnectionsCheck implements Connections_Interface{
         }
         //System.out.println("Testing");
         
+        JSONArray ja = new JSONArray();
         for(String each_node : AllNodes){
         	String node_store = null;
         	for(String node : Nodes){		//Eliminate duplicate node by using later node.
@@ -317,18 +328,46 @@ public class ConnectionsCheck implements Connections_Interface{
         		}
         	}
         	NodeReturn.add(node_store);
+        	String[] json_split = node_store.split("\\s*,\\s*");
+        	
+        	JSONObject jo = new JSONObject();
+        	try {
+        		jo.put("node name", json_split[0]);
+				jo.put("order", json_split[1]);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        	ja.put(jo);
         }
+        JSONObject node_ordering = new JSONObject();
+        try {
+			node_ordering.put("Node Ordering", ja);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
-        return NodeReturn;
+        MultiReturn result = new MultiReturn(node_ordering, NodeReturn);
+        return result;
 	}
 
-	public ArrayList<String> find_node_info(int display_limitor, String node, ArrayList<String> profiles, ArrayList<String> jobs, ArrayList<String> educations) {
+	public MultiReturn find_node_info(int display_limitor, String node, ArrayList<String> profiles, ArrayList<String> jobs, ArrayList<String> educations) {
 		
 		ArrayList<String> results = new ArrayList<String>();
 		ArrayList<String> headers = new ArrayList<String>();
 		ArrayList<String> complete = new ArrayList<String>();
 		ArrayList<String> relevant = new ArrayList<String>();
 		HashSet<String> store = new HashSet<String>();
+		
+		JSONObject  json_node = new JSONObject();
+		try {
+			json_node.put("Node Name", node);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 		int user_count = 0;
 		for(String profile : profiles){
@@ -375,7 +414,10 @@ public class ConnectionsCheck implements Connections_Interface{
 			}
 		}
 		
+		JSONArray  json_array = new JSONArray();
 		for(int i=1; i<count-1; i++){
+			JSONObject data_field = new JSONObject();
+			JSONArray  ja = new JSONArray();
 			store.clear();
 			String[] column_headers = header_store.split("\\s*,\\s*");
 			String column_header = column_headers[i+1];
@@ -393,6 +435,13 @@ public class ConnectionsCheck implements Connections_Interface{
 					int years = end_date - start_date;
 					String value = Integer.toString(years);
 					store.add(value);
+				}
+	
+				try {
+					data_field.put("Data Point Name", column_header);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			
 				for(String value : store){
@@ -415,11 +464,27 @@ public class ConnectionsCheck implements Connections_Interface{
 					float percentage = ((value_count * 100) / size);		//Determine percentage of users match each piece of data.
 					if(percentage > display_limitor){
 						String output = column_header + "," + value + "," + percentage + "%";
+						JSONObject jo = new JSONObject();
+						try {
+							jo.put("name", value);
+							jo.put("value", percentage + "%");
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						ja.put(jo);
 						results.add(output);
 					}
 				}
 				i++;
 			}else{
+				try {
+					data_field.put("Data Point Name", column_header);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 				for(String nodes : relevant){
 					String[] split = nodes.split("\\s*,\\s*");
 					String value = split[i+1];
@@ -442,6 +507,15 @@ public class ConnectionsCheck implements Connections_Interface{
 					}
 					if(percentage > display_limitor){
 						String output = column_header + "," + value + "," + percentage + "%";
+						JSONObject jo = new JSONObject();
+						try {
+							jo.put("name", value);
+							jo.put("value", percentage + "%");
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						ja.put(jo);
 						results.add(output);
 					}else{
 						other = other + percentage;
@@ -449,11 +523,37 @@ public class ConnectionsCheck implements Connections_Interface{
 				}
 				if(other > 0){
 					String output = column_header + ",Other," + other + "%";
+					JSONObject jo = new JSONObject();
+					try {
+						jo.put("name", "Other");
+						jo.put("value", other + "%");
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					results.add(output);
+					ja.put(jo);
 				}
 			}
+			try {
+				data_field.put("Data Breakout", ja);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			json_array.put(data_field);
+
 		}
-		return results;
+		try {
+			json_node.put("Node Data", json_array);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		MultiReturn result = new MultiReturn(json_node, results);
+
+		return result;
     }
 	
 	public void print_connection_data(String common_field, String common_field_value, TreeSet<String> ids, ArrayList<String> Connects, ArrayList<String> Order){
@@ -488,11 +588,9 @@ public class ConnectionsCheck implements Connections_Interface{
 			if(!split[1].equalsIgnoreCase("")){
 				if(!split[0].equalsIgnoreCase(header)){
 					System.out.println("\n" + split[0] + "\n-----------------");
-					//System.out.println(split[1] + ": " + split[2]);
 					System.out.println(split[1] + ": " + split[2]);
 					header = split[0];
 				}else{
-					//System.out.println(split[1] + ": " + split[2]);
 					System.out.println(split[1] + ": " + split[2]);
 				}
 			}
@@ -500,8 +598,7 @@ public class ConnectionsCheck implements Connections_Interface{
 	}
 	
 	public JSONArray return_json(JSONObject search_term){
-		List<String> list = new ArrayList<String>();
-		JSONArray array = new JSONArray();
+		
 		ConnectionsCheck connection = new ConnectionsCheck();
 		
 		System.out.println(search_term);
@@ -519,18 +616,29 @@ public class ConnectionsCheck implements Connections_Interface{
 		ArrayList<String> educations = connection.database_pull(ids, "education");
 		ArrayList<String> jobs = connection.database_pull(ids, "job");
 		
-		ArrayList<String> edges = connection.find_edges(ids, profiles, jobs, educations);
-		ArrayList<String> order = connection.find_node_order(edges);
+		MultiReturn edges = connection.find_edges(ids, profiles, jobs, educations);
+		MultiReturn order = connection.find_node_order(edges.getALS());
 		
-		//connection.print_connection_data(common_field, common_field_value, ids, edges, order);
-		//System.out.println("\n");
-		
-		for(String node_order: order){
+		JSONArray ja_nodes = new JSONArray();
+		for(String node_order: order.getALS()){
 			String[] node_split = node_order.split("\\s*,\\s*");
-			//System.out.println("\n\n" + node_split[0]+ "\n------------------");
-			ArrayList<String> node = connection.find_node_info(5, node_split[0], profiles, jobs, educations);
-			//connection.print_node_data(node);
+			MultiReturn node = connection.find_node_info(5, node_split[0], profiles, jobs, educations);
+			ja_nodes.put(node.getJSON());
 		}
+		
+		JSONObject nodes = new JSONObject();
+		try {
+			nodes.put("Nodes Data", ja_nodes);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		JSONArray array = new JSONArray();
+		array.put(edges.getJSON());
+		array.put(order.getJSON());
+		array.put(nodes);
+				
 		return array;		
 	}
 }
