@@ -16,11 +16,10 @@ public class Connections_Test {
 		String common_field = "title";
 		String common_field_value = "Eng-Chief";
 		
-		String json_string = "{" + '"' + common_field + '"' + ":" + '"' + common_field_value + '"' + "}";  //Generate JSON Object to pass to program.
-		
-		JSONObject search_term = null;
+		JSONObject search_term = new JSONObject();
 		try {
-			search_term = new JSONObject(json_string);
+			search_term.put("field", common_field);
+			search_term.put("value", common_field_value);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

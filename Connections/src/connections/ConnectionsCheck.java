@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.TreeSet;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,67 +24,62 @@ public class ConnectionsCheck implements Connections_Interface{
 	ArrayList<String> Points = new ArrayList<String>();
 
 	
-	/*  Prints out paths taken by common users as percentages.  */
+	/*  Returns all user ids who match a common field value.  */
     public TreeSet<String> find_same(String common_field, String common_field_value) {
-    	TreeSet<String> compare_databases = new TreeSet<String>();
     	TreeSet<String> ids = new TreeSet<String>();
     	ArrayList<String> headers = new ArrayList<String>();
     	ArrayList<String> results = new ArrayList<String>();
     	
         try {
         	UserProfile user = new UserProfile();
-        	headers = user.return_headers();
-        	//columns = user.query_collumns(null);								//Queries headers for users
+        	headers = user.return_headers();					//Queries headers for users
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         String common_database = null;
         for(String header:headers){							//Determine which database is needed to find common element
-        	if (header.toLowerCase().contains(common_field.toLowerCase())){
+        	if (header.toLowerCase().contains(common_field.toLowerCase())){  //Search for matches
         		String[] headerArray = header.split(",");
-        		common_database = headerArray[0];
-        	}
-        	String[] headerArray = header.split(",");
-        	compare_databases.add(headerArray[0]);
+        		common_database = headerArray[0];			//Pull database that is needed to search for common element
+        	}			
         }
         try {
-        	UserProfile user = new UserProfile();			//Find all users with common element
+        	UserProfile user = new UserProfile();			//Find all database rows with common element
         	results = user.collect_matching_users(common_database, common_field, common_field_value);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         
-        for(String result : results){						//Put all user ids of users with common element into String[]
-        	String[] resultArray = result.split(",");
-        	ids.add(resultArray[0]);
+        for(String result : results){						
+        	String[] resultArray = result.split(",");		//Split data from each matching database row
+        	ids.add(resultArray[0]);						//Push the user id into a Tree Set
         }
         
         return ids;
     }    
-        /*
 
-        */
         
+    /*  Returns all data associated with a specific database and a set of user ids.  */
     public ArrayList<String> database_pull(TreeSet<String> ids, String database) {
         ArrayList<String> results = new ArrayList<String>();
-        
-        String[] user_ids = ids.toArray(new String[ids.size()]);
+        String[] user_ids = ids.toArray(new String[ids.size()]);  //Convert Tree Set of ids into a String array.
             
         try {												//Pull all user data for comparison elements.
         	UserProfile user = new UserProfile();
-        	results = user.collect_matched_users(database,user_ids);
+        	results = user.collect_matched_users(database,user_ids);  //Step through database to pull all data for the users identified within the Tree Set of ids
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return results;
+		return results;		//Return an array list of all the pulled data
 	}
 
+    /*  Returns all the connections between nodes and the weight/frequency an connecting edge is taken.  */
 	public MultiReturn find_edges(TreeSet<String> ids, ArrayList<String> profiles, ArrayList<String> jobs, ArrayList<String> educations) {
 		
-		int edge_intervals = 10;
+		int edge_intervals = 10;	//Breaks the edges into 10 categories, can redifine to any number of groupings
 	
 		ArrayList<String> Connects = new ArrayList<String>();
 		ArrayList<String> Connections = new ArrayList<String>();
@@ -94,104 +90,108 @@ public class ConnectionsCheck implements Connections_Interface{
         for(String id : ids){
         	User.clear();
         	Nodes.clear();
-        	for(String job : jobs){
+        	for(String job : jobs){			//Pull Data from jobs database and add to Nodes
         		if(job.toLowerCase().startsWith(id.toLowerCase() + ",")){
-        			Nodes.add(job);
-        			//System.out.println(job);
+        			Nodes.add(job);						
         		}
         	}
-        	for(String education : educations){
+        	for(String education : educations){		//Pull Data from educations database and add to Nodes
         		if(education.toLowerCase().startsWith(id.toLowerCase() + ",")){
         			Nodes.add(education);
         		}
         	}
         	
-        	int max = Integer.MIN_VALUE;
+        	//Sorting user nodes, by date, earliest first in array list
+        	int max = Integer.MIN_VALUE;				//Set max to the absolute min
         	String line = null;
-        	for(int i=0; i<Nodes.size(); i++){
-        		int min = Integer.MAX_VALUE;
-        		for (String Node : Nodes){
-        			String[] split = Node.split("\\s*,\\s*");
-        			if(Integer.parseInt(split[3]) < min && Integer.parseInt(split[3]) > max){
-        				min = Integer.parseInt(split[3]);
-        				line = Node;
+        	for(int i=0; i<Nodes.size(); i++){			//Step through all data
+        		int min = Integer.MAX_VALUE;			//Set min to the absolute max
+        		for (String Node : Nodes){				//Step through each row of data
+        			System.out.print(Node);
+        			System.out.print("\n");
+        			String[] split = Node.split("\\s*,\\s*"); 
+        			if(Integer.parseInt(split[3]) < min && Integer.parseInt(split[3]) > max){ //Check to see if current data is earliest seen node
+        				min = Integer.parseInt(split[3]);									  //If it is set this node, as the current earliest
+        				line = Node;														  //Store this node
         			}
         		}
-        		User.add(line);
-        		max = min;
+        		User.add(line);																  //After all nodes considered, store the earliest node
+        		max = min;																	  //Set Max to this value
         	}
         	
+        	//Gather a list of all edges
         	String A = null;
         	String B = null;
-        	for(String user : User){
-        		String[] split = user.split("\\s*,\\s*");
-        		if(A == null){
+        	for(String user : User){							//For each user
+        		String[] split = user.split("\\s*,\\s*");		
+        		if(A == null){									//Start out with initial node as null, and set the first value to A
         			A = split[1];
-        			//System.out.println(A);
         		}else{
         			int found = 0;
-        			B = A;
-        			A = split[1];
+        			B = A;										//Push A into B
+        			A = split[1];								//Then override A with user data
         			//System.out.println(B + "->" + A);
         			int count = 0;
-        			if(Connects.isEmpty()){
+        			if(Connects.isEmpty()){						//If this transition has not been seen before initialize it to 1
         				Connects.add(B + "," + A + "," + "1");
         			}else{
         				for(String Connect : Connects){
         					String[] conn = Connect.split("\\s*,\\s*");
-        					if(conn[0].equals(B) && conn[1].equals(A)){
-        						found = 1;
-        						int instances = Integer.parseInt(conn[2]);
-        						instances++;
-        						String replacement = conn[0] + "," + conn[1] + "," + Integer.toString(instances);
-        						Connects.set(count, replacement);
+        					if(conn[0].equals(B) && conn[1].equals(A)){		//Otherwise search for the previously stored instance
+        						found = 1;									//When it is found, indicate so by setting found integer
+        						int instances = Integer.parseInt(conn[2]);	//Pull the current counter for that transition
+        						instances++;								//Increment it
+        						String replacement = conn[0] + "," + conn[1] + "," + Integer.toString(instances);	//Create a new value to load in place of the old value
+        						Connects.set(count, replacement);			//Then replace the data in the array list
         						break;
         					}else{
-        						count++;
+        						count++;									//If the data does not match, increment the pointer to check next row of data
         					}
         				}
         				if(found == 0){
-        					Connects.add(B + "," + A + "," + "1");
+        					Connects.add(B + "," + A + "," + "1");			//If the data was not previously stored in the array list, add it
         				}
         			}
         		}
         	}
         }
         
-        int num_users = ids.size();			//Convert all node interchanges to weight of # of edge intervals.
+      //Convert all node interchanges to weight of # of edge intervals.
+        int num_users = ids.size();			//pull total number of users	
         JSONArray ja = new JSONArray();
-        for (String Connect : Connects){
+        for (String Connect : Connects){	//Step through all the node to node connections
         	String[] node = Connect.split("\\s*,\\s*");
-        	int node_users = Integer.parseInt(node[2]);
-        	float weight = (node_users / ( num_users / edge_intervals));
-        	int line_weight = (int) weight;
-        	if(line_weight > 0){
-        		String Connect_temp = node[0] + "," + node[1] + "," + line_weight;
+        	int node_users = Integer.parseInt(node[2]);		//Pull the number of transitions for each node to node transition
+        	float weight = (node_users / ( num_users / edge_intervals));	//Calculate the weight, by dividing the number of transitions by the number of users, then divide by the weight factor
+        	int line_weight = (int) weight;		//Convert line weight into an integer
+        	if(line_weight > 0){				//Assuming the transition is more frequent than 0 
+        		String Connect_temp = node[0] + "," + node[1] + "," + line_weight;		//Add it to the array list
         		Connections.add(Connect_temp);
         		JSONObject jo = new JSONObject();
             	try {
-            		jo.put("node A", node[0]);
+            		jo.put("node A", node[0]);					//Also add the data to a JSON Object
     				jo.put("node B", node[1]);
     				jo.put("transition frequency", line_weight);
     			} catch (JSONException e) {
     				// TODO Auto-generated catch block
     				e.printStackTrace();
     			}
-            	ja.put(jo);
+            	ja.put(jo);										//Then add the data to a JSON Array
         	}
         }
         JSONObject node_connections = new JSONObject();
         try {
-			node_connections.put("Node Connections", ja);
+			node_connections.put("Node Connections", ja);		//Finally add all the node transitions to a JSON Object
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         
-        MultiReturn result = new MultiReturn(node_connections, Connections);
+        MultiReturn result = new MultiReturn(node_connections, Connections);		//Return both the ArrayList and the JSON Object containing the node transitions
         return result;
 	}
-     
+    
+	/*  Returns the oder a node should be displayed so that a path can be mapped from node to node.  */
 	public MultiReturn find_node_order(ArrayList<String> Connections) {
 		HashSet<String> AllNodes = new HashSet<String>();
 		ArrayList<String> Nodes = new ArrayList<String>();
@@ -208,26 +208,26 @@ public class ConnectionsCheck implements Connections_Interface{
 			AllNodes.add(node[1]);
 		}
 		
-		for(String node : AllNodes){
+		for(String node : AllNodes){			//For each node
 			int weight = 0;
 			int weight_tmp =0;
 			String node_tmp = null;
 			String nodeSave = null;
-			for(String Connect : Connections){					//Find worst edge to node
+			for(String Connect : Connections){					
 				String[] nodes = Connect.split("\\s*,\\s*");
-				if(node.equalsIgnoreCase(nodes[0])){
-					weight = Integer.parseInt(nodes[2]);
+				if(node.equalsIgnoreCase(nodes[0])){		//If the row is applicable to the node in current for loop
+					weight = Integer.parseInt(nodes[2]);	//Set the weight to the frequency traveled in this row
 					node_tmp = Connect;
 				}
-				if(weight > weight_tmp && node_tmp != null){
-					nodeSave = node_tmp;
+				if(weight > weight_tmp && node_tmp != null){	//If the frequency traveled is the greatest seen traveling to this node, 
+					nodeSave = node_tmp;						//Store the data as the most frequent traveling to the node.
 				}
 			}
 			if(nodeSave != null){
-				HeavyEdges.add(nodeSave);
+				HeavyEdges.add(nodeSave);						//After all rows considered, store the most traveled to the node transition for the node in a permanent location.
 			}
 			
-			for(String Connect : Connections){					//Find worst edge from node
+			for(String Connect : Connections){					//Repeat for the most traveled edge from the node.
 				String[] nodes = Connect.split("\\s*,\\s*");
 				if(node.equalsIgnoreCase(nodes[1])){
 					weight = Integer.parseInt(nodes[2]);
@@ -238,109 +238,108 @@ public class ConnectionsCheck implements Connections_Interface{
 				}
 			}
 			if(nodeSave != null){
-				HeavyEdges.add(nodeSave);
+				HeavyEdges.add(nodeSave);						//Also add the most traveled edge from the node to the permanent location.
 			}
 		}
 		
 		if(HeavyEdges != null){
-			for(String Connect : HeavyEdges){				//Find Starting Node
+			for(String Connect : HeavyEdges){				//Step through the most traveled edges to find the starting node
 				int found = 0;
 				String[] node = Connect.split("\\s*,\\s*");
 				String nodeA = node[0];
-				for(String test : Connections){
+				for(String test : Connections){				//Searches to see if a starting node is also a destination node
 					String[] node_temp = test.split("\\s*,\\s*");
 					String nodeB = node_temp[1];
-					if(nodeA.equalsIgnoreCase(nodeB)){
+					if(nodeA.equalsIgnoreCase(nodeB)){		//If it is, break and move onto the next node
 						found = 1;
 						break;
 					}
 				}
 				if(found == 0){
-					Node0.add(nodeA);
+					Node0.add(nodeA);						//If it is not, this is a starting node
 				}
 			}
-			for(String Connect : HeavyEdges){				//Find Final Node
+			for(String Connect : HeavyEdges){				//Step through the most traveled edges to find the Final Node
 				int found = 0;
 				String[] node = Connect.split("\\s*,\\s*");
 				String nodeB = node[1];
 				String node_A = node[0];
-				if(!nodeB.equalsIgnoreCase(node_A)){
-					for(String test : Connections){
+				if(!nodeB.equalsIgnoreCase(node_A)){		
+					for(String test : Connections){			//Searches to see if a destination node is also a starting node
 						String[] node_temp = test.split("\\s*,\\s*");
 						String nodeA = node_temp[0];
-						if(nodeB.equalsIgnoreCase(nodeA)){
+						if(nodeB.equalsIgnoreCase(nodeA)){		//If it is, break and move onto the next node
 							found = 1;
 							break;
 						}
 					}
 				}
 				if(found == 0){
-					NodeFinal.add(nodeB);
+					NodeFinal.add(nodeB);						//If it is not, this is a ending node.
 				}
 			}
 		}
         
         NodeStore = Node0;
         for(String node : Node0){
-        	Nodes.add(node + ",0");
+        	Nodes.add(node + ",0");								//Add the starting nodes to the order as 0.
         }
         
        
         
         int group = 1;
         Tools tools = new Tools();
-        while(tools.compare_arraylist_string(NodeStore, NodeFinal) == false){	//Find potential node ordering
+        while(tools.compare_arraylist_string(NodeStore, NodeFinal) == false){	//Work through this loop until the NodeStore node matches the final node
         	String NS = null;
-        	NS = NodeStore.toString();
-        	NS = NS.substring(1, NS.length()-1);
+        	NS = NodeStore.toString();						//Store node as a string
+        	NS = NS.substring(1, NS.length()-1);			//Chop off brackets
         	String [] NSarray = null;
-        	NSarray = NS.split("\\s*,\\s*");
+        	NSarray = NS.split("\\s*,\\s*");				//Split on ,
         	for(String node : NSarray){
         		NodeTemp.clear();
-        		for(String test : HeavyEdges){
+        		for(String test : HeavyEdges){				//Step through list of most traveled edges
         			String[] node_temp = test.split("\\s*,\\s*");
-        			String nodeA = node_temp[0];
-        			String nodeB = node_temp[1];
-        			if(node.equalsIgnoreCase(nodeA)){
-        				NodeTemp.add(nodeB);
+        			String nodeA = node_temp[0];			//Set starting node in transition point to A
+        			String nodeB = node_temp[1];			//Set ending node in transition point to B
+        			if(node.equalsIgnoreCase(nodeA)){		//Check if the starting node matches the previous group node
+        				NodeTemp.add(nodeB);				//If it does, add the ending node to the next group
         				Nodes.add(nodeB + "," + group);
         			}
         		}
         	}
         	
-        	group++;
-    		NodeStore = NodeTemp;
+        	group++;				//increment the group number
+    		NodeStore = NodeTemp;	//Set the ending node to the new previous group node
         }
-        //System.out.println("Testing");
         
         JSONArray ja = new JSONArray();
-        for(String each_node : AllNodes){
+        for(String each_node : AllNodes){		//Step through list of all nodes, looping until each one hit
         	String node_store = null;
         	for(String node : Nodes){		//Eliminate duplicate node by using later node.
-        		String[] node_temp = node.split("\\s*,\\s*");
-        		if(node_temp[0].equalsIgnoreCase(each_node) && node_store == null){
-        			node_store = node;
-        		}else if(node_temp[0].equalsIgnoreCase(each_node)){
+        		String[] node_temp = node.split("\\s*,\\s*");	//Split list of ending node and group
+        		if(node_temp[0].equalsIgnoreCase(each_node) && node_store == null){		//Check if node B equals currently stored node and referenced node
+        			node_store = node;													//If it does, store it
+        		}else if(node_temp[0].equalsIgnoreCase(each_node)){						//If it does not equal currently stored node, but does equal referenced node
         			String[] node_store_split = node_store.split("\\s*,\\s*");
-        			if(Integer.parseInt(node_store_split[1]) < Integer.parseInt(node_temp[1])){  //Keep the later duplicate node
-        				node_store = node;
+        			if(Integer.parseInt(node_store_split[1]) < Integer.parseInt(node_temp[1])){  //Check if the stored node is in earlier group than current node
+        				node_store = node;														  //If it is not, store the current node
         			}
         		}
         	}
-        	NodeReturn.add(node_store);
+        	NodeReturn.add(node_store);								//Add this stored node to an array
         	String[] json_split = node_store.split("\\s*,\\s*");
         	
         	JSONObject jo = new JSONObject();
         	try {
-        		jo.put("node name", json_split[0]);
+        		jo.put("node name", json_split[0]);					//Also add this stored node to a JSON Object
 				jo.put("order", json_split[1]);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-        	ja.put(jo);
+        	ja.put(jo);		//Then add the JSON Object to an array
         }
-        JSONObject node_ordering = new JSONObject();
+        JSONObject node_ordering = new JSONObject();	//Finally create a JSON Object containing the array of nodes with their defined ordering
         try {
 			node_ordering.put("Node Ordering", ja);
 		} catch (JSONException e) {
@@ -348,10 +347,11 @@ public class ConnectionsCheck implements Connections_Interface{
 			e.printStackTrace();
 		}
         
-        MultiReturn result = new MultiReturn(node_ordering, NodeReturn);
+        MultiReturn result = new MultiReturn(node_ordering, NodeReturn);  //Return both the JSON Object and the Array List<String> containing the node ordering
         return result;
 	}
 
+	/*  Returns the all the information about a node in a JSON Object and an ArrayList<String> */
 	public MultiReturn find_node_info(int display_limitor, String node, ArrayList<String> profiles, ArrayList<String> jobs, ArrayList<String> educations) {
 		
 		ArrayList<String> results = new ArrayList<String>();
@@ -362,7 +362,7 @@ public class ConnectionsCheck implements Connections_Interface{
 		
 		JSONObject  json_node = new JSONObject();
 		try {
-			json_node.put("Node Name", node);
+			json_node.put("Node Name", node);		//Setup the JSON Return Object with the node name.
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -370,16 +370,16 @@ public class ConnectionsCheck implements Connections_Interface{
 		
 		
 		int user_count = 0;
-		for(String profile : profiles){
+		for(String profile : profiles){		//For each piece of profile data, tag it as profile data, then add it to the complete array list.
 			String profile_tmp = "profile," + profile;
 			complete.add(profile_tmp);
-			user_count++;
+			user_count++;			//Since there will only be one piece of profile data per user, adding a count here to determine how many users are returned in query
 		}
-		for(String job : jobs){
+		for(String job : jobs){				//For each piece of job data, tag it as job data, then add it to the complete array list.
 			String job_tmp = "job," + job;
 			complete.add(job_tmp);
 		}
-		for(String education : educations){
+		for(String education : educations){	//For each piece of education data, tag it as education data, then add it to the complete array list.
 			String education_tmp = "education," + education;
 			complete.add(education_tmp);
 		}
@@ -388,13 +388,13 @@ public class ConnectionsCheck implements Connections_Interface{
 		float size = 0;
 		int count = 0;
 		String node_type = null;
-		for(String nodes : complete){
+		for(String nodes : complete){		//Step through complete list of data for all users
 			String[] split = nodes.split("\\s*,\\s*");
 			count = split.length;
-			if(nodes.contains(node)){
+			if(nodes.contains(node)){		//Check if data is for the current node being surveyed
 				node_type = split[0];
 				size++;
-				relevant.add(nodes);
+				relevant.add(nodes);		//If it is add it to the relevant list
 			}
 		}
 		
@@ -409,7 +409,7 @@ public class ConnectionsCheck implements Connections_Interface{
 		
 		String header_store = null;
 		for(String header : headers){
-			if(header.contains(node_type)){
+			if(header.contains(node_type)){		//Find the header associated with the data being looked at for the node
 				header_store = header;
 			}
 		}
@@ -420,21 +420,21 @@ public class ConnectionsCheck implements Connections_Interface{
 			JSONArray  ja = new JSONArray();
 			store.clear();
 			String[] column_headers = header_store.split("\\s*,\\s*");
-			String column_header = column_headers[i+1];
-			if(column_header.equals("start_date")){
+			String column_header = column_headers[i+1];					//Step through each column of database data, based on header data
+			if(column_header.equals("start_date")){						//Separate section for years spent at a node, due to the fact that starting and end years are provided
 				column_header = "Years";
-				for(String nodes : relevant){
+				for(String nodes : relevant){							//Step through array list containing the previously pulled relevant data
 					String[] split = nodes.split("\\s*,\\s*");
-					int start_date = Integer.parseInt(split[i+1]);
+					int start_date = Integer.parseInt(split[i+1]);		//Pull the start and end dates
 					int end_date = start_date;
-					if(split[i+2].equalsIgnoreCase("Current")){
+					if(split[i+2].equalsIgnoreCase("Current")){			//If the end date is "current" substitue the current year into the data
 						end_date = Calendar.getInstance().get(Calendar.YEAR);
 					}else{
 						end_date = Integer.parseInt(split[i+2]);
 					}
-					int years = end_date - start_date;
+					int years = end_date - start_date;				//Calculate the years spent at node
 					String value = Integer.toString(years);
-					store.add(value);
+					store.add(value);								//Add this value to a hash set to get all the various possible years spent at a node
 				}
 	
 				try {
@@ -444,85 +444,86 @@ public class ConnectionsCheck implements Connections_Interface{
 					e.printStackTrace();
 				}
 			
-				for(String value : store){
+				//This section is trying to group the number of users who have equivalent time spent at a node, to gather a percentage for each amount of time spent
+				for(String value : store){						//Step through all the possible values of years spent at a node
 					float value_count = 0;
-					for(String nodes : relevant){
+					for(String nodes : relevant){				//Compare the possible years spent on a node, to each user
 						String[] split = nodes.split("\\s*,\\s*");
-						int start_date = Integer.parseInt(split[i+1]);
+						int start_date = Integer.parseInt(split[i+1]);		//Pull the start and end dates
 						int end_date = start_date;
 						if(split[i+2].equalsIgnoreCase("Current")){
-							end_date = Calendar.getInstance().get(Calendar.YEAR);
+							end_date = Calendar.getInstance().get(Calendar.YEAR);	//Fix Current to be the current year
 						}else{
 							end_date = Integer.parseInt(split[i+2]);
 						}
-						int years = end_date - start_date;
+						int years = end_date - start_date;			//Calculate the years at a node
 						String year = Integer.toString(years);
 						if(year.contains(value)){
-							value_count++;
+							value_count++;							//Increment counter, to count number of users spent equal time for each possible time span
 						}
 					}
 					float percentage = ((value_count * 100) / size);		//Determine percentage of users match each piece of data.
-					if(percentage > display_limitor){
-						String output = column_header + "," + value + "," + percentage + "%";
+					if(percentage > display_limitor){						//Check if we want to display this data, or if it is not significant enough
+						String output = column_header + "," + value + "," + percentage + "%";  //If significant enough setup an output string for the array list
 						JSONObject jo = new JSONObject();
 						try {
-							jo.put("name", value);
+							jo.put("name", value);							//Also add the data to a JSON Object
 							jo.put("value", percentage + "%");
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						ja.put(jo);
-						results.add(output);
+						ja.put(jo);											//Then push this data into a JSON Array containing the data for all different year possibilities
+						results.add(output);								//Add the array list data to the output array list data
 					}
 				}
 				i++;
-			}else{
+			}else{							//Step through each column of database data for all data except start/end date, based on header data
 				try {
-					data_field.put("Data Point Name", column_header);
+					data_field.put("Data Point Name", column_header);	//Add the column name to the JSON Object containing the array of data
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				
-				for(String nodes : relevant){
-					String[] split = nodes.split("\\s*,\\s*");
-					String value = split[i+1];
-					store.add(value);
+				for(String nodes : relevant){					//Step through the relevant data
+					String[] split = nodes.split("\\s*,\\s*");	//Split it based on commas
+					String value = split[i+1];					//Then add the data from the relevant column to a 
+					store.add(value);							//Hash Set to get a list of the possible values
 				}
 			
 				float other = 0;
-				for(String value : store){
-					float value_count = 0;
-					for(String nodes : relevant){
+				for(String value : store){						//Step through all the possible values
+					float value_count = 0;						//Setup a counter to count the number of times a value is seen
+					for(String nodes : relevant){				//Step through the data again and see if the value shows up, if so increment the counter
 						if(nodes.contains(value)){
 							value_count++;
 						}
 					}
 					float percentage = 0;
-					if(value.equalsIgnoreCase(node)){
-						percentage = ((value_count * 100) / user_count);		//Determine percentage of users match each piece of data.
+					if(value.equalsIgnoreCase(node)){			//Then calculate the percentage of total users match that possible data point
+						percentage = ((value_count * 100) / user_count);		//Determine percentage of users who enter this node
 					}else{
-						percentage = ((value_count * 100) / size);		//Determine percentage of users match each piece of data.
+						percentage = ((value_count * 100) / size);		//Determine percentage of users match each piece of data within a node
 					}
-					if(percentage > display_limitor){
-						String output = column_header + "," + value + "," + percentage + "%";
+					if(percentage > display_limitor){					//Set display limitor, so that if a instance is below a threshold it is not displayed
+						String output = column_header + "," + value + "," + percentage + "%";	//Add data to a String which will be added to an Array List
 						JSONObject jo = new JSONObject();
 						try {
-							jo.put("name", value);
+							jo.put("name", value);						//Add data to a JSON Object
 							jo.put("value", percentage + "%");
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						ja.put(jo);
-						results.add(output);
+						ja.put(jo);										//Then place it in a JSON Array to be added to the JSON node Object
+						results.add(output);							//Add String to Array List to be used if printing method is chosen
 					}else{
-						other = other + percentage;
+						other = other + percentage;						//If the data does not exceed the minimum display limit, add it to the "other" category
 					}
 				}
-				if(other > 0){
-					String output = column_header + ",Other," + other + "%";
+				if(other > 0){											//Once all data points are gathered for a column, check to see if an "other" grouping exists
+					String output = column_header + ",Other," + other + "%";  //If it does, add it to the JSON Array for the collumn and the array list
 					JSONObject jo = new JSONObject();
 					try {
 						jo.put("name", "Other");
@@ -536,39 +537,41 @@ public class ConnectionsCheck implements Connections_Interface{
 				}
 			}
 			try {
-				data_field.put("Data Breakout", ja);
+				data_field.put("Data Breakout", ja);			//Finally, for the column, add the JSON Array to a JSON Object
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			json_array.put(data_field);
+			json_array.put(data_field);							//Then push this Object into a JSON Array for the node
 
 		}
 		try {
-			json_node.put("Node Data", json_array);
+			json_node.put("Node Data", json_array);				//Then push the JSRON Array for a Node into a JSON Object for the node
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		MultiReturn result = new MultiReturn(json_node, results);
+		MultiReturn result = new MultiReturn(json_node, results);	//Return the JSON Object for the node and an Array List of data for the node
 
 		return result;
     }
 	
+	/*  Prints out the high level node interconnect data.  */
 	public void print_connection_data(String common_field, String common_field_value, TreeSet<String> ids, ArrayList<String> Connects, ArrayList<String> Order){
+		/*  Pass in the search value, the array lists containing the node ordering, and the node interconnects.  Also pass in the list of user ids for data gathered.  */
 		
-        String printout_header = "For " + ids.size() + " users who had " + common_field +  " = ";
+        String printout_header = "For " + ids.size() + " users who had " + common_field +  " = ";		//Prints data about the query
         printout_header = printout_header + common_field_value + " at some point in their career.\n";
         System.out.println(printout_header);
 		
-        System.out.println("Edge Transitions");
+        System.out.println("Edge Transitions");		//Prints out data gathered about the transtitions between nodes
         System.out.println("----------------");
         for (String result : Connects){
         	System.out.println(result);
         }
         
-        System.out.println("\n\nNode Ordering");
+        System.out.println("\n\nNode Ordering");	//Prints out data about the order the nodes should be displayed
         System.out.println("-------------");
         for(int i=0; i<Order.size(); i++){
         	for (String result : Order){
@@ -580,64 +583,69 @@ public class ConnectionsCheck implements Connections_Interface{
         }   
 	}
 	
+	/*  Prints out the data about a particular node.  */
 	public void print_node_data(ArrayList<String> node_data){
+		/*  Pass in the array list containing the data about a particular node.  */
 		String header = null;
-		for(String node : node_data){
+		for(String node : node_data){	//Step through the array list
 			System.out.println(node);
-			String[] split = node.split("\\s*,\\s*");
-			if(!split[1].equalsIgnoreCase("")){
-				if(!split[0].equalsIgnoreCase(header)){
-					System.out.println("\n" + split[0] + "\n-----------------");
+			String[] split = node.split("\\s*,\\s*");	//Split each line on commas
+			if(!split[1].equalsIgnoreCase("")){			//Ensure the 2nd piece of data isn't blank
+				if(!split[0].equalsIgnoreCase(header)){	//Check to see if entering a new column of data for a node
+					System.out.println("\n" + split[0] + "\n-----------------");	//If we are, print out column header and then data
 					System.out.println(split[1] + ": " + split[2]);
 					header = split[0];
 				}else{
-					System.out.println(split[1] + ": " + split[2]);
+					System.out.println(split[1] + ": " + split[2]);					//Otherwise, just print out data
 				}
 			}
 		}
 	}
 	
+	/*  Takes in a JSON search Object and returns the result of query containing data on all nodes, node transitions, and node ordering as a JSON Array  */
 	public JSONArray return_json(JSONObject search_term){
 		
 		ConnectionsCheck connection = new ConnectionsCheck();
 		
-		System.out.println(search_term);
-		String search = search_term.toString();
-		search = search.substring(1, search.length()-1);
-		String[] search_split = search.split(":");
-		String common_field = search_split[0];
-		common_field = common_field.substring(1, common_field.length()-1);
-		String common_field_value = search_split[1];
-		common_field_value = common_field_value.substring(1, common_field_value.length()-1);
+		//Parse the input JSON Object
+		String common_field = null;
+		String common_field_value = null;
+		try {
+			common_field = (String) search_term.get("field");
+			common_field_value = (String) search_term.get("value");
+		} catch (JSONException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
-		TreeSet<String> ids = connection.find_same(common_field, common_field_value);  //Search for users who work as engineers, 
-														   					//print out similar education, degree and city.
-		ArrayList<String> profiles = connection.database_pull(ids, "profile");
-		ArrayList<String> educations = connection.database_pull(ids, "education");
-		ArrayList<String> jobs = connection.database_pull(ids, "job");
+		TreeSet<String> ids = connection.find_same(common_field, common_field_value);  //Search for users who match similar field values, return the ids of these users 
+														   					
+		ArrayList<String> profiles = connection.database_pull(ids, "profile");			//Pull the profile data for all users returned on previous query
+		ArrayList<String> educations = connection.database_pull(ids, "education");		//Pull the education data for all users returned on previous query
+		ArrayList<String> jobs = connection.database_pull(ids, "job");					//Pull the job data for all users returned on previous query
 		
-		MultiReturn edges = connection.find_edges(ids, profiles, jobs, educations);
-		MultiReturn order = connection.find_node_order(edges.getALS());
+		MultiReturn edges = connection.find_edges(ids, profiles, jobs, educations);		//Return the node transitions for the aggregate of the above data
+		MultiReturn order = connection.find_node_order(edges.getALS());					//Return the node ordering for the aggregate of the above data
 		
 		JSONArray ja_nodes = new JSONArray();
-		for(String node_order: order.getALS()){
+		for(String node_order: order.getALS()){											//Step through all the nodes
 			String[] node_split = node_order.split("\\s*,\\s*");
-			MultiReturn node = connection.find_node_info(5, node_split[0], profiles, jobs, educations);
-			ja_nodes.put(node.getJSON());
+			MultiReturn node = connection.find_node_info(5, node_split[0], profiles, jobs, educations);		//Pull all the data for a node and place into an arraylist a JSON Object
+			ja_nodes.put(node.getJSON());												//Place the each node data into a JSON array
 		}
 		
 		JSONObject nodes = new JSONObject();
 		try {
-			nodes.put("Nodes Data", ja_nodes);
+			nodes.put("Nodes Data", ja_nodes);										
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		JSONArray array = new JSONArray();
-		array.put(edges.getJSON());
-		array.put(order.getJSON());
-		array.put(nodes);
+		JSONArray array = new JSONArray();		
+		array.put(edges.getJSON());					//Add the node transition edges to the return JSON Array
+		array.put(order.getJSON());					//Add the node ordering to the return JSON Array
+		array.put(nodes);							//Add all the node data to the return JSON Array
 				
 		return array;		
 	}
