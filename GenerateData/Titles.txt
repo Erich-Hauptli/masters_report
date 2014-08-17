@@ -1,8 +1,60 @@
-ND:Hourly
-Business:B-Entry,B-Staff,B-Advisory,B-Senior,B-Lead,B-Chief
-Education:Ed-Entry,Ed-Staff,Ed-Advisory,Ed-Senior,Ed-Lead,Ed-Chief
-Engineering:Eng-Entry,Eng-Staff,Eng-Advisory,Eng-Senior,Eng-Lead,Eng-Chief
-Healthcare:H-Entry,H-Staff,H-Advisory,H-Senior,H-Lead,H-Chief
-Law:L-Entry,L-Staff,L-Advisory,L-Senior,L-Lead,L-Chief
-PolySci:P-Entry,P-Staff,P-Advisory,P-Senior,P-Lead,P-Chief
-Science:S-Entry,S-Staff,S-Advisory,S-Senior,S-Lead,S-Chief
+Civil:Draftsman
+Infrastructure:Architect
+Buildings:Lead Architect
+Energy:Lead Architect
+Transportation:Lead Architect
+Draftsman:Architect
+Architect:Lead Architect
+Lead Architect:Partner
+Nuclear:Lab Assistant
+Fission:Scientist
+Fusion:Scientist
+Ternary Fission:Chief Scientist
+Military Applications:Chief Scientist
+Astrophysical Fusion:Chief Scientist
+Thermonuclear Fusion:Chief Scientist
+Lab Assistant:Scientist
+Scientist:Chief Scientist
+Electrical:Lab Tech,Schematic Entry,Chiplet Designer,Entry Coder
+Circuits:Circuit Designer
+Computer Systems:Firmware Architect
+Digital:Timing
+Analog:Power
+RF:Block Owner
+Magnetics:Block Owner
+Artificial Intelligence:Firmware Architect
+Computer Architecture:Design Architect
+Lab Tech:GSI,Power, Signal Integrity
+GSI:GSI Lead,Schematic Entry,Embedded,Characterization
+Power:Power Design,Circuit Designer
+Signal Integrity:Lead SI,Circuit Designer
+Lead SI:System Chief Engineer
+Characterization:Circuit Designer,Qual
+Qual:Chip Lead
+GSI Lead:Itegration Manager,Processor Test
+Integration Manager:System Chief Engineer
+Processor Test: Processor Test Lead
+Processor Test Lead:System Chief Engineer
+System Chief Engineer: Platform Chief Engineer
+Schematic Entry:Physical Design,Circuit Designer,Schematic Lead
+Physical Design:Floorplanning
+Circuit Designer:Block Owner,Timing
+Schematic Lead: Circuit Designer, Card Owner
+Block Owner:Design Owner,Design Architect
+Design Owner:Processor Lead
+Processor Lead:Platform Chief Engineer
+Design Architect:Chief Architect
+Chief Architect:Platform Architect
+Card Owner:Sigal Integrity,Power Design
+Chiplet Designer:Circuit Designer,Floorplanning, Timing
+Timing:Timing Lead
+Embedded:GSI Lead,Coder
+Entry Coder:Coder,Embedded
+Coder:Function Lead
+Function Lead:Team Lead,Firmware Architect
+Firmware Architect:Firmware Lead
+Firmware Lead:Chief Firmware Engineer
+Chief Firmware Engineer:Platform CFE
+Team Lead:System Lead
+System Lead:Platform Lead Engineer
+

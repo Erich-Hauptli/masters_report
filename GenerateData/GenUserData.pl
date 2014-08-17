@@ -115,15 +115,21 @@ close (LOCATIONS);
  	$MS = 0;
  	$PHD = 0;
  	$specialization_ug = "ND";			#Initialize people to no degree
+ 	$m_specialization = "";
+ 	$phd_specialization = "";
  	$company = "NJ";					#Initialize people to no job
  	$location = "NL";					#Initialize job to no location
+ 	$node = "";
  	 	
  	$start = $year + $hs;					#Set start to highschool graduation
  	while($time > 0){						#Decrement time for each job/education until at current year
  		
  		############  BACHELORS DEGREE ######################################################################
+ 		@GPA = (2,3.0,3.1,3.2,3.3,3.4,3.5,3.6,3.7,3.8,3.9,4.0);
+ 		$prob_gpa = rand @GPA;
+ 		$final_gpa = $GPA[$prob_gpa];
  		$prob_index = rand @prob;			#Roll probability dice
- 		$probability = $prob[$prob_index];	
+ 		$probability = 10;#Force into bachelors#$prob[$prob_index];	
  		$chance = $jobs_held + $b_chance;	#Determine score needed to add to job/education history
  		if ($UG < 1 && $probability > $chance ){
  			$jobs_held++;
@@ -149,12 +155,16 @@ close (LOCATIONS);
  			@spec = split(',',$univ[1]);
  			$spec_index = rand @spec;
  			$specialization_ug = $spec[$spec_index];
+ 			$node = $specialization_ug;
  			#Print out education instance
  			#education, id, degree, school, start_date, end_date, specialization 
- 			print USERS "education,$i,Bacholers,$school_ug,$start_ug,$end_ug,$specialization_ug\n";
+ 			print USERS "education,$i,Bacholers,$school_ug,$start_ug,$end_ug,$specialization_ug,$final_gpa\n";
  		}
  	
  		############  MASTERS DEGREE ######################################################################
+ 		@MGPA = (3.0,3.3,3.5,3.7,3.8,3.9,4.0);
+ 		$prob_mgpa = rand @MGPA;
+ 		$final_mgpa = $MGPA[$prob_mgpa];
  		$prob_index = rand @prob;			#Roll probability dice
  		$probability = $prob[$prob_index];
  		$chance = $jobs_held + $m_chance;	#Determine score needed to add to job/education history
@@ -162,7 +172,7 @@ close (LOCATIONS);
  			$jobs_held++;
  			$MS = 1;
  			$start_ms = $start;
- 			$end_ms_index = rand @years_masters;			#Select number of years to complete masters degree		
+ 			$end_ms_index = rand @years_;			#Select number of years to complete masters degree		
  			$end_ms_year = $years_masters[$end_ms_index];	
  			$end_ms = $start_ms + $end_ms_year;				#Calculate end year of degree
  			$start = $end_ms;
@@ -192,10 +202,12 @@ close (LOCATIONS);
  			
  			open(MASTERS, "Masters.txt") or die("Could not open Masters file.");	#Open file containing list of last names.
  			@m_special = ();
+ 			#print "Bachelors: $specialization_ug\n";
 			foreach $line (<MASTERS>) {
 				chomp $line;
 				$line =~ s/\r\n?/\n/g;
 				if ($line =~ /$specialization_ug/){
+					#print "$line\n";
 					@spec_m = ();
 					@spec_m = split(':',$line);
  					@special_m = split(',',$spec_m[1]);	
@@ -205,13 +217,17 @@ close (LOCATIONS);
  			
 			$m_special_index = rand @special_m;			
  			$m_specialization = $special_m[$m_special_index];
+ 			$node = $m_specialization;
  			
  			#Print out education instance
  			#education, id, degree, school, start_date, end_date, specialization 
- 			print USERS "education,$i,Masters,$master_school,$start_ms,$end_ms,$m_specialization\n";
+ 			print USERS "education,$i,Masters,$master_school,$start_ms,$end_ms,$m_specialization,$final_mgpa\n";
  		}
  	
  		###############  PHD ######################################################################
+ 		@PGPA = (3.3,3.5,3.8,4.0);
+ 		$prob_pgpa = rand @PGPA;
+ 		$final_pgpa = $PGPA[$prob_pgpa];
  		$prob_index = rand @prob;			#Roll probability dice
  		$probability = $prob[$prob_index];
  		$chance = $jobs_held + 7;			#Determine score needed to add to job/education history
@@ -249,10 +265,12 @@ close (LOCATIONS);
  			
  			open(PHD, "PHD.txt") or die("Could not open PHD file.");	#Open file containing list of last names.
  			@phd_special = ();
+ 			#print "Masters: $m_specialization\n";
 			foreach $line (<PHD>) {
 				chomp $line;
 				$line =~ s/\r\n?/\n/g;
-				if ($line =~ /$specialization_m/){
+				if ($line =~ /$m_specialization/){
+					#print "$line\n";
 					@spec_phd = ();
 					@spec_phd = split(':',$line);
  					@phd_special = split(',',$spec_phd[1]);	 	
@@ -262,17 +280,20 @@ close (LOCATIONS);
  			
 			$phd_special_index = rand @phd_special;			
  			$phd_specialization = $phd_special[$phd_special_index];
+ 			$node = $phd_specialization;
+ 			#print "PHD: $phd_specialization\n";
  			
  			#Print out education instance
  			#education, id, degree, school, start_date, end_date, specialization 
- 			print USERS "education,$i,PHD,$phd_school,$start_phd,$end_phd,$phd_specialization\n";
+ 			print USERS "education,$i,PHD,$phd_school,$start_phd,$end_phd,$phd_specialization,$final_pgpa\n";
  		}
  		
  		################  JOBS ######################################################################
+ 		$break = 0;
  		$prob_index = rand @prob;			#Roll probability dice
  		$probability = $prob[$prob_index];
  		$chance = $jobs_held + $job_chance;	#Determine score needed to add to job/education history
- 		if($probability <= $chance){
+ 		if($probability <= $chance && $break == 0){
  			$start_job = $start;
  			$end_job_index = rand @years_job;		#Select number of years in job
  			$end_job_year = $years_job[$end_job_index];
@@ -321,13 +342,18 @@ close (LOCATIONS);
  			
  			open(TITLES, "Titles.txt") or die("Could not open titles file.");	#Open file containing list of titles names.
  			@titles = ();
+ 			#print "$node\n";
 			foreach $line (<TITLES>) {
 				chomp $line;
 				$line =~ s/\r\n?/\n/g;
-				if ($line =~ /$specialization_ug/){
+				if ($line =~ /$node/){
 					@title_split = ();
 					@title_split = split(':',$line);
-					@titles = split(',',$title_split[1]);
+					if($title_split[0] eq $node){
+						#print "$line $title_split[0] $title_split[1]\n";
+						@titles = split(',',$title_split[1]);
+						break;
+					}
 				}	
 			}
 			close (TITLES);
@@ -335,17 +361,23 @@ close (LOCATIONS);
  			$job_index = $jobs_held-2;
  			$size = scalar @titles;
  			
- 			if ($size < $job_index+1){
- 				#print "Size: $size\n";
- 				$title = $titles[$size-1];	
- 			}else{	
- 				#print "Job Index: $job_index\n";
- 				$title = $titles[$job_index];
- 			}
+ 			if(@titles){
+ 				if ($size < $job_index+1){
+ 					#print "Size: $size\n";
+ 					$title = $titles[$size-1];
+ 					$node = $title;	
+ 				}else{	
+ 					#print "Job Index: $job_index\n";
+ 					$title = $titles[$job_index];
+ 					$node = $title
+ 				}
  			
- 			#Print out job instance
- 			#job, id, title, company, start_date, end_date, location 
- 			print USERS "job,$i,$title,$company,$start_job,$end_job, $location \n";
+ 				#Print out job instance
+ 				#job, id, title, company, start_date, end_date, location 
+ 				print USERS "job,$i,$title,$company,$start_job,$end_job, $location \n";
+ 			}else{
+ 				$break = 1;
+ 			}
  		}
  	} 	
  }

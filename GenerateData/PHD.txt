@@ -1,31 +1,5 @@
-Analytics:Stock,Big Data
-Economics:Macro,Micro
-Accounting:Coporate,Personal
-Management:Personal,Project
-Finance:Personal,Business
-Elementary:Pre-K,K-5
-English:Modern,Poetry
-Math:Calculus,Geometry
-History:American,Asian
-Chemical:Non-Organic,Organic
-Computer:Architecture,Code
-Electrical:Circuits,Systems
-Mechanical:Automotive,Aerospace
-Pharmaceutical:Manufacturing,Distribution
-Nursing:Patient Care,Surgery
-Athletics:Training,Recovery
-Dental:Surgeon,General Practitioner
-Medical:Surgeon,General Practitioner
-Corporate:Atorney,Researcher
-Civil Rights:Atorney,Researcher
-Criminal:Atorney,Researcher
-Family:Atorney,Researcher
-Intellectual Property:Atorney,Researcher
-Local Government:Planner,Manager
-National Government:Politician,Lobbyist
-International Relations:Translator,Diplomacy
-Chemist:Experimental,Application
-Biologist:Evolutionary,Micro
-Physicist:Astro,Classical
-Nuclear:Fission,Fusion
-Earth:Geologist,Climatologist
+Infrastructure:Buildings,Energy,Transportation
+Circuits:Digital,Analog,RF,Magnetics
+Computer Systems:Artificial Intelligence,Computer Architecture
+Fission:Ternary Fission,Military Applications
+Fusion:Astrophysical Fusion,Thermonuclear Fusion
