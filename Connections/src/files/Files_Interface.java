@@ -1,5 +1,7 @@
 package files;
 
+import java.util.ArrayList;
+
 public interface Files_Interface {
 	
 	void ReadFile(String file_path);
@@ -7,4 +9,6 @@ public interface Files_Interface {
 	String[] OpenFile();
 	
 	int readLines();
+	
+	void WriteFile(String file_path, ArrayList<String> lines);
 }

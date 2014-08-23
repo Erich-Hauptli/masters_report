@@ -1,9 +1,14 @@
 package files;
 
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.FileReader;
 import java.io.BufferedReader;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.util.ArrayList;
 
 /*  Opens and reads the contents of a file.  Returns each line of file as a String in a String array.*/
 
@@ -63,6 +68,22 @@ public class Files implements Files_Interface{
 	public void ReadFile(String file_path) {
 		path = file_path;  //Set file to be read in.
 		
+	}
+	
+	public void WriteFile(String file_path, ArrayList<String> lines){
+		Writer writer = null;
+
+		try {
+		    writer = new BufferedWriter(new OutputStreamWriter(
+		          new FileOutputStream(file_path), "utf-8"));
+		    for(String line:lines){
+		    	 writer.write(line + "\n");
+		    }   
+		} catch (IOException ex) {
+		  // report
+		} finally {
+		   try {writer.close();} catch (Exception ex) {}
+		}
 	}
 
 }

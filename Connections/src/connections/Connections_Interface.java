@@ -16,16 +16,13 @@ public interface Connections_Interface {
 	 */
 	TreeSet<String> 	find_same(String common_field, String common_field_value);
 	ArrayList<String>	find_all_node_data(String common_field, String common_field_value);
+	void				generate_arff(String name, ArrayList<String> input);
 	ArrayList<String> 	database_pull(TreeSet<String> ids, String database);
 	MultiReturn 		find_edges(TreeSet<String> ids, ArrayList<String> profiles, ArrayList<String> jobs, ArrayList<String> educations);
 	MultiReturn	 		find_node_order(ArrayList<String> Connections);
 	MultiReturn			find_node_info(int display_limitor, String node, ArrayList<String> profiles, ArrayList<String> jobs, ArrayList<String> educations);
 
 	void 				print_connection_data(String common_field, String common_field_value, TreeSet<String> ids, ArrayList<String> Connects, ArrayList<String> Order);
-	void				print_node_data(ArrayList<String> node_data);
-	JSONArray 			return_json(JSONObject search_term);
-	
-	
-	
+	void				print_node_data(ArrayList<String> node_data);	
 	
 }
