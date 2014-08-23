@@ -14,7 +14,7 @@ public class Connections_Test {
 		ConnectionsCheck connection = new ConnectionsCheck();
 		
 		String common_field = "title";
-		String common_field_value = "Eng-Chief";
+		String common_field_value = "Platform Chief Engineer";
 		
 		JSONObject search_term = new JSONObject();
 		try {

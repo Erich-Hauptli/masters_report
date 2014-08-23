@@ -15,6 +15,7 @@ public interface Connections_Interface {
 	 * the percentage of users who match each comparable field.
 	 */
 	TreeSet<String> 	find_same(String common_field, String common_field_value);
+	ArrayList<String>	find_all_node_data(String common_field, String common_field_value);
 	ArrayList<String> 	database_pull(TreeSet<String> ids, String database);
 	MultiReturn 		find_edges(TreeSet<String> ids, ArrayList<String> profiles, ArrayList<String> jobs, ArrayList<String> educations);
 	MultiReturn	 		find_node_order(ArrayList<String> Connections);

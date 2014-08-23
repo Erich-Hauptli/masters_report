@@ -9,7 +9,7 @@ public class UserProfile implements User_Interface{
 		String profile_db = "profile";
 		String[] profile_headers = {"id", "last_name", "first_name", "birthday", "gender", "email", "phone" };
 		String education_db = "education";
-		String[] education_headers = {"id", "degree", "school", "start_date", "end_date", "specialization" };
+		String[] education_headers = {"id", "degree", "school", "start_date", "end_date", "specialization","gpa" };
 		String job_db = "job";
 		String[] job_headers = {"id", "title", "company", "start_date", "end_date", "location" };
 

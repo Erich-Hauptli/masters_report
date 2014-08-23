@@ -31,7 +31,7 @@ Signal Integrity:Lead SI,Circuit Designer
 Lead SI:System Chief Engineer
 Characterization:Circuit Designer,Qual
 Qual:Chip Lead
-GSI Lead:Itegration Manager,Processor Test
+GSI Lead:Integration Manager,Processor Test
 Integration Manager:System Chief Engineer
 Processor Test: Processor Test Lead
 Processor Test Lead:System Chief Engineer

@@ -1,6 +1,6 @@
 package tools;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 
 public class Tools_Test {
@@ -8,17 +8,17 @@ public class Tools_Test {
 		Tools tools = new Tools();
 		
 	
-		ArrayList<String> A = new ArrayList<String>();
+		HashSet<String> A = new HashSet<String>();
 		A.add("A");
 		A.add("B");
 		A.add("C");
 		
-		ArrayList<String> B = new ArrayList<String>();
+		HashSet<String> B = new HashSet<String>();
 		B.add("B");
 		B.add("C");
 		B.add("A");
 		
-		ArrayList<String> C = new ArrayList<String>();
+		HashSet<String> C = new HashSet<String>();
 		C.add("B");
 		C.add("C");
 		C.add("C");

@@ -362,15 +362,9 @@ close (LOCATIONS);
  			$size = scalar @titles;
  			
  			if(@titles){
- 				if ($size < $job_index+1){
- 					#print "Size: $size\n";
- 					$title = $titles[$size-1];
- 					$node = $title;	
- 				}else{	
- 					#print "Job Index: $job_index\n";
- 					$title = $titles[$job_index];
- 					$node = $title
- 				}
+ 				$title_index = rand @titles;			#Roll probability dice
+ 				$title = $titles[$title_index];
+ 				$node = $title;	
  			
  				#Print out job instance
  				#job, id, title, company, start_date, end_date, location 
