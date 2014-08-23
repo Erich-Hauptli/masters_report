@@ -7,12 +7,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import data_collection.Data_Collection;
 import tools.MultiReturn;
 
 /*  Test file for the connections package.  */
 public class Connections_Test {
 	public static void main(String[] args) {
 		
+		Data_Collection collect = new Data_Collection();
 		ConnectionsCheck connection = new ConnectionsCheck();
 		
 		String common_field = "title";
@@ -22,11 +24,11 @@ public class Connections_Test {
 		System.out.println(common_field);
 		System.out.println(common_field_value);
 
-		TreeSet<String> ids = connection.find_same(common_field, common_field_value);  //Search for users who match similar field values, return the ids of these users
+		TreeSet<String> ids = collect.find_same(common_field, common_field_value);  //Search for users who match similar field values, return the ids of these users
 
-		ArrayList<String> profiles = connection.database_pull(ids, "profile");			//Pull the profile data for all users returned on previous query
-		ArrayList<String> educations = connection.database_pull(ids, "education");		//Pull the education data for all users returned on previous query
-		ArrayList<String> jobs = connection.database_pull(ids, "job");					//Pull the job data for all users returned on previous query
+		ArrayList<String> profiles = collect.database_pull(ids, "profile");			//Pull the profile data for all users returned on previous query
+		ArrayList<String> educations = collect.database_pull(ids, "education");		//Pull the education data for all users returned on previous query
+		ArrayList<String> jobs = collect.database_pull(ids, "job");					//Pull the job data for all users returned on previous query
 				
 
 		MultiReturn edges = connection.find_edges(ids, profiles, jobs, educations);		//Return the node transitions for the aggregate of the above data

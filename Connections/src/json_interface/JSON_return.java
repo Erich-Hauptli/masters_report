@@ -9,11 +9,13 @@ import org.json.JSONObject;
 
 import tools.MultiReturn;
 import connections.ConnectionsCheck;
+import data_collection.Data_Collection;
 
 public class JSON_return implements JSON_interface{
 	/*  Takes in a JSON search Object and returns the result of query containing data on all nodes, node transitions, and node ordering as a JSON Array  */
 	public JSONArray return_json(JSONObject search_term){
 		
+		Data_Collection collect = new Data_Collection();
 		ConnectionsCheck connection = new ConnectionsCheck();
 		
 		//Parse the input JSON Object
@@ -29,11 +31,11 @@ public class JSON_return implements JSON_interface{
 		//System.out.println(common_field);
 		//System.out.println(common_field_value);
 
-		TreeSet<String> ids = connection.find_same(common_field, common_field_value);  //Search for users who match similar field values, return the ids of these users
+		TreeSet<String> ids = collect.find_same(common_field, common_field_value);  //Search for users who match similar field values, return the ids of these users
 
-		ArrayList<String> profiles = connection.database_pull(ids, "profile");			//Pull the profile data for all users returned on previous query
-		ArrayList<String> educations = connection.database_pull(ids, "education");		//Pull the education data for all users returned on previous query
-		ArrayList<String> jobs = connection.database_pull(ids, "job");					//Pull the job data for all users returned on previous query
+		ArrayList<String> profiles = collect.database_pull(ids, "profile");			//Pull the profile data for all users returned on previous query
+		ArrayList<String> educations = collect.database_pull(ids, "education");		//Pull the education data for all users returned on previous query
+		ArrayList<String> jobs = collect.database_pull(ids, "job");					//Pull the job data for all users returned on previous query
 		
 
 		MultiReturn edges = connection.find_edges(ids, profiles, jobs, educations);		//Return the node transitions for the aggregate of the above data
