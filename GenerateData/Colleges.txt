@@ -1,11 +1,11 @@
-Stanford University:Electrical,Nuclear
-Duke University:Civil
-Massachusetts Institute of Technology:Electrical,Nuclear,Civil
-California Institute of Technology:Electrical,Nuclear
-University of California--Berkeley:Civil
-Carnegie Mellon University:Civil
-University of Southern California:Civil
-University of Michigan:Civil,Electrical
-University of North Carolina:Civil,Electrical
-University of Texas:Electrical
-Michigan State University:Civil,Electrical
+Stanford:Electrical,Nuclear
+Duke:Civil
+MIT:Electrical,Nuclear,Civil
+CalTech:Electrical,Nuclear
+Berkeley:Civil
+Carnegie Mellon:Civil
+USC:Civil
+Michigan:Civil,Electrical
+North Carolina:Civil,Electrical
+Texas:Electrical
+MSU:Civil,Electrical

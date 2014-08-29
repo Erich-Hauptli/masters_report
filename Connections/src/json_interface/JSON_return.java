@@ -65,7 +65,7 @@ public class JSON_return implements JSON_interface{
 		array.put(order.getJSON());					//Add the node ordering to the return JSON Array
 		array.put(nodes);							//Add all the node data to the return JSON Array
 		
-		connection.generate_arff("education", educations);
+		connection.generate_arff("education", ids);
 
 		return array;		
 	}

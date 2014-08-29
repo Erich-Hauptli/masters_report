@@ -3,11 +3,14 @@ package data_collection;
 import java.util.ArrayList;
 import java.util.TreeSet;
 
+import tools.Tools;
 import user.UserProfile;
 
 public class Data_Collection implements Data_Collection_Interface{
 	/*  Returns all user ids who match a common field value.  */
     public TreeSet<String> find_same(String common_field, String common_field_value) {
+    	Tools tools = new Tools();
+    	
     	TreeSet<String> ids = new TreeSet<String>();
     	ArrayList<String> headers = new ArrayList<String>();
     	ArrayList<String> results = new ArrayList<String>();
@@ -21,7 +24,7 @@ public class Data_Collection implements Data_Collection_Interface{
 		}
         String common_database = null;
         for(String header:headers){							//Determine which database is needed to find common element
-        	if (header.toLowerCase().contains(common_field.toLowerCase())){  //Search for matches
+        	if (tools.fuzzy_string_contains(header, common_field)){  //Search for matches
         		String[] headerArray = header.split(",");
         		common_database = headerArray[0];			//Pull database that is needed to search for common element
         	}			
@@ -45,6 +48,8 @@ public class Data_Collection implements Data_Collection_Interface{
     
 	/*  Returns all user ids who match a common field value.  */
     public ArrayList<String> find_all_node_data(String common_field, String common_field_value) {
+    	Tools tools = new Tools();
+    	
     	ArrayList<String> headers = new ArrayList<String>();
     	ArrayList<String> result = new ArrayList<String>();
     	ArrayList<String> results = new ArrayList<String>();
@@ -58,7 +63,7 @@ public class Data_Collection implements Data_Collection_Interface{
 		}
         String common_database = null;
         for(String header:headers){							//Determine which database is needed to find common element
-        	if (header.toLowerCase().contains(common_field.toLowerCase())){  //Search for matches
+        	if (tools.fuzzy_string_contains(header, common_field)){  //Search for matches
         		String[] headerArray = header.split(",");
         		common_database = headerArray[0];			//Pull database that is needed to search for common element
         	}			

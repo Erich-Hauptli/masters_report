@@ -7,13 +7,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import print.PrintResults;
 import data_collection.Data_Collection;
 import tools.MultiReturn;
 
 /*  Test file for the connections package.  */
 public class Connections_Test {
 	public static void main(String[] args) {
-		
+		PrintResults print = new PrintResults();
 		Data_Collection collect = new Data_Collection();
 		ConnectionsCheck connection = new ConnectionsCheck();
 		
@@ -34,13 +35,15 @@ public class Connections_Test {
 		MultiReturn edges = connection.find_edges(ids, profiles, jobs, educations);		//Return the node transitions for the aggregate of the above data
 
 		MultiReturn order = connection.find_node_order(edges.getALS());					//Return the node ordering for the aggregate of the above data
-		connection.print_connection_data(common_field, common_field_value, ids, edges.getALS(), order.getALS());
+		print.print_connection_data(common_field, common_field_value, ids, edges.getALS(), order.getALS());
 				
 		for(String node_order: order.getALS()){											//Step through all the nodes
 			String[] node_split = node_order.split("\\s*,\\s*");
 			MultiReturn node = connection.find_node_info(5, node_split[0], profiles, jobs, educations);		//Pull all the data for a node and place into an arraylist a JSON Object											//Place the each node data into a JSON array
-			connection.print_node_data(node.getALS());	
+			print.print_node_data(node.getALS());	
 		}
+		
+		connection.generate_arff("education", ids);
 
 	}
 }

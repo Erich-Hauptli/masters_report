@@ -24,6 +24,8 @@ public interface User_Interface {
     
     ArrayList<String> collect_matched_users(String database, String[] ids);  //Produce an ArrayList of specific users.
     
+    ArrayList<String> collect_all_users(String database); //Produce an ArrayList of all users.
+    
     ArrayList<String> query_collumns(String database);  //Determine user categories.
     
     ArrayList<String> return_headers();  //Determine user categories.

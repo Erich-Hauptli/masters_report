@@ -158,7 +158,7 @@ close (LOCATIONS);
  			$node = $specialization_ug;
  			#Print out education instance
  			#education, id, degree, school, start_date, end_date, specialization 
- 			print USERS "education,$i,Bacholers,$school_ug,$start_ug,$end_ug,$specialization_ug,$final_gpa\n";
+ 			print USERS "education,$i,Bachelors,$school_ug,$start_ug,$end_ug,$specialization_ug,$final_gpa\n";
  		}
  	
  		############  MASTERS DEGREE ######################################################################

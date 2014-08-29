@@ -24,13 +24,40 @@ public class Tools implements Tools_Interface{
 	}
 	
 	public boolean fuzzy_match(String A, String B){
-
 		boolean result = false;
+		String a = A.toLowerCase();
+		String b = B.toLowerCase();
 		
-		if(A.equalsIgnoreCase(B)){
+		if(a.equalsIgnoreCase(b)){
 			result = true;
 		}
 		
 		return result;
+	}
+	
+	public boolean fuzzy_string_contains(String A, String B){
+		boolean result = false;
+		String a = A.toLowerCase();
+		String b = B.toLowerCase();
+		
+		if(a.contains(b)){
+			result = true;
+		}
+		return result;
+	}
+	
+	public boolean fuzzy_contains(HashSet<String> A, String B){
+		boolean result = false;
+		
+		if(A.contains(B)){
+			result = true;
+		}
+		return result;
+	}
+
+	@Override
+	public boolean fuzzy_contains(String A, String B) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

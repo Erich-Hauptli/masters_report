@@ -22,16 +22,79 @@ public class ConnectionsCheck implements Connections_Interface{
 	
 	int display_limitor = 5;  //Match percentage required for node to be displayed. 
 
-	ArrayList<String> compares = new ArrayList<String>();
-	ArrayList<String> Points = new ArrayList<String>();
-
-
-	public void generate_arff(String name, ArrayList<String> input){
+	public void generate_arff(String name, TreeSet<String> ids){
 		String file_name = name + ".arff";
 		
-		ArrayList<String> lines = new ArrayList<String>();
-		lines.add("@" + name);
+		ArrayList<String> nominal = new ArrayList<String>();
+		nominal.add("degree");
+		nominal.add("school");
+		nominal.add("specialization");
 		
+		ArrayList<String> lines = new ArrayList<String>();
+		String header = null;
+		lines.add("@relation " + name);
+		lines.add("\n");
+
+		UserProfile user = new UserProfile();
+    	ArrayList<String> headers = new ArrayList<String>();
+    	ArrayList<String> user_data = new ArrayList<String>();
+        try {
+        	headers = user.return_headers();					//Queries headers for users
+        	user_data = user.collect_all_users(name);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        for(String hdr:headers){
+        	if(hdr.contains(name)){
+        		header = hdr;
+        	}
+        }
+        
+        HashSet<String> values = new HashSet<String>();
+        String[]columns = header.split(",");
+        HashSet<Integer> data_point = new HashSet<Integer>();
+        for(int i=1;i<columns.length;i++){
+        	values.clear();
+        	for(String nom:nominal){
+        		if(columns[i].contains(nom)){
+        			for(String line:user_data){
+        				String[] lin = line.split(",");
+        				values.add(lin[i-1]);
+        				data_point.add(i-1);
+        			}
+        			String attribute = "@attribute " + nom + " {";
+        			for(String value:values){
+        				value = value.replaceAll("\\s","");
+        				attribute = attribute + value + ",";
+        			}
+        			attribute = attribute.substring(0, attribute.length()-1);
+        			attribute = attribute + "}";
+        			lines.add(attribute);
+        		}
+        	}
+        }
+        lines.add("@attribute goal {true,false}");
+        
+        lines.add("\n");
+        lines.add("@data");
+		
+		for(String line: user_data){
+			String[] data = line.split(",");
+			
+			String data_out = "";
+			for(int i:data_point){
+				data_out = data_out + data[i] + ",";
+			}
+			if(ids.contains(data[0].toString())){
+				data_out = data_out + "true";
+			}else{
+				data_out = data_out + "false";
+			}
+			//data_out = data_out.substring(0, data_out.length()-1);
+			data_out = data_out.replaceAll("\\s", "");
+			lines.add(data_out);
+		}
 		Files file = new Files();
 		file.WriteFile(file_name,lines);
 	}
@@ -162,6 +225,7 @@ public class ConnectionsCheck implements Connections_Interface{
     
 	/*  Returns the oder a node should be displayed so that a path can be mapped from node to node.  */
 	public MultiReturn find_node_order(ArrayList<String> Connections) {
+		Tools tools = new Tools();
 		HashSet<String> AllNodes = new HashSet<String>();
 		ArrayList<String> Nodes = new ArrayList<String>();
 		HashSet<String> HeavyEdges = new HashSet<String>();
@@ -225,7 +289,7 @@ public class ConnectionsCheck implements Connections_Interface{
 				for(String test : Connections){				//Searches to see if a starting node is also a destination node
 					String[] node_temp = test.split("\\s*,\\s*");
 					String nodeB = node_temp[1];
-					if(nodeA.equalsIgnoreCase(nodeB)){		//If it is, break and move onto the next node
+					if(tools.fuzzy_match(nodeA, nodeB)){		//If it is, break and move onto the next node
 						found = 1;
 						break;
 					}
@@ -241,11 +305,11 @@ public class ConnectionsCheck implements Connections_Interface{
 				String[] node = Connect.split("\\s*,\\s*");
 				String nodeB = node[1];
 				String node_A = node[0];
-				if(!nodeB.equalsIgnoreCase(node_A)){		
+				if(!tools.fuzzy_match(nodeB, node_A)){		
 					for(String test : Connections){			//Searches to see if a destination node is also a starting node
 						String[] node_temp = test.split("\\s*,\\s*");
 						String nodeA = node_temp[0];
-						if(nodeB.equalsIgnoreCase(nodeA)){		//If it is, break and move onto the next node
+						if(tools.fuzzy_match(nodeB, nodeA)){		//If it is, break and move onto the next node
 							found = 1;
 							break;
 						}
@@ -282,7 +346,7 @@ public class ConnectionsCheck implements Connections_Interface{
         			String[] node_temp = test.split("\\s*,\\s*");
         			String nodeA = node_temp[0];			//Set starting node in transition point to A
         			String nodeB = node_temp[1];			//Set ending node in transition point to B
-        			if(node.equalsIgnoreCase(nodeA)){		//Check if the starting node matches the previous group node
+        			if(tools.fuzzy_match(node, nodeA)){		//Check if the starting node matches the previous group node
         				NodeTemp.add(nodeB);				//If it does, add the ending node to the next group
         			}
         		}
@@ -292,7 +356,7 @@ public class ConnectionsCheck implements Connections_Interface{
         			String[] node_temp = test.split("\\s*,\\s*");
         			String nodeA = node_temp[0];			//Set starting node in transition point to A
         			String nodeB = node_temp[1];			//Set ending node in transition point to B
-        			if(temp.equalsIgnoreCase(nodeA) && NodeTemp.contains(nodeB)){		//Check if the starting node matches the previous group node
+        			if(tools.fuzzy_match(temp, nodeA) && tools.fuzzy_contains(NodeTemp, nodeB)){		//Check if the starting node matches the previous group node
         				NodeRemove.add(nodeB);				//If it does, add the ending node to the next group
         			}
         		}
@@ -301,7 +365,7 @@ public class ConnectionsCheck implements Connections_Interface{
         		NodeTemp.remove(remove);
         	}
         	for(String nodeB:NodeTemp){
-        		if(RemainingNodes.contains(nodeB)){
+        		if(tools.fuzzy_contains(RemainingNodes, nodeB)){
         			Nodes.add(nodeB + "," + group);
         			RemainingNodes.remove(nodeB);
         			//System.out.println("Group " + group + ": " + nodeB);
@@ -317,9 +381,9 @@ public class ConnectionsCheck implements Connections_Interface{
         	String node_store = null;
         	for(String node : Nodes){		//Eliminate duplicate node by using later node.
         		String[] node_temp = node.split("\\s*,\\s*");	//Split list of ending node and group
-        		if(node_temp[0].equalsIgnoreCase(each_node) && node_store == null){		//Check if node B equals currently stored node and referenced node
+        		if(tools.fuzzy_match(node_temp[0], each_node) && node_store == null){		//Check if node B equals currently stored node and referenced node
         			node_store = node;													//If it does, store it
-        		}else if(node_temp[0].equalsIgnoreCase(each_node)){						//If it does not equal currently stored node, but does equal referenced node
+        		}else if(tools.fuzzy_match(node_temp[0], each_node)){						//If it does not equal currently stored node, but does equal referenced node
         			String[] node_store_split = node_store.split("\\s*,\\s*");
         			if(Integer.parseInt(node_store_split[1]) < Integer.parseInt(node_temp[1])){  //Check if the stored node is in earlier group than current node
         				node_store = node;														  //If it is not, store the current node
@@ -353,6 +417,7 @@ public class ConnectionsCheck implements Connections_Interface{
 
 	/*  Returns the all the information about a node in a JSON Object and an ArrayList<String> */
 	public MultiReturn find_node_info(int display_limitor, String node, ArrayList<String> profiles, ArrayList<String> jobs, ArrayList<String> educations) {
+		Tools tools = new Tools();
 		
 		ArrayList<String> results = new ArrayList<String>();
 		ArrayList<String> results_all = new ArrayList<String>();
@@ -391,7 +456,7 @@ public class ConnectionsCheck implements Connections_Interface{
 		String node_type = null;
 		for(String nodes : complete){		//Step through complete list of data for all users
 			String[] split = nodes.split("\\s*,\\s*");
-			if(nodes.contains(node)){		//Check if data is for the current node being surveyed
+			if(tools.fuzzy_string_contains(nodes, node)){		//Check if data is for the current node being surveyed
 				node_type = split[0];
 				size++;
 				relevant.add(nodes);		//If it is add it to the relevant list
@@ -410,7 +475,7 @@ public class ConnectionsCheck implements Connections_Interface{
 		
 		String header_store = null;
 		for(String header : headers){
-			if(header.contains(node_type)){		//Find the header associated with the data being looked at for the node
+			if(tools.fuzzy_string_contains(header, node_type)){		//Find the header associated with the data being looked at for the node
 				header_store = header;
 			}
 		}
@@ -437,7 +502,7 @@ public class ConnectionsCheck implements Connections_Interface{
 					String[] split = nodes.split("\\s*,\\s*");
 					int start_date = Integer.parseInt(split[i+1]);		//Pull the start and end dates
 					int end_date = start_date;
-					if(split[i+2].equalsIgnoreCase("Current")){			//If the end date is "current" substitue the current year into the data
+					if(tools.fuzzy_match(split[i+2], "Current")){			//If the end date is "current" substitue the current year into the data
 						end_date = Calendar.getInstance().get(Calendar.YEAR);
 					}else{
 						end_date = Integer.parseInt(split[i+2]);
@@ -450,7 +515,7 @@ public class ConnectionsCheck implements Connections_Interface{
 					String[] split = nodes.split("\\s*,\\s*");
 					int start_date = Integer.parseInt(split[i+1]);		//Pull the start and end dates
 					int end_date = start_date;
-					if(split[i+2].equalsIgnoreCase("Current")){			//If the end date is "current" substitue the current year into the data
+					if(tools.fuzzy_match(split[i+2], "Current")){			//If the end date is "current" substitue the current year into the data
 						end_date = Calendar.getInstance().get(Calendar.YEAR);
 					}else{
 						end_date = Integer.parseInt(split[i+2]);
@@ -475,7 +540,7 @@ public class ConnectionsCheck implements Connections_Interface{
 						String[] split = nodes.split("\\s*,\\s*");
 						int start_date = Integer.parseInt(split[i+1]);		//Pull the start and end dates
 						int end_date = start_date;
-						if(split[i+2].equalsIgnoreCase("Current")){
+						if(tools.fuzzy_match(split[i+2], "Current")){
 							end_date = Calendar.getInstance().get(Calendar.YEAR);	//Fix Current to be the current year
 						}else{
 							end_date = Integer.parseInt(split[i+2]);
@@ -509,7 +574,7 @@ public class ConnectionsCheck implements Connections_Interface{
 						String[] split = nodes.split("\\s*,\\s*");
 						int start_date = Integer.parseInt(split[i+1]);		//Pull the start and end dates
 						int end_date = start_date;
-						if(split[i+2].equalsIgnoreCase("Current")){
+						if(tools.fuzzy_match(split[i+2], "Current")){
 							end_date = Calendar.getInstance().get(Calendar.YEAR);	//Fix Current to be the current year
 						}else{
 							end_date = Integer.parseInt(split[i+2]);
@@ -559,12 +624,12 @@ public class ConnectionsCheck implements Connections_Interface{
 				for(String value : store){						//Step through all the possible values
 					float value_count = 0;						//Setup a counter to count the number of times a value is seen
 					for(String nodes : relevant){				//Step through the data again and see if the value shows up, if so increment the counter
-						if(nodes.contains(value)){
+						if(tools.fuzzy_string_contains(nodes, value)){
 							value_count++;
 						}
 					}
 					float percentage = 0;
-					if(value.equalsIgnoreCase(node)){			//Then calculate the percentage of total users match that possible data point
+					if(tools.fuzzy_match(value, node)){			//Then calculate the percentage of total users match that possible data point
 						percentage = ((value_count * 100) / user_count);		//Determine percentage of users who enter this node
 					}else{
 						percentage = ((value_count * 100) / size);		//Determine percentage of users match each piece of data within a node
@@ -603,12 +668,12 @@ public class ConnectionsCheck implements Connections_Interface{
 				for(String value : store_all){						//Step through all the possible values
 					float value_count = 0;						//Setup a counter to count the number of times a value is seen
 					for(String nodes : All_Node_Data){				//Step through the data again and see if the value shows up, if so increment the counter
-						if(nodes.contains(value)){
+						if(tools.fuzzy_contains(nodes, value)){
 							value_count++;
 						}
 					}
 					float percentage = 0;
-					if(value.equalsIgnoreCase(node)){			//Then calculate the percentage of total users match that possible data point
+					if(tools.fuzzy_match(value, node)){			//Then calculate the percentage of total users match that possible data point
 						percentage = ((value_count * 100) / size_all);		//Determine percentage of users who enter this node
 					}else{
 						percentage = ((value_count * 100) / size_all);		//Determine percentage of users match each piece of data within a node
@@ -660,10 +725,11 @@ public class ConnectionsCheck implements Connections_Interface{
 			String[] result_split = all_result.split("\\s*,\\s*");
 			for(String rel_result : results){
 				String[] rel_result_split = rel_result.split("\\s*,\\s*");
-				if(result_split[0].toLowerCase().contains(rel_result_split[0].toLowerCase()) && result_split[1].toLowerCase().contains(rel_result_split[1].toLowerCase())){
+				if(tools.fuzzy_string_contains(result_split[0], rel_result_split[0]) 
+						&& tools.fuzzy_string_contains(result_split[1], rel_result_split[1])){
 					int all_int = Integer.parseInt(result_split[2].split("\\.")[0]);
 					int rel_int = Integer.parseInt(rel_result_split[2].split("\\.")[0]);
-					if(rel_int > all_int + 5 && !rel_result_split[1].toLowerCase().contains("other".toLowerCase())){
+					if(rel_int > all_int + 5 && ! tools.fuzzy_string_contains(rel_result_split[1], "other")){
 						try {
 							jo.put("category", rel_result_split[0]);
 							jo.put("value", rel_result_split[1]);
@@ -698,49 +764,4 @@ public class ConnectionsCheck implements Connections_Interface{
 
 		return result;
     }
-	
-	/*  Prints out the high level node interconnect data.  */
-	public void print_connection_data(String common_field, String common_field_value, TreeSet<String> ids, ArrayList<String> Connects, ArrayList<String> Order){
-		/*  Pass in the search value, the array lists containing the node ordering, and the node interconnects.  Also pass in the list of user ids for data gathered.  */
-		
-        String printout_header = "For " + ids.size() + " users who had " + common_field +  " = ";		//Prints data about the query
-        printout_header = printout_header + common_field_value + " at some point in their career.\n";
-        System.out.println(printout_header);
-		
-        System.out.println("Edge Transitions");		//Prints out data gathered about the transtitions between nodes
-        System.out.println("----------------");
-        for (String result : Connects){
-        	System.out.println(result);
-        }
-        
-        System.out.println("\n\nNode Ordering");	//Prints out data about the order the nodes should be displayed
-        System.out.println("-------------");
-        for(int i=0; i<Order.size(); i++){
-        	for (String result : Order){
-        		String[] result_split = result.split("\\s*,\\s*");
-        		if(Integer.parseInt(result_split[1]) == i){				//Sort into numerical order
-        			System.out.println(result);
-        		}
-        	}
-        }   
-	}
-	
-	/*  Prints out the data about a particular node.  */
-	public void print_node_data(ArrayList<String> node_data){
-		/*  Pass in the array list containing the data about a particular node.  */
-		String header = null;
-		for(String node : node_data){	//Step through the array list
-			//System.out.println(node);
-			String[] split = node.split("\\s*,\\s*");	//Split each line on commas
-			if(!split[1].equalsIgnoreCase("")){			//Ensure the 2nd piece of data isn't blank
-				if(!split[0].equalsIgnoreCase(header)){	//Check to see if entering a new column of data for a node
-					System.out.println("\n" + split[0] + "\n-----------------");	//If we are, print out column header and then data
-					System.out.println(split[1] + ": " + split[2]);
-					header = split[0];
-				}else{
-					System.out.println(split[1] + ": " + split[2]);					//Otherwise, just print out data
-				}
-			}
-		}
-	}
 }

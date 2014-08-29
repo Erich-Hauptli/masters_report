@@ -113,6 +113,18 @@ public class UserProfile implements User_Interface{
 	        return results;
 	    }
 	    
+	    public ArrayList<String> collect_all_users(String database){
+	    	ArrayList<String> results = new ArrayList<String>();
+	    	SQL_DB sql_download = new SQL_DB();
+	        try {
+	        	results = sql_download.return_all(database);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        return results;
+	    }
+	    
 	    /*  collect_users returns all users that meet search criteria as an ArrayList.  */
 	    public ArrayList<String> collect_matched_users(String database, String[] ids) {
 	    	ArrayList<String> results = new ArrayList<String>();
