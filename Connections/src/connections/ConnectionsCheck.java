@@ -434,7 +434,7 @@ public class ConnectionsCheck implements Connections_Interface{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		int user_count = 0;
 		for(String profile : profiles){		//For each piece of profile data, tag it as profile data, then add it to the complete array list.
 			String profile_tmp = "profile," + profile;
@@ -456,7 +456,9 @@ public class ConnectionsCheck implements Connections_Interface{
 		String node_type = null;
 		for(String nodes : complete){		//Step through complete list of data for all users
 			String[] split = nodes.split("\\s*,\\s*");
+			//System.out.println(nodes + " : " + node + " : " + tools.fuzzy_string_contains(nodes, node));
 			if(tools.fuzzy_string_contains(nodes, node)){		//Check if data is for the current node being surveyed
+				//System.out.println("Found");
 				node_type = split[0];
 				size++;
 				relevant.add(nodes);		//If it is add it to the relevant list
@@ -490,16 +492,21 @@ public class ConnectionsCheck implements Connections_Interface{
 		
 		JSONArray  json_array = new JSONArray();
 		for(int i=1; i<count-1; i++){
+			
 			JSONObject data_field = new JSONObject();
 			JSONArray  ja = new JSONArray();
 			store.clear();
 			store_all.clear();
 			String[] column_headers = header_store.split("\\s*,\\s*");
 			String column_header = column_headers[i+1];					//Step through each column of database data, based on header data
+			//System.out.println(column_header);
+			
 			if(column_header.equals("start_date")){						//Separate section for years spent at a node, due to the fact that starting and end years are provided
 				column_header = "Years";
 				for(String nodes : relevant){							//Step through array list containing the previously pulled relevant data
+					//System.out.println(nodes);
 					String[] split = nodes.split("\\s*,\\s*");
+					//System.out.println("Test " + split[i+1]);
 					int start_date = Integer.parseInt(split[i+1]);		//Pull the start and end dates
 					int end_date = start_date;
 					if(tools.fuzzy_match(split[i+2], "Current")){			//If the end date is "current" substitue the current year into the data
@@ -668,7 +675,7 @@ public class ConnectionsCheck implements Connections_Interface{
 				for(String value : store_all){						//Step through all the possible values
 					float value_count = 0;						//Setup a counter to count the number of times a value is seen
 					for(String nodes : All_Node_Data){				//Step through the data again and see if the value shows up, if so increment the counter
-						if(tools.fuzzy_contains(nodes, value)){
+						if(tools.fuzzy_string_contains(nodes, value)){
 							value_count++;
 						}
 					}

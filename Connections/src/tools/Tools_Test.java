@@ -1,5 +1,6 @@
 package tools;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 
@@ -7,7 +8,7 @@ public class Tools_Test {
 	public static void main(String[] args) {
 		Tools tools = new Tools();
 		
-	
+	/*
 		HashSet<String> A = new HashSet<String>();
 		A.add("A");
 		A.add("B");
@@ -31,5 +32,23 @@ public class Tools_Test {
 		
 		results = tools.compare_arraylist_string(B, C);
 		System.out.println("B = C is " + results);
+		
+		*/
+		HashSet<String> Test = new HashSet<String>();
+		Test.clear();
+		Test.add("BobtheBuilder");
+		Test.add("abcd");
+		Test.add("xyz");
+		String Z = "bob";
+		
+		System.out.println("Fuzzy Contains: " + tools.fuzzy_contains(Test, Z));
+		
+		String A = "BobtheBuilder";
+		String B = "aheBuildes";
+		
+		int diff = tools.lev_dist(A, B);
+		
+		System.out.println(A + " contains " + B + ": "  + tools.fuzzy_string_contains(A, B));
 	}
+	
 }
