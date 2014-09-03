@@ -3,64 +3,63 @@ package insights;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 
-import weka.classifiers.Classifier;
-import weka.classifiers.Evaluation;
-import weka.classifiers.evaluation.NominalPrediction;
-import weka.core.FastVector;
+import weka.clusterers.ClusterEvaluation;
+import weka.clusterers.DensityBasedClusterer;
+import weka.clusterers.EM;
 import weka.core.Instances;
 
 public class Insights implements Insights_Interface{
 
-	public BufferedReader readDataFile(String filename) {
-		BufferedReader inputReader = null;
- 
-		try {
-			inputReader = new BufferedReader(new FileReader(filename));
-		} catch (FileNotFoundException ex) {
-			System.err.println("File not found: " + filename);
-		}
- 
-		return inputReader;
-	}
- 
-	public Evaluation classify(Classifier model,Instances trainingSet, Instances testingSet) {
-		Evaluation evaluation = null;
-		try {
-			evaluation = new Evaluation(trainingSet);
-			model.buildClassifier(trainingSet);
-			evaluation.evaluateModel(model, testingSet);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
- 
-		
- 
-		return evaluation;
-	}
- 
-	public double calculateAccuracy(FastVector predictions) {
-		double correct = 0;
- 
-		for (int i = 0; i < predictions.size(); i++) {
-			NominalPrediction np = (NominalPrediction) predictions.elementAt(i);
-			if (np.predicted() == np.actual()) {
-				correct++;
+	  public String ClusterResults(String filename) {
+		    ClusterEvaluation eval;
+		    Instances               data = null;
+		    String[]                options;
+		    DensityBasedClusterer   cl;    
+
+		    try {
+				data = new Instances(new BufferedReader(new FileReader(filename)));
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		}
- 
-		return 100 * correct / predictions.size();
-	}
- 
-	public Instances[][] crossValidationSplit(Instances data, int numberOfFolds) {
-		Instances[][] split = new Instances[2][numberOfFolds];
- 
-		for (int i = 0; i < numberOfFolds; i++) {
-			split[0][i] = data.trainCV(numberOfFolds, i);
-			split[1][i] = data.testCV(numberOfFolds, i);
-		}
- 
-		return split;
-	}
+		    
+		    // normal
+		    //System.out.println("\n--> normal");
+		    options    = new String[2];
+		    options[0] = "-t";
+		    options[1] = filename;
+		    //System.out.println(
+		    //    ClusterEvaluation.evaluateClusterer(new EM(), options));
+		    String Cluster = null;
+			try {
+				Cluster = ClusterEvaluation.evaluateClusterer(new EM(), options);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    
+		    // manual call
+		    //System.out.println("\n--> manual");
+		    cl   = new EM();
+		    try {
+				cl.buildClusterer(data);
+			    eval = new ClusterEvaluation();
+			    eval.setClusterer(cl);
+			    eval.evaluateClusterer(new Instances(data));
+			    //System.out.println("# of clusters: " + eval.getNumClusters());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    
+		    return Cluster;
+		  }
+	  public void	ParseResults(String cluster_data){
+		  System.out.println(cluster_data);
+	  }
 }
