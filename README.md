@@ -6,14 +6,11 @@ Master Report Project
 Release 2
 There are 3 different trees in this repository.
 
-GenerateData --- Contains the code to generate mock data to be loaded into a database.  This will produce a .csv file which can be   
-                  consumed by the Connections tree.
-Connections  --- This tree provides a means to interact with the database, process the data, and draw conclusions about the data.
-Report       --- This tree is the Latex masters report.
-
-
 
 GENERATE DATA
+                  Contains the code to generate mock data to be loaded into a database.  This will produce a .csv file which can be 
+                  consumed by the Connections tree.
+                  
 
     GenUserData.pl  --- This will generate the .csv file that can be loaded into a database.  At the top of this file the number of   
                         users and the frequency a node is entered can be controled through variables. 
@@ -22,6 +19,7 @@ GENERATE DATA
     
     
 CONNECTIONS
+                  This tree provides a means to interact with the database, process the data, and draw conclusions about the data.
 
     connections
         This package contains the code that generates the arff file, finds the edges between job and education nodes, produces an           ordering for the nodes, and catagoizes data about each node.
@@ -59,4 +57,4 @@ CONNECTIONS
         User_Test --- Run this to load in a Users.csv file and create the database.  Note: If the databases already exist and you                         are adding in additional data, comment out the setup line.  Also note, this runs off of the Users.csv file in                       the Connections tree, not the GenerateData tree.
         
 REPORT
-     This tree is just starting out.  It is based on Will O'Donnell's master report.
+     This tree is the Latex masters report and is just starting out.  It is based on Will O'Donnell's master report.
