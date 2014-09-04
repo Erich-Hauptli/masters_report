@@ -37,6 +37,8 @@ CONNECTIONS
     insights
         This package uses Weka to create clusters of data based on an arff file.  Eventually it will also draw conclusions based on         those clusters.
         
+        Insights_Test --- Run this to read in an arff file (currently defined to education.arff), run clustering against the data                             and then print out the results.
+        
     json_interface
         This package passes in a json object, calls the connections code, and returns all the results in a large json package.
         
@@ -56,5 +58,5 @@ CONNECTIONS
         
         User_Test --- Run this to load in a Users.csv file and create the database.  Note: If the databases already exist and you                         are adding in additional data, comment out the setup line.  Also note, this runs off of the Users.csv file in                       the Connections tree, not the GenerateData tree.
         
-  REPORT
+REPORT
      This tree is just starting out.  It is based on Will O'Donnell's master report.
