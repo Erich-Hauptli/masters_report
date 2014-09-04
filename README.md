@@ -1,5 +1,5 @@
-masters_report
-==============
+Erich Hauptli's Masters Report
+==============================
 There are 3 different trees in this repository.
 
 
