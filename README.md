@@ -1,9 +1,5 @@
 masters_report
 ==============
-
-Master Report Project
-
-Release 2
 There are 3 different trees in this repository.
 
 
