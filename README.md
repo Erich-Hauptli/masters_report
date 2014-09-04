@@ -8,6 +8,7 @@ There are 3 different trees in this repository.
 
 
 GENERATE DATA
+
                   Contains the code to generate mock data to be loaded into a database.  This will produce a .csv file which can be 
                   consumed by the Connections tree.
                   
@@ -19,6 +20,7 @@ GENERATE DATA
     
     
 CONNECTIONS
+
                   This tree provides a means to interact with the database, process the data, and draw conclusions about the data.
 
     connections
