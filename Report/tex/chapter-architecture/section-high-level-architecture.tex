@@ -1,7 +1,24 @@
 \section{High Level Architecture}
 \label{sect:high-level-architecture}
-Description of section
+ProGENitor is broken into several different groupings of code.  To place a call
+to ProGENitor, the user must send a JSON Object containing a query and a query
+type.  This JSON Object is then passed to the Database block which will fetch
+data from the database based on the user passed JSON Object.  The fetched data
+will be passed to a block of Analytics code, which will process the data to
+produce a career mapping and then extract the significant information in that
+career map.  This data is then returned in a large JSON Object containing multiple JSON
+Arrays. See Figure
+\ref{fig:HighLevelProjectArchitecture}
+for a representation of this sequence.
 
-\input{tex/chapter-architecture/section-database-architecture}
-\input{tex/chapter-architecture/section-analytics-architecture}
-\input{tex/chapter-architecture/section-test-architecture}
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.4]{HighLevelProjectArchitecture}
+  \caption{High Level Architecture}
+  \label{fig:HighLevelProjectArchitecture}
+\end{figure}
+
+
+
+
+\subsection{Overall Technology Stack}
