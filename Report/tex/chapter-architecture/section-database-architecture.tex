@@ -31,9 +31,6 @@ pulls data based on either a similar quer field, a simalar node, or a similar
 user id.
 
 
- 
-
-
 \subsection{Database Technology Stack}
 For the database in ProGENitor, a mySQL database was used.  This decission was
 made not because it was the optimum solution for the data set, but because mySQL
@@ -42,4 +39,9 @@ databases, but on the analytics side of what can be done with the data, the goal
 was to get a database setup quickly with less effort.  NoSQL databases are
 better for unstructured data and in many instances, databases containing career
 information, such as LinkedIN have chosen to go the NoSQL route.  For instance,
-LinkedIN uses a database called Sensi\cite{sensei}
+LinkedIN uses a database called Sensi\cite{sensei}, which is a NoSQL based
+database.  Many NoSQL databases are proprietary where as the MySQL database
+follows a standard that the entire database community is familiar with.  Thus,
+ProGENitor was built around a MySQL database, as many of the inface commands are
+similar for both NoSQL and MySQL.  Also MySQL is more widely known,
+standardized, and simpler to learn for someone new to databasing.
