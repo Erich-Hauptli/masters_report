@@ -18,7 +18,10 @@ for a representation of this sequence.
   \label{fig:HighLevelProjectArchitecture}
 \end{figure}
 
-
-
-
 \subsection{Overall Technology Stack}
+All of the code for ProGENitor is written in Java except for the mock data
+generation code which is written in Perl.  Java was selected because the code
+needed to interface well with web applications and pages.  Java is easily run through
+web interfaces and can easily pass data by passing JSON Objects.  Additionally,
+Java interfaces well with databases.  As this project does a lot of database
+scraping this was very important.

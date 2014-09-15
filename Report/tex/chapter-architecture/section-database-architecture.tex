@@ -1,22 +1,45 @@
 
 \section{Database Architecture}
-Subsection Text 
-
 \begin{figure}[H]
 	\setlength{\unitlength}{0.14in} % selecting unit length
 	\centering % used for centering Figure
-	\begin{picture}(35,20) % picture environment with the size (dimensions)
+	\begin{picture}(35,12) % picture environment with the size (dimensions)
 		% 32 length units wide, and 15 units high.
-		\put(0,0){\framebox(20,20){}}
-		\put(5,2){\framebox(10,10){SQL Interface}}
-		\put(25,5){\framebox(10,10){Data Collection}}
-		\put(20,10){\vector(1,0){5}}
-		\put(6.5,15) {User Interface}
+		\put(0,0){\framebox(20,12){}}
+		\put(5,2){\framebox(10,7){mySQL Interface}}
+		\put(25,1){\framebox(10,10){Data Collection}}
+		\put(20,6){\vector(1,0){5}}
+		\put(6.5,10) {User Interface}
 	\end{picture}
 	\caption{Database Block Diagram} % title of the Figure
 	\label{fig:dbblock} % label to refer figure in text
 \end{figure}
+As depicted above in figure \ref{fig:dbblock}, the
+ProGENitor database code is designed around a mySQL database. The code is
+modular, so that any alternate database type can be inserted to allow for a
+quick transition to another database architecture.  Currently the database is
+broken into four different databases, but more can easily be added if necessary.
+These databases contain information on each individual user, user job history,
+user education history, and a listing of all of the headers for each database. 
+The database SQL code allows for reading from, writting to, and creating the databases.  The
+user wrapper creates a single point that the SQL interface would need to be
+modify to support a change in database architecture.  Additionally, it
+provides some basic query commands to pull data from the database based on a
+search field.  It can also extract meta data about the databases.  The database
+is this pulled through a data collection package.  The data collection package
+pulls data based on either a similar quer field, a simalar node, or a similar
+user id.
+
+
+ 
 
 
 \subsection{Database Technology Stack}
-
+For the database in ProGENitor, a mySQL database was used.  This decission was
+made not because it was the optimum solution for the data set, but because mySQL
+is easier to learn and manage.  As the point of the project was not focusing on
+databases, but on the analytics side of what can be done with the data, the goal
+was to get a database setup quickly with less effort.  NoSQL databases are
+better for unstructured data and in many instances, databases containing career
+information, such as LinkedIN have chosen to go the NoSQL route.  For instance,
+LinkedIN uses a database called Sensi\cite{sensei}
