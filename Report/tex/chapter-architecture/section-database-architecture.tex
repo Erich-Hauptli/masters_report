@@ -6,7 +6,7 @@
 	\begin{picture}(35,12) % picture environment with the size (dimensions)
 		% 32 length units wide, and 15 units high.
 		\put(0,0){\framebox(20,12){}}
-		\put(5,2){\framebox(10,7){mySQL Interface}}
+		\put(5,2){\framebox(10,7){MySQL Interface}}
 		\put(25,1){\framebox(10,10){Data Collection}}
 		\put(20,6){\vector(1,0){5}}
 		\put(6.5,10) {User Interface}
@@ -15,33 +15,33 @@
 	\label{fig:dbblock} % label to refer figure in text
 \end{figure}
 As depicted above in figure \ref{fig:dbblock}, the
-ProGENitor database code is designed around a mySQL database. The code is
+ProGENitor database code is designed around a MySQL database. The code is
 modular, so that any alternate database type can be inserted to allow for a
 quick transition to another database architecture.  Currently the database is
 broken into four different databases, but more can easily be added if necessary.
 These databases contain information on each individual user, user job history,
 user education history, and a listing of all of the headers for each database. 
-The database SQL code allows for reading from, writting to, and creating the databases.  The
+The database SQL code allows for reading from, writing to, and creating the databases.  The
 user wrapper creates a single point that the SQL interface would need to be
 modify to support a change in database architecture.  Additionally, it
 provides some basic query commands to pull data from the database based on a
-search field.  It can also extract meta data about the databases.  The database
+search field.  It can also extract Meta data about the databases.  The database
 is this pulled through a data collection package.  The data collection package
-pulls data based on either a similar quer field, a simalar node, or a similar
+pulls data based on either a similar query field, a similar node, or a similar
 user id.
 
 
 \subsection{Database Technology Stack}
-For the database in ProGENitor, a mySQL database was used.  This decission was
-made not because it was the optimum solution for the data set, but because mySQL
+For the database in ProGENitor, a MySQL database was used.  This decision was
+made not because it was the optimum solution for the data set, but because MySQL
 is easier to learn and manage.  As the point of the project was not focusing on
 databases, but on the analytics side of what can be done with the data, the goal
 was to get a database setup quickly with less effort.  NoSQL databases are
 better for unstructured data and in many instances, databases containing career
 information, such as LinkedIN have chosen to go the NoSQL route.  For instance,
-LinkedIN uses a database called Sensi\cite{sensei}, which is a NoSQL based
+LinkedIN uses a database called Sensei\cite{sensei}, which is a NoSQL based
 database.  Many NoSQL databases are proprietary where as the MySQL database
 follows a standard that the entire database community is familiar with.  Thus,
-ProGENitor was built around a MySQL database, as many of the inface commands are
-similar for both NoSQL and MySQL.  Also MySQL is more widely known,
-standardized, and simpler to learn for someone new to databasing.
+ProGENitor was built around a MySQL database, as many of the interface commands
+are similar for both NoSQL and MySQL.  Also MySQL is more widely known,
+standardized, and simpler to learn for someone new to databases.

@@ -2,30 +2,30 @@
 	To test and run ProGENitor, a database with data must be present.  As there was
 not an existing one readily available, mock data needed to be generated and
 populated into a database.  The SQL code allows for a file containing comma
-seperated values to be loaded into the database.  Thus, code to generate this
+separated values to be loaded into the database.  Thus, code to generate this
 file with meaningful data was required.  
 	
-A perl program was written to generate the .csv file that could be loaded into
+A Perl program was written to generate the .csv file that could be loaded into
 the database.  Each line in the .csv file first indicates the database the line
 should be loaded into and then the user id the data is associated with.  Each
 individual user is assumed to have a distinct user id.  The subsequent data in
-each row is built off a random selection from an array of data for each collumn.
+each row is built off a random selection from an array of data for each column.
 For example, when generating the university for a particular user's education
 node, a text file containing potential universities is loaded into an array and
 then the value is randomly selected from the array.  This is done for each piece
 of data loaded into the database, such that the database looks like it contains
 real user data.  The randomness can be controlled and particular elements can be
 weighted so they show up more frequently.  Additionally, the paths and
-frequency users travers through nodes can also be adjusted through variables and
-the content within the text files.  This process will be stepped through in
+frequency users traverse through nodes can also be adjusted through variables
+and the content within the text files.  This process will be stepped through in
 detail in chapter 3.
 
 \subsection{Mock Data Technology Stack}
 Perl was the language chosen for the data generation for multiple reasons.  The
-language excels at text manipulation.  The regular expresions are excellent, as
-are the array processing capabilites.  As Perl is a scripting language, it is
+language excels at text manipulation.  The regular expressions are excellent, as
+are the array processing capabilities.  As Perl is a scripting language, it is
 not bound by the many rules surrounding Object Orientated language.  Thus,
 there was no need to keep track of variable types and the code required to do
-many things was much more concise.  The language also very easily manipualtes
+many things was much more concise.  The language also very easily manipulates
 files.  For all of these reasons, creating the dataset to be loaded into the
 database could be done quickly and easily through Perl scripting.
