@@ -2,9 +2,141 @@
 \label{sect:career-paths}
 Section Description.  
 
+\subsection{Node Interconnects}
+Node Interconnect Generation:
+\begin{enumerate}
+  \item For each ID passed to Interconnect Generation Module:
+  \begin{enumerate}
+    \item Pull Job Data and add it to the Nodes Array List.
+    \item Pull Education Data and add it to the Nodes Array List.
+    \item Set Min equal to MAX Integer and Max equal to MIN Integer.
+    \item For each element of the Nodes ArrayList:
+    \begin{enumerate}
+      \item If date of data for element of Nodes is less than Min and more than
+      Max, store the data and set Min equal to date of data.
+      \item After all elements of Nodes ArrayList considered, Add stored data
+      to User ArrayList and set Max equal to Min.
+  	\end{enumerate}
+  	\item For each element of User ArrayList:
+  	\begin{enumerate}
+  	  \item If A is NULL, set A equal to User element node name.
+  	  \item Else set B equal to A and set A equal to User element node name.
+  	  \item If Connects ArrayList is empty, add B,A,1 to Connects ArrayList.
+  	  \item Else check if B,A exists in the Connects ArrayList:
+  	  \begin{enumerate}
+  	    \item If it exists, increment the counter of the row.
+  	    \item If it does not exist, add B,A,1 to the Connects ArrayList.
+  	  \end{enumerate}
+  	\end{enumerate}
+  \end{enumerate}
+  \item Push Connects ArrayList containing all node transitions and transition
+  counts to a JSON Object containing a JSON Array.
+  \item Return both the ArrayList and the JSON Object.
+\end{enumerate}
+
 \subsection{Node Ordering}
+Node Ordering Generation:
+ \begin{enumerate}
+   \item Generate HashSet of All Nodes
+   \item For each Node in HashSet:
+   \begin{enumerate}
+     \item Initialize transitional weight to 0.
+     \item For each element of the Node Interconnect Array List:
+     \begin{enumerate}
+       \item Check if Node matches the input node.
+       \item Check if the number of transitions to the node is greater than the
+       transitional weight.
+       \item If both checks are true, set the transitional weight to the current
+       Array List line's number of transitions.
+       \item Also, if both checks are true, store this Array List line.
+     \end{enumerate}
+     \item After the worst input transition is found for the node, store it in
+     the Heavy Edges HashSet.
+     \item Repeat this entire step for the output nodes.
+   \end{enumerate}
+   \item For each Heavy Edge element, search the Node Interconnect Array List
+   for input nodes that are also destination nodes.
+   \begin{enumerate}
+     \item Any nodes not found are set as start nodes.
+     \item Repeat this step for output nodes that are also starting nodes.  Any
+     nodes not found are set as ending nodes.
+   \end{enumerate}
+   \item Add all the starting nodes to node 0 and add them to the Node Store
+   HashSet.
+   \item Add all nodes that are not starting nodes to the Remaining Nodes
+   HashSet.
+   \item Increment the group number to 1.
+   \item Until the Remaining Nodes HashSet is empty, loop through the following
+   steps.
+   \begin{enumerate}
+     \item For each Node in Node Store, store all destination nodes in a HashSet
+     that Node in Node Store transitions to.
+     \item For each destination node stored in the previous step, find all
+     possible next destination nodes and check if they are contained within the
+     HashSet generated in the previous step.
+     \begin{enumerate}
+       \item If one is contained within the previously generated HashSet, remove
+       the node from the HashSet.
+     \end{enumerate}
+     \item Add remaining nodes to next node grouping.  Also remove remaining
+     nodes from Remaining Nodes HashSet.
+     \item Add the node group to the NodeReturn ArrayList.
+     \item Increment the group number.
+     \item Replace the nodes in the Starting Nodes hash set with the nodes that
+     were just added to a group.
+   \end{enumerate} 
+   \item Generate a JSON Object containing a JSON Array the node groupings from
+   the NodeReturn ArrayList.
+   \item Return both the JSON Object and the NodeReturn ArrayList.
+ \end{enumerate}
+
+
 
 \subsection{Node Details}
 
-\subsection{Node Interconnects}
+Node Detail Generation:
+\begin{enumerate}
+  \item Pull in Profile ArrayList, tag each element as a profile, and then add
+  the element to the Complete ArrayList.
+  \item Repeat this for the Jobs ArrayList and the Education ArrayList.
+  \item Check each element fo the Complete ArrayList.
+  \begin{enumerate}
+    \item If the element contains the node that details are being pulled on, add
+    the element to the Relevant ArrayList.
+  \end{enumerate}
+  \item Pull the headers associated with the node that details are being pulled
+  on.
+  \item Pull all the data in the database for that node and store in the All
+  Node Data ArrayList.
+  \item For each element of the Complete ArrayList:
+  \begin{enumerate}
+    \item Split the element into columns and step through each column.
+    \begin{enumerate}
+    	\item Check if the column element is a start or end year and instead
+    	calculate the years spent at the node.
+    	\begin{enumerate}
+    	  \item If the end year is set to current, find the current year and then
+    	  calculate the total years spent at the node.
+    	\end{enumerate}
+    	\item Add the column value to a HashSet to obtain all possible values for
+    	the column.
+    	\item Step through the colum counting each value instance to obtain a count
+    	for each different value.
+    	\item Calculate the percentage for each value in the column by diving the
+    	count by the total number of elements.
+    	\item Push these values into the Relevant ArrayList.
+    \end{enumerate} 
+  \end{enumerate}
+  \item Repeat for each element of the All Node Data Array List
+  \item Compare the percentages for each element of the Relevant ArrayList to
+  the percentages from the All Node Data Array List.
+  \begin{enumerate}
+    \item Flag the column value for any instance where the Relevant value's
+    percentage exceeds the percentage for all the data by 5\%.
+    \item Return this value as relevant so that it can be identified to the user
+    as significant to the node.
+  \end{enumerate}
+  \item Return the Relevant ArrayList and a JSON Object containing a JSON Array
+  of the same data.
+\end{enumerate}
 
