@@ -1,17 +1,110 @@
 \section{Career Paths}
 \label{sect:career-paths}
-Section Description.  
+The goal of the career paths module is to generate data, such that a web user
+interface could generate a nodal mapping of the career paths taken to reach the
+specified career goal.  The node transitions along with the transition
+frequencies are returned to the user interface as JSON Objects.  Additionally,
+the node ordering and information about each individual node is also returned in
+a JSON Object.  This information can then be used to generate a nodal map
+depicting various ways of achieving a career goal.  
 
-\subsection{Node Interconnects}
-The node interconnect portion of code finds all of the transition points that
-users pass through and the order at which they pass through them.  It then
-tallies the number of times all of the users pass through these transition
-points to allow for the career map to depict not only the point to point
-connections, but also how frequently that path is traveled.
+An example is depicted in figure \ref{fig:nodal map}, which shows various
+interconnected nodes that eventually arrive at the goal node, J.  Currently each
+node is labeled with a letter from the alphabet, but these would be replaced
+with actual node names such as a job title or an educational degree.  The nodes
+are arranged such that the user most likely travels from left to right, but the
+occasional infrequently traveled transition may flow in the reverse direction. 
+The frequency that the the path is traveled is depicted through color in this
+exapmple.  Red depicts the most frequently traveled path, then blue, green, and
+finally the most infrequently traveled path is colored black.  It is assumed
+that each node would then be able to display the individual node information
+upon user request; either through clicking on the node or through some other
+user action.  Note, that ProGENitor does not limit the method in which the user
+interface is displayed; it simply passes back statistical information about
+the nodes, the transitions between each node, and the individual data about each
+node.  It is up to the web user interface developer to determine how the end
+product is rendered.
 
 
 \usetikzlibrary{shapes,arrows,chains}
 
+\begin{figure}[H]
+	\centering
+  
+% Start the picture
+\begin{tikzpicture}[%
+    >=triangle 60,              % Nice arrows; your taste may be different
+    start chain=going below,    % General flow is top-to-bottom
+    node distance=3mm and 20mm, % Global setup of box spacing
+    every join/.style={norm},   % Default linetype for connecting boxes
+    ]
+% ------------------------------------------------- 
+% A few box styles 
+% <on chain> *and* <on grid> reduce the need for manual relative
+% positioning of nodes
+\tikzset{
+  base/.style={draw, on chain, on grid, align=center, minimum height=2ex},
+  node/.style={base, circle, text width=3em},
+  % Connector line styles for different parts of the diagram
+  norm/.style={->, draw},
+  thin/.style={->,>=stealth',shorten >=1pt, black},
+  nm/.style={->,>=stealth',shorten >=1pt, green},
+  to/.style={->,>=stealth',shorten >=1pt,semithick,blue},
+  thick/.style={->,shorten >=1pt,very thick, red},
+  it/.style={font={\small\itshape}}
+}
+% -------------------------------------------------
+% Start by placing the nodes
+\node [node, densely dotted, it] (a) {A};
+% Use join to connect a node to the previous one 
+\node [node, right = of a] (b) {B};
+\node [node, above = of b, yshift=25mm] (c) {C}; 
+\node [node, below of = b, yshift=-25mm](d) {D};
+\node [node, right=of d, yshift =15mm](e) {E};
+\node [node, right=of c, yshift=-15mm](f) {F};
+\node [node, right=of f, yshift=-15mm](g) {G};
+\node [node, right=of f, yshift=15mm](h) {H};
+\node [node, right=of f, yshift=-40mm](i) {I};
+\node [node, right=of g](j) {J};
+
+\draw[thick] (a) to (b);
+\draw[thick] (a) to[bend left=30] (c);
+\draw[nm] (a) to[bend right=30] (d);
+\draw[nm] (d) to (e); 
+\draw[thin] (a) to[bend right=30] (e);
+\draw[nm] (c) to (e);
+\draw[to] (c) to (f);
+\draw[thin] (e) to (b);
+\draw[to] (e) to (g);
+\draw[to] (f) to (g);
+\draw[thick] (b) to (g);
+\draw[thin] (f) to (h);
+\draw[thin] (e) to (i);
+\draw[thick] (g) to (j);
+\draw[thin] (h) to (j);
+\draw[thin] (i) to (j);
+
+% -------------------------------------------------
+\end{tikzpicture}
+
+	\caption{Career Path Nodal Map}
+	\label{fig:nodal map}
+\end{figure}
+
+\subsection{Node Interconnects}
+The node interconnect portion of code finds all of the nodes that
+users pass through and the order at which they pass through them.  It then
+tallies the number of times all of the users pass along each transition
+path to allow for the career map to depict not only the point to point
+connections, but also how frequently that path is traveled.  The high level
+process to generate this node interconnection data is depicted in figure
+\ref{fig:node interconnect}.
+
+
+\usetikzlibrary{shapes,arrows,chains}
+
+\begin{figure}[H]
+	\centering
 % Start the picture
 \begin{tikzpicture}[%
     >=triangle 60,              % Nice arrows; your taste may be different
@@ -27,15 +120,8 @@ connections, but also how frequently that path is traveled.
   base/.style={draw, on chain, on grid, align=center, minimum height=4ex},
   proc/.style={base, rectangle, text width=8em},
   test/.style={base, diamond, aspect=2, text width=5em},
-  % coord node style is used for placing corners of connecting lines
-  coord/.style={coordinate, on chain, on grid, node distance=6mm and 25mm},
-  % nmark node style is used for coordinate debugging marks
-  nmark/.style={draw, cyan, circle, font={\sffamily\bfseries}},
-  % -------------------------------------------------
   % Connector line styles for different parts of the diagram
-  norm/.style={->, draw, lcnorm},
-  free/.style={->, draw, lcfree},
-  cong/.style={->, draw, lccong},
+  norm/.style={->, draw},
   it/.style={font={\small\itshape}}
 }
 % -------------------------------------------------
@@ -54,8 +140,17 @@ array};
 
 % -------------------------------------------------
 \end{tikzpicture}
+	\caption{High Level Node Interconnect Generation}
+	\label{fig:node interconnect}
+\end{figure}
 
-Node Interconnect Generation:
+The process in defining and counting these interconnects was coded in Java in
+the find edges portion of the connections code.  The process flow is listed in
+detail below:
+
+\begin{description}
+    \item[Node Interconnect Generation:]
+\end{description}
 \begin{enumerate}
   \item For each ID passed to Interconnect Generation Module:
   \begin{enumerate}
@@ -90,6 +185,8 @@ Node Interconnect Generation:
 
 \usetikzlibrary{shapes,arrows,chains}
 
+\begin{figure}[H]
+	\centering
 % Start the picture
 \begin{tikzpicture}[%
     >=triangle 60,              % Nice arrows; your taste may be different
@@ -105,15 +202,8 @@ Node Interconnect Generation:
   base/.style={draw, on chain, on grid, align=center, minimum height=4ex},
   proc/.style={base, rectangle, text width=8em},
   test/.style={base, diamond, aspect=2, text width=5em},
-  % coord node style is used for placing corners of connecting lines
-  coord/.style={coordinate, on chain, on grid, node distance=6mm and 25mm},
-  % nmark node style is used for coordinate debugging marks
-  nmark/.style={draw, cyan, circle, font={\sffamily\bfseries}},
-  % -------------------------------------------------
   % Connector line styles for different parts of the diagram
-  norm/.style={->, draw, lcnorm},
-  free/.style={->, draw, lcfree},
-  cong/.style={->, draw, lccong},
+  norm/.style={->, draw},
   it/.style={font={\small\itshape}}
 }
 % -------------------------------------------------
@@ -138,8 +228,14 @@ Node Interconnect Generation:
 
 % -------------------------------------------------
 \end{tikzpicture}
+	\caption{High Level Node Order Generation}
+	\label{fig:node ordering}
+\end{figure}
 
-Node Ordering Generation:
+
+\begin{description}
+    \item[Node Ordering Generation:]
+\end{description}
  \begin{enumerate}
    \item Generate HashSet of All Nodes
    \item For each Node in HashSet:
@@ -200,6 +296,8 @@ Node Ordering Generation:
 
 \usetikzlibrary{shapes,arrows,chains}
 
+\begin{figure}[H]
+	\centering
 % Start the picture
 \begin{tikzpicture}[%
     >=triangle 60,              % Nice arrows; your taste may be different
@@ -213,17 +311,10 @@ Node Ordering Generation:
 % positioning of nodes
 \tikzset{
   base/.style={draw, on chain, on grid, align=center, minimum height=4ex},
-  proc/.style={base, rectangle, text width=8em},
-  test/.style={base, diamond, aspect=2, text width=5em},
-  % coord node style is used for placing corners of connecting lines
-  coord/.style={coordinate, on chain, on grid, node distance=6mm and 25mm},
-  % nmark node style is used for coordinate debugging marks
-  nmark/.style={draw, cyan, circle, font={\sffamily\bfseries}},
-  % -------------------------------------------------
+  proc/.style={base, rectangle, text width=10em},
+  test/.style={base, diamond, aspect=2, text width=8em},
   % Connector line styles for different parts of the diagram
-  norm/.style={->, draw, lcnorm},
-  free/.style={->, draw, lcfree},
-  cong/.style={->, draw, lccong},
+  norm/.style={->, draw},
   it/.style={font={\small\itshape}}
 }
 % -------------------------------------------------
@@ -252,8 +343,13 @@ instance};
 
 % -------------------------------------------------
 \end{tikzpicture}
+	\caption{High Level Node Detail Generation}
+	\label{fig:node details}
+\end{figure}
 
-Node Detail Generation:
+\begin{description}
+    \item[Node Detail Generation:]
+\end{description}
 \begin{enumerate}
   \item Pull in Profile ArrayList, tag each element as a profile, and then add
   the element to the Complete ArrayList.
