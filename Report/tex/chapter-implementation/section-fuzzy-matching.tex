@@ -1,4 +1,44 @@
 \section{Fuzzy Matching}
 \label{sect:fuzzy-matching}
-Section Description.  
+One of the challenges with processing the data of a database such as LinkedIN is
+that the data is free form.  Although ProGENitor makes no attempt of matching
+similar jobs or other data points, it does attepmt to account for minor spelling
+differences.  Thus, if the users mispell a word or uses a slightly different
+spelling, the similarities will still be captured. This fuzzy matching is
+done by using the Levenshtein distance algorithm outlined in table
+\ref{tab:lev-dist}.  Once the algorithm calculates the differnce between two
+words, it then checks to see if the difference is within the acceptable range. 
+Currently this range is set to less than or equal to two.  If the differnce is
+acceptable, ProGENitor will consider the two words identical for matching
+purposes.
+
+
+\begin{table}[H]
+  \caption{Levenshtein Distance Algorithm\cite{fuzzy}}
+  \centering
+  \begin{tabular}{|p{.5in}|p{4in}|}
+  \hline
+  \
+  %heading
+  Step & Description \\
+  \hline\hline
+  1 &  Set n to be the length of s.\newline 
+  Set m to be the length of t.\newline
+  If n = 0, return m and exit.\newline
+  If m = 0, return n and exit.\newline
+  Construct a matrix containing 0..m rows and 0..n columns.  \\ \hline 
+  2 &  	Initialize the first row to 0..n.\newline
+  Initialize the first column to 0..m.\\ \hline 
+  3 & Examine each character of s (i from 1 to n). \\ \hline
+  4 & Examine each character of t (j from 1 to m). \\ \hline
+  5 &  	If s[i] equals t[j], the cost is 0.\newline
+  If s[i] doesn't equal t[j], the cost is 1. \\\hline 
+  6 &  	Set cell d[i,j] of the matrix equal to the minimum of:\newline
+  a. The cell immediately above plus 1: d[i-1,j] + 1.\newline
+  b. The cell immediately to the left plus 1: d[i,j-1] + 1.\newline
+  c. The cell diagonally above and to the left plus the cost: d[i-1,j-1] + cost.\\ \hline
+  7 & After the iteration steps (3, 4, 5, 6) are complete, the distance is found in cell d[n,m]. \\ \hline
+  \end{tabular}
+  \label{tab:lev-dist}
+\end{table}
 
