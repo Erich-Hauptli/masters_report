@@ -98,7 +98,7 @@ tallies the number of times all of the users pass along each transition
 path to allow for the career map to depict not only the point to point
 connections, but also how frequently that path is traveled.  The high level
 process to generate this node interconnection data is depicted in figure
-\ref{fig:node interconnect}.
+\ref{fig:node interconnect} below.
 
 
 \usetikzlibrary{shapes,arrows,chains}
@@ -145,8 +145,8 @@ array};
 \end{figure}
 
 The process in defining and counting these interconnects was coded in Java in
-the find edges portion of the connections code.  The process flow is listed in
-detail below:
+the find edges method of the connections package.  The process flow is listed
+in detail below:
 
 \begin{description}
     \item[Node Interconnect Generation:]
@@ -182,6 +182,13 @@ detail below:
 \end{enumerate}
 
 \subsection{Node Ordering}
+The node ordering portion of code sorts the nodes such that the major
+transitions flow in order from start to finish. It does this so that the flow
+of transitions can be mapped in a manner that is not overly confusing.  Figure
+\ref{fig:node ordering} shows the high level process that the code follows
+to generate the node groupings.  These groupings can then be fed to the end user
+interface to order the nodes in a fashion that shows the typical flow of careers
+that reach the destination goal.
 
 \usetikzlibrary{shapes,arrows,chains}
 
@@ -232,6 +239,9 @@ detail below:
 	\label{fig:node ordering}
 \end{figure}
 
+The process in defining the node ordering for the nodes was coded in Java in the
+find node order method of the connections package.  The process flow is listed
+in detail below:
 
 \begin{description}
     \item[Node Ordering Generation:]
@@ -293,6 +303,21 @@ detail below:
 
 
 \subsection{Node Details}
+Presenting all of the potential information would overwhelm any user interface,
+so instead many of the details are buried within each node and can be querried
+by the end user, by selecting the node of interest.  As each node contains
+additional details such as the place of employment or education, time spent at
+the school or job, or any other node relevant pieces of information; the data
+must be gathered upon user request as to not slow down the overall map
+generation.  Once the request is made, the data about the individuals who
+reached the goal node and the data about all of the users who passed through a
+particular node is pulled.  This data is then broken down into a statistic for
+both cases and compared against each other to determine if something occured
+more frequenty for the users who reached the goal node versus those who had not.
+This way any significant differences could be raised to the end user's attention
+as potentially important steps to reaching the final goal.  The high level
+process to generating this data is depicted in figure \ref{fig:node details}
+below.
 
 \usetikzlibrary{shapes,arrows,chains}
 
@@ -346,6 +371,10 @@ instance};
 	\caption{High Level Node Detail Generation}
 	\label{fig:node details}
 \end{figure}
+
+The process in defining the details and significant details for each node was
+coded in Java in the find node info method of the connections package.  The
+process flow is listed in detail below:
 
 \begin{description}
     \item[Node Detail Generation:]
