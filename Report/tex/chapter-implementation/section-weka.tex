@@ -3,6 +3,25 @@
 Section Description.  
 
 \subsection{Arff Creation}
+Weka uses the .arrf file format to feed data into the weka toolset.  The Arrf
+file contains two major sections.  These sections are the header section and the
+data section.\cite{arrf}  The header contains the name of the relation, a list
+of attributes, and their types.  The data section, contains the data that will
+be used for machine learning.  A sample .arff file would look like the
+following:
+
+@relation education
+
+@attribute degree {PHD,Bachelors,Masters}
+@attribute specialization {Electrical,Circuits,Analog,ComputerArchitecture,Digital}
+@attribute goal {true,false}
+
+@data
+Bachelors,Electrical,false
+Masters,Circuits,false
+Bachelors,Electrical,false
+Masters,Circuits,false
+PHD,MSU,Digital,false
 
 \subsection{Clustering}
 
