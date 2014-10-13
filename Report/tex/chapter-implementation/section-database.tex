@@ -3,8 +3,27 @@
 Section Description.  
 
 \subsection{MySQL Interface}
+As ProGENitor needed a method to pull large amounts of data off the backend
+server database, a Java method needed had to be implemented that inferfaced with
+the database.  To greatly simplify this work, a predefined library jar was added
+to to the project.  In this case, the library used was SQLite JDBC.  The SQLite
+library allows for easy access to a MySQL database for creating, reading from,
+writting to, and querrying the database.
+\\
+In the case of ProGENitor, once the library was added, the code was very
+straight forward.  Through a couple commands, the code established the database
+connection, ran the specified query or other command, and collected the returned
+data.\cite{sqlite}  Using the SQLite library allowed the MySQL interface to
+quickly add in functions to create a database, collect query matches from the
+database, upload lines and files to the database, modify lines within the
+database, and even pull the entire databse.  With these functions in place,
+ProGENitor quick easily and quickly access any defined database.  Additionaly,
+as the SQL commands are standard commands, the interface could easily be
+be replaced with another database interface or expanded upon by anyone familiar
+with an SQL language.
 
 \subsection{User Wrapper}
+
 
 \subsection{Data Collection}
 
