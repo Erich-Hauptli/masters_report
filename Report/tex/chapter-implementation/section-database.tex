@@ -21,12 +21,28 @@ SQLite library allowed the MySQL interface to quickly add in functions to create
 a database, collect query matches from the database, upload lines and files to
 the database, modify lines within the database, and even pull the entire
 databse.  With these functions in place, ProGENitor quick easily and quickly
-access any defined database.  Additionaly, as the SQL commands are standard
-commands, the interface can easily be be replaced with another database
-interface or expanded upon by anyone familiar with an SQL language.
+access any defined database.  In the case of ProGENitor, four databases were
+generated; one for user profile data, one for education data, one for job data,
+and finally one that contains the headers of the other databases.  If, in the
+future, additional databases are needed, ProGENitor can easily add them. 
+Additionaly, as the SQL commands are standard commands, the interface can easily
+be be replaced with another database interface or expanded upon by anyone
+familiar with a SQL language.
 
 \subsection{User Wrapper}
-
+As previously stated, it was desired that ProGENitor be setup such that it was
+easy to swap out the database interface with another interface.  Thus, the user
+interface wrapper was written to call the various SQL commands.  If in the
+future, the database needed to be changed, the work to do so would reside in
+adding the database interface and changing the user interface wrapper to point
+to the new database.  The wrapper also adds in commands that make interfacing
+with the code a bit more straight forward.  Commands such as add user, database
+setup, query matching users, and return headers all allow users working through
+other portions of code to understand what the function calls are actually doing
+and do not require the developer to necessarily understand the database
+interface commands.  Then using these commands, ProGENitor can then collect
+datat that it passes along to be interpreted by the connections and instights
+packages.
 
 \subsection{Data Collection}
 
