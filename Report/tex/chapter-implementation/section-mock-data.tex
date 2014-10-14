@@ -35,8 +35,10 @@ from one of the data files into an array and uses the Perl rand function to
 randomly select an array index value to pull the data from.  This data is then
 applied to the individual user's node and then when the node has all necessary
 data generated, it is loaded into the Users.csv file.  This file is then later
-uploaded into the database.
-\\
+uploaded into the database.  In testing, if you want a particular piece of data
+to occur more frequently, place it multiple times in the data files and it
+will increase the frequency that it will show up in the user data.
+
 The second place that code must randomly select data is when it is determining
 if a user enters a node or not on each pass.  There are four possible nodes that
 a user could enter each pass and each pass they could potentially enter up to
@@ -91,7 +93,7 @@ depicts this process below.
 data files};
 % Use join to connect a node to the previous one 
 \node [proc, join] (p1) {Increment ID}; 
-\node [proc, join] (p2) {Generate User Data with profile tag};
+\node [proc, join] (p2) {Generate User Profile Data};
 \node [proc, join] (p3) {Calculate Years left in workforce/higher education};
 \node [test, join] (t0) {If UG, generate random Bachelors Degree};
 \node [test, join] (t1) {If MS, generate random Masters Degree};
@@ -110,7 +112,7 @@ data files};
 \draw [->, dotted, thick, shorten >=1mm]
   (p4.south) -- ++(50mm,-5mm)  -- ++(27mm,0) 
   |- node [black, near end, yshift=0.75em, it]
-    {Until User ID = Users} (p1);
+    {Until User ID = \# Users} (p1);
 
 % -------------------------------------------------
 \end{tikzpicture}

@@ -1,12 +1,12 @@
 \section{Database}
 \label{sect:database}
 As ProGENitor needed a method to pull large amounts of data off the backend
-server database, a Java method needed had to be implemented that inferfaced with
+server database, a Java method had to be implemented that inferfaced with
 the database.  MySQL was chosen as it is open source, widely used, and fairly
-easy to learn quickly.  Once the MySQL interface was established a wrapper was
+easy to quickly learn.  Once the MySQL interface was established a wrapper was
 added such that another database method could be inserted without a significant
 work effort in the rest of the code.  Then, through this wrapper, the many
-different function calls wer implemented to collect the data needed to generate
+different function calls were implemented to collect the data needed to generate
 the career map and derive any further insights through Weka.
 
 \subsection{MySQL Interface}
@@ -20,7 +20,7 @@ or other command, and collected the returned data.\cite{sqlite}  Using the
 SQLite library allowed the MySQL interface to quickly add in functions to create
 a database, collect query matches from the database, upload lines and files to
 the database, modify lines within the database, and even pull the entire
-databse.  With these functions in place, ProGENitor quick easily and quickly
+databse.  With these functions in place, ProGENitor easily and quickly can
 access any defined database.  In the case of ProGENitor, four databases were
 generated; one for user profile data, one for education data, one for job data,
 and finally one that contains the headers of the other databases.  If, in the
@@ -41,7 +41,7 @@ setup, query matching users, and return headers all allow users working through
 other portions of code to understand what the function calls are actually doing
 and do not require the developer to necessarily understand the database
 interface commands.  Then using these commands, ProGENitor can then collect
-datat that it passes along to be interpreted by the connections and instights
+data that it passes along to be interpreted by the connections and instights
 packages.
 
 \subsection{Data Collection}

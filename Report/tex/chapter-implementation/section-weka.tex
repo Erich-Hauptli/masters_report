@@ -11,7 +11,7 @@ library was chosen as it has an excellent Java API and access to many different
 methods.  Choosing the method to extract information from the data requires some
 knowledge about the data itself.  In this case, clustering was chosen as the
 data is mostly nominal data and the goal is to define some grouping that leads
-to the end goal.  To extract the data, first the ProGENitor has to generate an
+to the end goal.  To extract the data, first ProGENitor must generate an
 Arrf file to feed into Weka and then Weka has to evaluate it with the clustering
 classification.
 
@@ -26,12 +26,10 @@ following:
 \\*
 @relation education\\*
 \\*
-@attribute degree {PHD,Bachelors,Masters}\\*
-@attribute
-specialization{Electrical,Circuits,Analog,ComputerArchitecture,Digital}\\*
-@attribute goal {true,false}\\*
-\\*
-@data\\*
+@attribute degree \{PHD,Bachelors,Masters\}\\*
+@attribute specialization
+\{Electrical,Circuits,Analog,ComputerArchitecture,Digital\}\\* @attribute goal
+\{true,false\}\\* \\* @data\\*
 Bachelors,Electrical,false\\*
 Masters,Circuits,false\\*
 Bachelors,Electrical,true\\*
@@ -40,8 +38,8 @@ PHD,MSU,Digital,true\\*
 
 ProGENitor currently generates the .arff file containing just the educational
 nodes.  One of the keys to getting quality insights out of Weka is controlling
-the data being fed into the tools.  Thus, in this case only the educational data
-is fed into the tool.  This process could easily be replicated for additional
+the data being fed into the tools.  Thus, in this case, only the educational
+data is fed into the tool.  This process could easily be replicated for additional
 insights.  To generate the arff file, ProGENitor contains a Java method called
 generate arff in the connections package.  This code follows the procedure
 detailed in figure \ref{fig:arrf generation} to generate the arff file that is
@@ -77,7 +75,7 @@ later used by Weka.
 \node [proc, join] (p1) {Pull in database headers};
 \node [proc, join] (p2) {Establish list of attributes};
 \node [proc, join] (p3) {Collect all possible values from user data};
-\node [proc, join] (p4) {Write @attribute values to .arrf file}; 
+\node [proc, join] (p4) {Write attribute values to .arrf file}; 
 \node [proc, join] (p5) {Pull data associated with each attribute};
 \node [proc, join] (p6) {Write data line to .arrf file};
 
@@ -102,9 +100,9 @@ One major advantage to using the Weka library is it takes complex code and makes
 it relatively simple.  As seen in Figure \ref{fig:clustering}, the process that is
 followed to analyze the data in the Arrf file is very simple and straight
 forward.  Once the Weka jar is imported into the project, the code is very quick
-to implement as good documentation is available for the API.\cite{weka}  The
+to implement, as good documentation is available for the API.\cite{weka}  The
 complex portion of work is then ensuring that the appropriate classification is
-used and then parsing the data to be returned in a useful fashion.
+applied and the data is parsed in a useful fashion.
 
 
 \usetikzlibrary{shapes,arrows,chains}

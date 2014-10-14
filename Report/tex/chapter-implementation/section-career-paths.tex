@@ -9,21 +9,21 @@ a JSON Object.  This information can then be used to generate a nodal map
 depicting various ways of achieving a career goal.  
 
 An example is depicted in figure \ref{fig:nodal map}, which shows various
-interconnected nodes that eventually arrive at the goal node, J.  Currently each
-node is labeled with a letter from the alphabet, but these would be replaced
-with actual node names such as a job title or an educational degree.  The nodes
-are arranged such that the user most likely travels from left to right, but the
-occasional infrequently traveled transition may flow in the reverse direction. 
-The frequency that the the path is traveled is depicted through color in this
-exapmple.  Red depicts the most frequently traveled path, then blue, green, and
-finally the most infrequently traveled path is colored black.  It is assumed
-that each node would then be able to display the individual node information
-upon user request; either through clicking on the node or through some other
-user action.  Note, that ProGENitor does not limit the method in which the user
-interface is displayed; it simply passes back statistical information about
-the nodes, the transitions between each node, and the individual data about each
-node.  It is up to the web user interface developer to determine how the end
-product is rendered.
+interconnected nodes that eventually arrive at the goal node, J.  Currently,
+each node is labeled with a letter from the alphabet, but ProGENitor would
+replace these with actual node names, such as a job title or an educational
+degree. The nodes are arranged such that the user most likely travels from left
+to right, but the occasional infrequently traveled transition may flow in the
+reverse direction.  The frequency that the the path is traveled is depicted
+through color in this exapmple.  Red depicts the most frequently traveled path,
+then blue, green, and finally the most infrequently traveled path is colored
+black.  It is assumed that each node would then be able to display the
+individual node information upon user request; either through clicking on the
+node or through some other user action.  Note, that ProGENitor does not limit
+the method in which the user interface is displayed; it simply passes back
+statistical information about the nodes, the transitions between each node, and
+the individual data about each node.  It is up to the web user interface
+developer to determine how the end product is rendered.
 
 
 \usetikzlibrary{shapes,arrows,chains}
@@ -308,7 +308,7 @@ so instead many of the details are buried within each node and can be querried
 by the end user, by selecting the node of interest.  As each node contains
 additional details such as the place of employment or education, time spent at
 the school or job, or any other node relevant pieces of information; the data
-must be gathered upon user request as to not slow down the overall map
+must be gathered upon user request, as to not slow down the overall map
 generation.  Once the request is made, the data about the individuals who
 reached the goal node and the data about all of the users who passed through a
 particular node is pulled.  This data is then broken down into a statistic for
@@ -371,6 +371,7 @@ instance};
 	\caption{High Level Node Detail Generation}
 	\label{fig:node details}
 \end{figure}
+\pagebreak
 
 The process in defining the details and significant details for each node was
 coded in Java in the find node info method of the connections package.  The
@@ -389,7 +390,7 @@ process flow is listed in detail below:
     the element to the Relevant ArrayList.
   \end{enumerate}
   \item Pull the headers associated with the node that details are being pulled
-  on.
+  from.
   \item Pull all the data in the database for that node and store in the All
   Node Data ArrayList.
   \item For each element of the Complete ArrayList:
