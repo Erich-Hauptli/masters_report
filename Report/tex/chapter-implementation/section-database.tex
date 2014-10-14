@@ -45,4 +45,14 @@ datat that it passes along to be interpreted by the connections and instights
 packages.
 
 \subsection{Data Collection}
-
+With the wrapper and SQL interface in place, ProGENitor then implements a couple
+different calls to gather data to be analyzed.  The first of these calls is find
+same, in which the code polls the data base for all users that match the query
+field value passed to the method.  This method then returns the user IDs in a
+TreeSet for all of the users that matched the query.  The next data collection
+method available, find all node data, does the same function, but istead returns all of the
+matching data in an ArrayList.  The final data collection method available,
+database pull, returns in an ArrayList, all of the data associated with the
+TreeSet of IDs passed to the method.  These methods are all very similar, but
+allow for easy data collection by the mapping and weka methods within the
+connections and instights packages.
