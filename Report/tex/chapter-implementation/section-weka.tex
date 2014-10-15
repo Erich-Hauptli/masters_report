@@ -5,7 +5,7 @@ learning is by using a predefined library.  This is because the library takes
 much of the technical effort out of the development.  All of the math behind the
 machine learning is hidden behind the library and often there are nice user
 interfaces or APIs associated with the library.  Typically, there are many
-different methods that can be called to comb throught the data to extract
+different methods that can be called to comb through the data to extract
 insights and relationships about the data.  In the case of ProGENitor the Weka
 library was chosen as it has an excellent Java API and access to many different
 methods.  Choosing the method to extract information from the data requires some
@@ -16,10 +16,10 @@ Arrf file to feed into Weka and then Weka has to evaluate it with the clustering
 classification.
 
 \subsection{Arff Creation}
-Weka uses the .arrf file format to feed data into the weka toolset.  The Arrf
+Weka uses the .arff file format to feed data into the Weka toolset.  The Arff
 file contains two major sections.  These sections are the header section and the
-data section.\cite{arrf}  The header contains the name of the relation, a list
-of attributes, and their types.  The data section, contains the data that will
+data section.\cite{arff}  The header contains the name of the relation, a list
+of attributes, and their types.  The data section contains the data that will
 be used for machine learning.  A sample .arff file would look like the
 following:
 \\*
@@ -42,7 +42,7 @@ the data being fed into the tools.  Thus, in this case, only the educational
 data is fed into the tool.  This process could easily be replicated for additional
 insights.  To generate the arff file, ProGENitor contains a Java method called
 generate arff in the connections package.  This code follows the procedure
-detailed in figure \ref{fig:arrf generation} to generate the arff file that is
+detailed in figure \ref{fig:arff generation} to generate the arff file that is
 later used by Weka.
 
 \usetikzlibrary{shapes,arrows,chains}
@@ -70,14 +70,14 @@ later used by Weka.
 }
 % -------------------------------------------------
 % Start by placing the nodes
-\node [proc, densely dotted, it] (p0) {Setup Header and write it to .arrf file};
+\node [proc, densely dotted, it] (p0) {Setup Header and write it to .arff file};
 % Use join to connect a node to the previous one 
 \node [proc, join] (p1) {Pull in database headers};
 \node [proc, join] (p2) {Establish list of attributes};
 \node [proc, join] (p3) {Collect all possible values from user data};
-\node [proc, join] (p4) {Write attribute values to .arrf file}; 
+\node [proc, join] (p4) {Write attribute values to .arff file}; 
 \node [proc, join] (p5) {Pull data associated with each attribute};
-\node [proc, join] (p6) {Write data line to .arrf file};
+\node [proc, join] (p6) {Write data line to .arff file};
 
 \draw [->, dotted, thick, shorten >=1mm]
   (p4.south) -- ++(50mm,-3mm)  -- ++(27mm,0) 
@@ -91,8 +91,8 @@ later used by Weka.
 
 % -------------------------------------------------
 \end{tikzpicture}
-	\caption{Arrf File Generation}
-	\label{fig:arrf generation}
+	\caption{Arff File Generation}
+	\label{fig:arff generation}
 \end{figure}
 
 \subsection{Clustering}
@@ -130,10 +130,10 @@ applied and the data is parsed in a useful fashion.
 }
 % -------------------------------------------------
 % Start by placing the nodes
-\node [proc, densely dotted, it] (p0) {Read in Arrf File};
+\node [proc, densely dotted, it] (p0) {Read in Arff File};
 % Use join to connect a node to the previous one 
 \node [proc, join] (p1) {Setup Cluster Evaluation};
-\node [proc, join] (p2) {Evaluate Arrf Data Using Cluster Method};
+\node [proc, join] (p2) {Evaluate Arff Data Using Cluster Method};
 \node [proc, join] (p3) {Parse and Return Results};
 % -------------------------------------------------
 \end{tikzpicture}

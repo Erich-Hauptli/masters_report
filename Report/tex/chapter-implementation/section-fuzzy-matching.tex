@@ -2,13 +2,13 @@
 \label{sect:fuzzy-matching}
 One of the challenges with processing the data of a database such as LinkedIN is
 that the data is free form.  Although ProGENitor makes no attempt of matching
-similar jobs or other data points, it does attepmt to account for minor spelling
-differences.  Thus, if the users mispell a word or uses a slightly different
+similar jobs or other data points, it does attempt to account for minor spelling
+differences.  Thus, if the users misspell a word or use a slightly different
 spelling, the similarities will still be captured. This fuzzy matching is
 done by using the Levenshtein distance algorithm\cite{fuzzy} outlined in table
-\ref{tab:lev-dist}.  Once the algorithm calculates the differnce between two
+\ref{tab:lev-dist}.  Once the algorithm calculates the difference between two
 words, it then checks to see if the difference is within the acceptable range. 
-Currently this range is set to less than or equal to two.  If the differnce is
+Currently this range is set to less than or equal to two.  If the difference is
 acceptable, ProGENitor will consider the two words identical for matching
 purposes.
 

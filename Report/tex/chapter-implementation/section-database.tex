@@ -1,7 +1,7 @@
 \section{Database}
 \label{sect:database}
 As ProGENitor needed a method to pull large amounts of data off the backend
-server database, a Java method had to be implemented that inferfaced with
+server database, a Java method had to be implemented that interfaced with
 the database.  MySQL was chosen as it is open source, widely used, and fairly
 easy to quickly learn.  Once the MySQL interface was established a wrapper was
 added such that another database method could be inserted without a significant
@@ -11,22 +11,22 @@ the career map and derive any further insights through Weka.
 
 \subsection{MySQL Interface}
 To greatly simplify this work, a predefined library jar was added
-to to the project.  In this case, the library used was SQLite JDBC.  The SQLite
+to the project.  In this case, the library used was SQLite JDBC.  The SQLite
 library allows for easy access to a MySQL database for creating, reading from,
-writting to, and querrying the database.  In the case of ProGENitor, once the
+writing to, and querying the database.  In the case of ProGENitor, once the
 library was added, the code was very straight forward.  Through a couple
 commands, the code established the database connection, ran the specified query
 or other command, and collected the returned data.\cite{sqlite}  Using the
 SQLite library allowed the MySQL interface to quickly add in functions to create
 a database, collect query matches from the database, upload lines and files to
 the database, modify lines within the database, and even pull the entire
-databse.  With these functions in place, ProGENitor easily and quickly can
+database.  With these functions in place, ProGENitor easily and quickly can
 access any defined database.  In the case of ProGENitor, four databases were
 generated; one for user profile data, one for education data, one for job data,
 and finally one that contains the headers of the other databases.  If, in the
 future, additional databases are needed, ProGENitor can easily add them. 
-Additionaly, as the SQL commands are standard commands, the interface can easily
-be be replaced with another database interface or expanded upon by anyone
+Additionally, as the SQL commands are standard commands, the interface can
+easily be replaced with another database interface or expanded upon by anyone
 familiar with a SQL language.
 
 \subsection{User Wrapper}
@@ -36,12 +36,12 @@ interface wrapper was written to call the various SQL commands.  If in the
 future, the database needed to be changed, the work to do so would reside in
 adding the database interface and changing the user interface wrapper to point
 to the new database.  The wrapper also adds in commands that make interfacing
-with the code a bit more straight forward.  Commands such as add user, database
+with the code a bit more clear.  Commands such as add user, database
 setup, query matching users, and return headers all allow users working through
 other portions of code to understand what the function calls are actually doing
 and do not require the developer to necessarily understand the database
 interface commands.  Then using these commands, ProGENitor can then collect
-data that it passes along to be interpreted by the connections and instights
+data that it passes along to be interpreted by the connections and insights
 packages.
 
 \subsection{Data Collection}
@@ -50,9 +50,9 @@ different calls to gather data to be analyzed.  The first of these calls is find
 same, in which the code polls the data base for all users that match the query
 field value passed to the method.  This method then returns the user IDs in a
 TreeSet for all of the users that matched the query.  The next data collection
-method available, find all node data, does the same function, but istead returns all of the
-matching data in an ArrayList.  The final data collection method available,
+method available, find all node data, does the same function, but instead
+returns all of the matching data in an ArrayList.  The final data collection method available,
 database pull, returns in an ArrayList, all of the data associated with the
 TreeSet of IDs passed to the method.  These methods are all very similar, but
-allow for easy data collection by the mapping and weka methods within the
-connections and instights packages.
+allow for easy data collection by the mapping and Weka methods within the
+connections and insights packages.

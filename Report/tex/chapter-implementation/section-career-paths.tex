@@ -15,7 +15,7 @@ replace these with actual node names, such as a job title or an educational
 degree. The nodes are arranged such that the user most likely travels from left
 to right, but the occasional infrequently traveled transition may flow in the
 reverse direction.  The frequency that the the path is traveled is depicted
-through color in this exapmple.  Red depicts the most frequently traveled path,
+through color in this example.  Red depicts the most frequently traveled path,
 then blue, green, and finally the most infrequently traveled path is colored
 black.  It is assumed that each node would then be able to display the
 individual node information upon user request; either through clicking on the
@@ -256,9 +256,9 @@ in detail below:
        \item Check if Node matches the input node.
        \item Check if the number of transitions to the node is greater than the
        transitional weight.
-       \item If both checks are true, set the transitional weight to the current
+       \item If both checks are true; set the transitional weight to the current
        Array List line's number of transitions.
-       \item Also, if both checks are true, store this Array List line.
+       \item Also, if both checks are true; store this Array List line.
      \end{enumerate}
      \item After the worst input transition is found for the node, store it in
      the Heavy Edges HashSet.
@@ -304,20 +304,20 @@ in detail below:
 
 \subsection{Node Details}
 Presenting all of the potential information would overwhelm any user interface,
-so instead many of the details are buried within each node and can be querried
+so instead many of the details are buried within each node and can be queried
 by the end user, by selecting the node of interest.  As each node contains
 additional details such as the place of employment or education, time spent at
 the school or job, or any other node relevant pieces of information; the data
 must be gathered upon user request, as to not slow down the overall map
 generation.  Once the request is made, the data about the individuals who
 reached the goal node and the data about all of the users who passed through a
-particular node is pulled.  This data is then broken down into a statistic for
+particular node are pulled.  This data is then broken down into a statistic for
 both cases and compared against each other to determine if something occured
-more frequenty for the users who reached the goal node versus those who had not.
-This way any significant differences could be raised to the end user's attention
-as potentially important steps to reaching the final goal.  The high level
-process to generating this data is depicted in figure \ref{fig:node details}
-below.
+more frequently for the users who reached the goal node versus those who had
+not.  This way any significant differences could be raised to the end user's
+attention as potentially important steps to reaching the final goal.  The high
+level process to generating this data is depicted in figure \ref{fig:node
+details} below.
 
 \usetikzlibrary{shapes,arrows,chains}
 
@@ -346,14 +346,14 @@ below.
 % Start by placing the nodes
 \node [proc, densely dotted, it] (p0) {Pull relevant and All Node Data};
 % Use join to connect a node to the previous one 
-\node [proc, join] (p1) {Count occurances of each data instance};
-\node [proc, join] (p2) {Calculate percentage of occurance for for each
+\node [proc, join] (p1) {Count occurrences of each data instance};
+\node [proc, join] (p2) {Calculate percentage of occurrence for each
 instance};
- \node [proc, join] (p3) {Compare each relevant data occurance to each all data
+ \node [proc, join] (p3) {Compare each relevant data occurrence to each all data
  occurance};
  \node [test, join] (t0) {IF relevant is more than five percent greater than
  all};
- \node [proc, join] (p4) {Flag relevant data occurance as significant};
+ \node [proc, join] (p4) {Flag relevant data occurrence as significant};
  \node [proc, join] (p5) {Return JSON Object and ArrayList containing
  relative percentage node data};
 
@@ -364,7 +364,7 @@ instance};
 \draw [->, dotted, thick, shorten >=1mm]
   (p4.south) -- ++(50mm,-3mm)  -- ++(27mm,0) 
   |- node [black, near end, yshift=0.75em, it]
-    {For each data occurance} (p3);
+    {For each data occurrence} (p3);
 
 % -------------------------------------------------
 \end{tikzpicture}
@@ -384,7 +384,7 @@ process flow is listed in detail below:
   \item Pull in Profile ArrayList, tag each element as a profile, and then add
   the element to the Complete ArrayList.
   \item Repeat this for the Jobs ArrayList and the Education ArrayList.
-  \item Check each element fo the Complete ArrayList.
+  \item Check each element of the Complete ArrayList.
   \begin{enumerate}
     \item If the element contains the node that details are being pulled on, add
     the element to the Relevant ArrayList.
@@ -405,8 +405,8 @@ process flow is listed in detail below:
     	\end{enumerate}
     	\item Add the column value to a HashSet to obtain all possible values for
     	the column.
-    	\item Step through the colum counting each value instance to obtain a count
-    	for each different value.
+    	\item Step through the column counting each value instance to obtain a
+    	count for each different value.
     	\item Calculate the percentage for each value in the column by diving the
     	count by the total number of elements.
     	\item Push these values into the Relevant ArrayList.

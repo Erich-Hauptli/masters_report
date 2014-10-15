@@ -4,7 +4,7 @@ As most end user's databases are not easily accessible and having control over
 the data in databases allows for better testing, generating mock data that is
 then loaded into a local database was chosen for ProGENitor development. 
 ProGENitor is easily attached to any other databases, so this only speeds up the
-development process.  To generate this data, a perl script was written that
+development process.  To generate this data, a Perl script was written that
 consumes various data files to obtain possible data values and then randomly
 selects the values to populate.  The number of users it generates and many other
 variables are also controllable.  Once the script completes it outputs a .csv
@@ -12,20 +12,20 @@ containing all of the user data, which can be uploaded to the database through
 the database architecture included with ProGENitor.
 
 \subsection{Data Files}
-To allow for easily updatable mock data, seperate data files were implemented,
+To allow for easily updatable mock data, separate data files were implemented,
 so that the values weren't embedded deep within the data generation code.  There
-are two different types of data files.  The first type, simply contains a list
+are two different types of data files.  The first type simply contains a list
 of all possible values.  These values are then simply loaded into an array by
-the GenerateData script.  Then, the script will randomly select from this
-array when it needs one of these values.  The second type, contains a listing of
+the Generate Data script.  Then, the script will randomly select from this
+array when it needs one of these values.  The second type contains a listing of
 possible values dependant on a previous value.  For example, in the line below,
 to get a Master's Degree in Circuits or Computer Systems, the user must first
 obtain a Bachelor's Degree in Electrical.
 \\*
 \\*Electrical:Circuits,Computer Systems\\*
 \\*
-Thus, the code will seach the second file type for the line that meets the
-dependancy.  Once the line is found, it will load the possible values into an
+Thus, the code will search the second file type for the line that meets the
+dependency.  Once the line is found, it will load the possible values into an
 array and then randomly select from one of these values.
 
 \subsection{Random Selection}
@@ -42,7 +42,7 @@ will increase the frequency that it will show up in the user data.
 The second place that code must randomly select data is when it is determining
 if a user enters a node or not on each pass.  There are four possible nodes that
 a user could enter each pass and each pass they could potentially enter up to
-all of the nodes.  These nodes are an undergraduate degree, a masters degree, a
+all of the nodes.  These nodes are an undergraduate degree, a master's degree, a
 PHD, and a job.  For each of these nodes, a chance value is assigned in the
 variables at the top of the script.  Then essentially a 10 sided dice is rolled
 at each node, this is done by loading 1 through 10 into an array and applying
@@ -52,7 +52,7 @@ node is entered, all educational chance values are incremented by 1.  This means
 it will be much less likely someone will get an advanced degree as their career
 progresses.  Additionally, each educational degree level is currently limited to
 one degree and requires the previous level have been completed.  All of these
-variables are adjustable in the code, so many differnet scenerios can be
+variables are adjustable in the code; so many different scenarios can be
 generated.
 
 
