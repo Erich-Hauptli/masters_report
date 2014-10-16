@@ -3,9 +3,6 @@ package connections;
 import java.util.ArrayList;
 import java.util.TreeSet;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import tools.MultiReturn;
 
 /*  Defines various methods in the connections class to draw connections between users.  */

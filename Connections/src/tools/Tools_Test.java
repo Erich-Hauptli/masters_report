@@ -1,6 +1,5 @@
 package tools;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 
 
@@ -48,7 +47,7 @@ public class Tools_Test {
 		
 		int diff = tools.lev_dist(A, B);
 		
-		System.out.println(A + " contains " + B + ": "  + tools.fuzzy_string_contains(A, B));
+		System.out.println(A + " contains " + B + ": "  + tools.fuzzy_string_contains(A, B)  + "diff: " + diff);
 	}
 	
 }

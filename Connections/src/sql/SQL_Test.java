@@ -18,7 +18,7 @@ public class SQL_Test {
 		SQL_DB sql_upload = new SQL_DB();
 		SQL_DB sql_query = new SQL_DB();
 		SQL_DB sql_download = new SQL_DB();
-		/* 
+		 
 		sql_upload.setup();
 		sql_upload.declare_database(profile_db, profile_headers);
 		sql_upload.declare_database(education_db, education_headers);
@@ -26,7 +26,7 @@ public class SQL_Test {
 		sql_download.print_all("headers");
 		
 		sql_upload.upload_file(file_name);  //Upload the file.
-		*/
+		
 		/*ArrayList<String> Columns = sql_query.query_headers(profile_db);
 		
 		for(String Column : Columns){
