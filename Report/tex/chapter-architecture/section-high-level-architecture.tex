@@ -11,11 +11,48 @@ Arrays. See Figure
 \ref{fig:HighLevelProjectArchitecture}
 for a representation of this sequence.
 
+\usetikzlibrary{shapes,arrows,chains}
+
 \begin{figure}[H]
-  \centering
-  \includegraphics[scale=0.4]{HighLevelProjectArchitecture}
-  \caption{High Level Architecture- Replace with better picture}
-  \label{fig:HighLevelProjectArchitecture}
+	\centering
+  
+% Start the picture
+\begin{tikzpicture}[%
+    >=triangle 60,              % Nice arrows; your taste may be different
+    start chain=going below,    % General flow is top-to-bottom
+    node distance=3mm and 20mm, % Global setup of box spacing
+    every join/.style={norm},   % Default linetype for connecting boxes
+    ]
+% ------------------------------------------------- 
+% A few box styles 
+% <on chain> *and* <on grid> reduce the need for manual relative
+% positioning of nodes
+\tikzset{
+  base/.style={draw, on chain, on grid, align=center, minimum height=2ex},
+  node/.style={base, circle, text width=5em},
+  % Connector line styles for different parts of the diagram
+  norm/.style={->, draw},
+  thin/.style={->,>=stealth',shorten >=1pt, black},
+  nm/.style={->,>=stealth',shorten >=1pt, green},
+  to/.style={->,>=stealth',shorten >=1pt,semithick,blue},
+  thick/.style={->,shorten >=1pt,very thick, red},
+  it/.style={font={\small\itshape}}
+}
+% -------------------------------------------------
+% Start by placing the nodes
+\node [node, join, xshift=-30mm] (a) {Mock Data};
+\node [node, join, right = of a, xshift=8mm] (b) {Database};
+\node [node, join, right = of b, xshift=12mm] (c) {Data Fetch}; 
+\node [node, join, right = of c, xshift=10mm] (d) {Career Mapping \& Weka};
+\node [node, join, right = of d, xshift=10mm] (e) {JSON Return};
+
+\draw [->](c.west) |- node {} (b);
+
+% -------------------------------------------------
+\end{tikzpicture}
+
+	\caption{High Level Architecture}
+	\label{fig:HighLevelProjectArchitecture}
 \end{figure}
 
 \subsection{Overall Technology Stack}
