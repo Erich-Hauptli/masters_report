@@ -1,6 +1,13 @@
 \chapter{Results}
 \label{chap:results}
-Results
+Upon running ProGENitor, the user will be returned a large JSON Object
+containing all of the data that is extracted from the database queries.  This
+JSON Object will contain an Object for the Career Path Results and the Weka
+results.  Each Career Path Object will also contain three objects.  These
+objects contain the node ordering data, the node interconnect data, and the
+details on each node.  Currently, all the data for each node is returned.  In
+the future, to improve performance, switching the node data extraction to be
+upon request will speed up the overall career mapping results.
 
 \input{tex/chapter-results/section-career-path-results}
 \input{tex/chapter-results/section-weka-results}

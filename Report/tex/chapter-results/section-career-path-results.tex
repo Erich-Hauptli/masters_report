@@ -1,6 +1,18 @@
 \section{Career Path Results}
 \label{sect:career-path-results}
+Examples of the JSON objects returned by the career mapping portion of the
+ProGENitor code are shown below.  Each example does not contain a complete set
+of data as that would be too much to show in this report.
+
 \subsection{Node Interconnect JSON Results}
+In the node interconnect JSON Object, an array of node interconnections is
+returned.  Each element of the array contains a starting node and an ending node
+for the transition.  Additionally, the array element also contains a transition
+frequency.  The transition frequency indicates how often the transition occurs. 
+Currently this is on a scale of 0-10, so that user data is not exposed to the
+ProGENitor users.  Thus, the actual number of users transitioning from one node
+to another node is divided by the total number of users that data was pulled for
+the career map.  This percentage is then multiplied by 10 and rounded.
 
 \noindent[\{"Node Connections":[\\*
 \{"node A":"Bachelors","node B":"Masters","transition frequency":6\},\\*
@@ -14,6 +26,13 @@ frequency":9\},\\*
 
 
 \subsection{Node Ordering JSON Results}
+In the node ordering JSON Object, an array containing the order which the nodes
+should be display is returned.  Each element of the array contains a node name
+and the order number it should be displayed.  Thus, the nodes with an order of
+1 should be the first nodes displayed in the career path map, then
+moving sequentially up, each node in the group should be displayed until the
+final node group is displayed.  This will allow the map to flow with minimum
+interconnects flowing in the reverse order.
 
 \noindent \{"Node Ordering":[\\*
 	\indent\{"node	name":"Timing","order":"2"\},\\*
@@ -27,6 +46,24 @@ frequency":9\},\\*
 
 
 \subsection{Node Details JSON Results}
+In the node detail JSON Object, an Array containing all of the various nodes
+will be returned.  Each node will be nested object containing an array of data
+points.  Examples of these data points are titles, companies, time spent at the
+node, and any other points of interest within the database.  Each of these data
+points will be an Object that also contains a nested JSON array.  This array
+will then contain data about each data point, broken down into the percentage of
+users who matched a specific piece of information for that data point.  For
+example, shown below is a data point for the companies that users worked for
+when they worked at a Timing job.  To protect user data, this is not shown as
+number of users, but as the percentage of users who spent time working for one
+company versus all users who spent time working at that particular job.  To
+avoid having millions of entries, a threshold is set such that if the threshold
+is not met, the data is lumped into an Other group.  This Other group would then
+contain the total user data that did not meet the threshold.  Finally, a JSON
+Object containing any significant data points is also returned.  ProGENitor
+compares the users who reached the goal against all users who passed through the
+node to determine what was statistically different from the users who reached
+the target goal.  These differences are listed in the significant data object.
 
 \noindent \{"Nodes Data":[\\*
 	\indent \{"Node Name":"Timing","Node Data":[\\*
@@ -41,6 +78,7 @@ frequency":9\},\\*
 		\indent	\indent	\{"name":"Boeing_all","value":"7.5581393\%"\},\\*
 		\indent	\indent	\{"name":"Hewlit-Packard_all","value":"8.139535\%"\},\\*
 		\indent	\indent	\{"name":"IBM_all","value":"7.2674417\%"\},\\*
+		
 		\indent	\indent	\{"name":"General Motors_all","value":"8.72093\%"\},\\*
 		\indent	\indent	\{"name":"General Electric_all","value":"7.2674417\%"\},\\*
 		\indent	\indent	\{"name":"Microsoft_all","value":"8.72093\%"\},\\*
