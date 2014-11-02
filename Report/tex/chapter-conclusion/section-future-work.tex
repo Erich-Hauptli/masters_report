@@ -1,18 +1,26 @@
 \section{Future Work}
 \label{sect:future-work}
 Although ProGENitor is already to a point that it could be deployed relatively
-quickly, there is still a lot of work that could be done in the future.  One
-thing that would be important would be to test and validate the software with
-several different database types such as a NoSQL database.  Another area to
-focus on would be performance.  There are some areas of the code that could be
-parallelized and the database pulls could also be optimized.  As for the actual
-data pulled, additional insight could be gathered by generating additional .arff
-files to be fed into Weka.  Currently, the code only looks at the education data
-for Weka; this could be expanded to also look at the job data or other aspects
-of the user data.  Additionally, the user data could be grown to include
-information beyond education and employment.  The profiles could be grown to
-include data about personality, work style, publications, or any other number of
-useful pieces of information.  Finally, focusing on security and robustness by
-adding in some testing would also be valuable for a deployable product.  Again,
-ProGENitor could likely be deployed now with some minimal effort, but to deploy
-a quality well performing product additional work would be needed.
+quickly, there is still a lot of work that could be done in the future.  For
+instance, creating a web UI to demonstrate ProGENitor's capabilities visually
+would go a long way to helping sell it to future customers.  Another thing that
+would be important would be to test and validate the software with several
+different database types such as a NoSQL database.  Another area to focus on
+would be performance.  There are some areas of the code that could be
+parallelized and the database pulls could also be optimized.  Additionally, the
+complete data pull on a node is currently pulling all nodes.  This could be
+changed to only pull the data upon user requests.  As for the actual data
+pulled, additional insight could be gathered by generating additional .arff
+files to be fed into Weka.  To make this feasible in a reasonable time window,
+Weka pulls would need to be attached to an advanced insight request by the user.
+The performance is far too slow to have it be part of the initial query with the
+career mapping. Currently, the code only looks at the education data for Weka;
+this could be expanded to also look at the job data or other aspects of the user
+data depending on the area the user was interested in.  Additionally, the user
+data could be grown to include information beyond education and employment.  The
+profiles could be grown to include data about personality, work style,
+publications, or any other number of useful pieces of information.  Finally,
+focusing on security and robustness by adding in some testing would also be
+valuable for a deployable product.  Again, ProGENitor could likely be deployed
+now with some minimal effort, but to deploy a quality well performing product
+additional work would be needed.
