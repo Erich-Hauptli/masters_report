@@ -206,7 +206,7 @@ public class SQL_DB implements SQL_Interface{
 			if(query_count == 0){
 				query_count++;
 				query_values = field + " LIKE '" + field_value + "'";
-			}else{
+			}else if(query_count < 500){
 				query_count++;
 				query_values = query_values + " OR " + field + " LIKE '" + field_value + "'";
 			}
