@@ -191,7 +191,10 @@ public class ConnectionsCheck implements Connections_Interface{
         }
         
       //Convert all node interchanges to weight of # of edge intervals.
-        int num_users = ids.size();			//pull total number of users	
+        int num_users = ids.size();			//pull total number of users
+        if(num_users > 500){
+        	num_users = 500;
+        }
         JSONArray ja = new JSONArray();
         for (String Connect : Connects){	//Step through all the node to node connections
         	String[] node = Connect.split("\\s*,\\s*");
