@@ -60,7 +60,22 @@ Clustered Instances\\*
 \subsection{Explanation of Weka Results}
 
 \subsection{Weka Performance}
-\begin{table}[H]
+For the Weka runs, the same 10 previous runs for the career path performance
+testing were also used to estimate the Weka performance.  In figure
+\ref{tab:weka-perf}, a couple things can be observed.  First, generating the
+.arff file takes an insignificant time compared to the time it takes Weka to
+analyze the data.  Second, the time it takes Weka to analyze the data takes far
+too long to be part of batched request.  This would have to be an option that a
+user specifically requests in addition to what ProGENitor typically runs.  Weka
+would be one of the most likely pieces of ProGENitor to be sped up by running on
+a server because it is strictly computational and not limited by database
+accesses.  That being said, the average run currently takes about seven and a
+half minutes, which would be far too long to ever be deployed to an end user. 
+Thus, the server would have to significantly speed up the run over the
+development laptop used to do this project to ever considering deploying Weka
+within the ProGENitor tool.
+
+ \begin{table}[H]
   \centering
   \begin{tabular}{|p{17mm}|p{16mm}|p{18mm}|p{19mm}|p{20mm}|}
   \hline
@@ -70,14 +85,14 @@ Clustered Instances\\*
   \hline\hline
   Platform Chief&109&159.3ms&280.5s&280.6s\\ \hline
   Civil\newline Degree&2684&155.7ms&739.0s&739.1s\\ \hline 
-  Architect&2330*&210.5ms&97.7s&97.9s\\ \hline
-  Circuit Designer&675*&154.2ms&441.1s&441.3s\\ \hline
+  Architect&2330&210.5ms&97.7s&97.9s\\ \hline
+  Circuit Designer&675&154.2ms&441.1s&441.3s\\ \hline
   Worked For IBM&260&154.1ms&617.0s&617.1s\\ \hline
   Fission Degree&260&186.1ms&383.7s&383.9s\\ \hline
   Analog Degree&24&187.7ms&206.8s&207.0s\\ \hline
   Embedded&55&155.2ms&277.7s&277.8s\\ \hline
   Floor- \newline planning&49&158.0ms&251.6s&251.7s\\ \hline
-  Circuit Designer&1401*&280.0ms&1211.1s&1211.4s\\ \hline
+  Circuit Designer&1401&280.0ms&1211.1s&1211.4s\\ \hline
   \hline\hline
   Minimum&24&154.1ms&97.7s&97.9s\\ \hline
   Maximum&2684&280.0ms&1211.1s&1211.4s\\ \hline
