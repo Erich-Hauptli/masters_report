@@ -9,8 +9,9 @@ public class JSON_Test {
 	
 		JSON_return json_return = new JSON_return();
 	
-		String common_field = "title";
-		String common_field_value = "Platform Chief Engineer";
+		String common_field = "company";
+		String common_field_value = "IBM";
+		
 	
 		JSONObject search_term = new JSONObject();
 		try {

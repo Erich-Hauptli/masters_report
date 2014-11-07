@@ -14,8 +14,8 @@ public class Connections_Test {
 		Data_Collection collect = new Data_Collection();
 		ConnectionsCheck connection = new ConnectionsCheck();
 		
-		String common_field = "title";
-		String common_field_value = "Platform Chief Engineer";
+		String common_field = "specialization";
+		String common_field_value = "Civil";
 	
 
 		System.out.println(common_field);
