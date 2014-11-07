@@ -136,6 +136,73 @@ applied and the data is parsed in a useful fashion.
 \node [proc, join] (p3) {Parse and Return Results};
 % -------------------------------------------------
 \end{tikzpicture}
-	\caption{Data Clustering}
+	\caption{High Level Data Clustering}
 	\label{fig:clustering}
+\end{figure}
+
+In the case of ProGENitor, EM (expectation maximization) clustering was chosen
+as it automatically determines the number of clusters required through cross
+validation.  The algorithm that EM follows is shown in figure
+\ref{fig:EM}\cite{EM}.  EM differs from other clustering algorithms in that it
+uses probability of cluster membership instead of a distance method used by
+other clustering methods such as k-mean clustering.  EM starts with one cluster,
+then cross validates the data and applies the probability of cluster membership
+classification.  It then calculates the log-likelihood for the set and if it
+increases, creates a new cluster and starts over.  It repeats this process until
+the log likelihood no longer increases.  The left over clusters will then be
+returned as the results.
+
+\begin{figure}[H]
+	\centering
+% Start the picture
+\begin{tikzpicture}[%
+    >=triangle 60,              % Nice arrows; your taste may be different
+    start chain=going below,    % General flow is top-to-bottom
+    node distance=6mm and 60mm, % Global setup of box spacing
+    every join/.style={norm},   % Default linetype for connecting boxes
+    ]
+% ------------------------------------------------- 
+% A few box styles 
+% <on chain> *and* <on grid> reduce the need for manual relative
+% positioning of nodes
+\tikzset{
+  base/.style={draw, on chain, on grid, align=center, minimum height=4ex},
+  proc/.style={base, rectangle, text width=8em},
+  test/.style={base, diamond, aspect=2, text width=5em},
+  % Connector line styles for different parts of the diagram
+  norm/.style={->, draw},
+  it/.style={font={\small\itshape}}
+}
+% -------------------------------------------------
+% Start by placing the nodes
+\node [proc, densely dotted, it] (p0) {Set \# of\newline Clusters to 1};
+% Use join to connect a node to the previous one 
+\node [proc, join] (p1) {Split Training Set into 10 Equal Sets};
+\node [proc, join] (p2) {Cross Validate, Using 1 Set for Testing and 9 Sets
+for Data}; 
+\node [proc, join] (p3) {EM Assigns Probability Distribution to Each
+Instance}; 
+\node [proc, join] (p4) {Log Likelyhood Averaged Over All 10 Runs};
+\node [test, join] (p5) {IF Log Likelyhood Has Increased, Increment Clusters by
+1};
+
+\draw [->, dotted, thick, shorten >=1mm]
+  (p3.east) -- ++(35mm,0mm)  -- ++(40mm,0) 
+  |- node [black, near end, yshift=0.75em, it]
+    [above]{Change Set used for Testing.}
+    (p2);
+\draw [->, dotted, thick, shorten >=1mm]
+  (p3.east) -- ++(35mm,0mm)  -- ++(40mm,0) 
+  |- node [black, near end, yshift=0.75em, it]
+    {Repeat Until All Sets Used for Testing.}
+    (p2);
+
+\draw [->, dotted, thick, shorten >=1mm]
+  (p5.east) -- ++(20mm,0mm)  -- ++(27mm,0) 
+  |- node [black, near end, yshift=0.75em, it]
+    {} (p0);
+% -------------------------------------------------
+\end{tikzpicture}
+	\caption{EM Clustering Algorithm}
+	\label{fig:EM}
 \end{figure}
