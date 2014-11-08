@@ -58,6 +58,51 @@ Clustered Instances\\*
 \noindent Log likelihood: -4.016\\*
 
 \subsection{Explanation of Weka Results}
+In the example above, 212 user instances reached the end goal the query was
+searching for.  This can be determined by adding up all the data in the goal equals yes
+row and subtracting the number of columns.  Weka uses a minimum value of 1 for
+each element in the columns, thus the total instances of a value within an arff
+file would be the sum of the row minus the number of columns.  When it states that 212
+instances reached the end goal, this does not mean there were 212 users who
+reached the end goal.  The arff file treats each educational instances as a new
+input, thus, when all is said in done for this particular arff file there are
+9481 educational instances with the database.  This makes sense if you add up
+all the rows for bachelor degrees, master degrees, and PHDs.  This math will
+also result in 9481 instances, assuming you subtract one for each value.  One
+other odd piece about the data is the fact that the numbers are not crisp
+integers.  In the attempt to generate the various clusters, Weka assigns a
+probability to each educational instance that it belongs in a cluster.  This
+means the math will get complex and not always place a value perfectly in only
+one cluster.  This causes the values to come close to integers, but some times
+instances don't neatly fit within one cluster.
+
+Once how the data is populated in the results and is understood; it can be used
+to draw some educated conclusions from the various clusters.  As the interest
+is in the users who reached the end goal is the focus of the work, any clusters that are equal to
+1 for a goal of yes can immediately be ignored.  In this case, that leaves three
+clusters.  Looking through cluster 4 for instances, shows a higher number of
+users who obtained a Masters degree in circuits and attended Stanford, Texas,
+MSU, MIT, or Caltech for this degree.  
+
+Cluster 5 shows the same information, only instead the users obtained a
+Bachelors degree.  The interesting thing of note between clusters 4 and 5 is the
+slight drop in users who reached the goal who obtained the Master's degree.  The
+drop is not significant which implies getting the Master's degree is still very
+important for a user who wishes to reach the end goal.  One other thing to note,
+in the above group of data, important information has been chopped as the total
+Masters degrees does not match the ones displayed.  This data was simply shorted
+for the report, but would normally be displayed in the Weka results.  The same
+is true for the other clusters.  
+
+In the third cluster, cluster 7, only a few users show up as reaching the goal. 
+This cluster shows students who obtained a PHD.  The school from which they
+obtained the degree did not stand out in the cluster, but the degrees obtained
+did.  The core degrees highlighted were RF, Magnetics, Analog, and Digital.  It
+is worth noting however, that the results don't give us the ability to determine
+which one of these degrees is important as all 4 instances have more users than
+users who reached the goal while obtaining a PHD.  In any case, due to the
+significant drop in users who obtained a PHD, it is clear that a PHD is helpful
+but not required in reaching the goal node.
 
 \subsection{Weka Performance}
 For the Weka runs, the same 10 previous runs for the career path performance
