@@ -90,6 +90,11 @@ the target goal.  These differences are listed in the significant data object.
 		\indent \{"Significant":\}\},\\*
 
 \subsection{Example Carrer Maps}
+With the ProGENitor tool, several examples of functionality can easily be
+demonstrated.  First, looking at a user that is interested in what it takes to
+become a partner in an architecture firm.  The user would submit the query on
+Partner and the career map shown in figure \ref{fig:partner nodal map} would be
+returned.
 
 \usetikzlibrary{shapes,arrows,chains}
 
@@ -146,9 +151,196 @@ the target goal.  These differences are listed in the significant data object.
 \end{tikzpicture}
 
 	\caption{Career Path Nodal Map}
-	\label{fig:nodal map}
+	\label{fig:partner nodal map}
 \end{figure}
 
+This map quickly shows the user that a Bachelors degree is required.  Next the
+users can see that a Master's degree could help them move into an architect
+role right away versus starting out as a Draftsman.  In either case, both
+options can eventually lead to the desired Partner position, with no major
+indicator which one yielded a higher likelihood of achieving the goal.  It also
+shows that it is rare for someone to return for a Master's degree once they've
+entered the workforce and doing so later in your career can actually set the
+users back, if they've moved up to a Lead Architect position.  Finally, very
+few people who reached the Partner status also obtained a PHD, showing that this
+is not a necessary step to achieve this goal.
+
+For additional information, the user could then select one of the nodes to pull
+up information about that node.  The three pie charts below in figure
+\ref{fig:Lead Arch} show the information that would be returned if the user
+were to select the Lead Architect node.  These charts show that there were five
+key employers for all of the users who reached Partner.  They also show that
+most of the Partners were Lead Architects for less than five years, and it
+became increasingly rare to reach Partner after this time.  The data also shows
+that no particular city had Lead Architects getting promoted to Partner more
+frequently.  Thus, any Lead Architects looking at this data would know to reach
+Partner they need to be focused on doing so within the five year window or they
+can expect their chances of doing so to diminish over time.  Also, they should
+know that where and who they work for is not important as long as they work for
+one of the five companies shown.
+
+Alternatively, the user could click on the Master's degree node, to see more
+information about these users.  In doing so, the data in generated immediately
+shows everyone got a Master's degree in Infrastructure and did so in a single
+year.  The only variation is in the school attended.  In this case there were
+eight different schools attended, but none was attended at a more significant
+frequency than the rest.  Thus the user could immediately know if they wished to
+reach partner and do so by obtaining their Master's degree they need to do so by
+attending one of these eight schools and get an Infrastructure degree within a
+year.
+
+
+\begin{figure}[H]
+\centering
+
+\hspace*{-3cm}\begin{subfigure}[h]{.5\textwidth}
+	\centering
+	% Pie chart with colors
+	% Author: Henri Menke
+	\def\angle{0}
+	\def\radius{3}
+	\def\cyclelist{{"orange","blue","red","green"}}
+	\newcount\cyclecount \cyclecount=-1
+	\newcount\ind \ind=-1
+	\resizebox {88mm} {!} {
+	\begin{tikzpicture}[nodes = {font=\small},scale=.5]
+  		\foreach \percent/\name in {
+      		20.3/Boeing,
+      		22.1/Exxon Mobil,
+      		19.5/General Motors,
+      		20.7/Lockheed Martin,
+      		17.4/State Department
+    	} {
+      		\ifx\percent\empty\else               % If \percent is empty, do nothing
+        	\global\advance\cyclecount by 1     % Advance cyclecount
+        	\global\advance\ind by 1            % Advance list index
+        	\ifnum3<\cyclecount                 % If cyclecount is larger than list
+          	\global\cyclecount=0              %   reset cyclecount and
+          	\global\ind=0                     %   reset list index
+        	\fi
+        	\pgfmathparse{\cyclelist[\the\ind]} % Get color from cycle list
+        	\edef\color{\pgfmathresult}         %   and store as \color
+        	% Draw angle and set labels
+        	\draw[fill={\color!50},draw={\color}] (0,0) -- (\angle:\radius)
+          		arc (\angle:\angle+\percent*3.6:\radius) -- cycle;
+        	\node at (\angle+0.5*\percent*3.6:0.7*\radius) {\percent\,\%};
+        	\node[pin=\angle+0.5*\percent*3.6:\name]
+          		at (\angle+0.5*\percent*3.6:\radius) {};
+        	\pgfmathparse{\angle+\percent*3.6}  % Advance angle
+        	\xdef\angle{\pgfmathresult}         %   and store in \angle
+      		\fi
+    	};
+	\end{tikzpicture}
+	}
+
+	\caption{Company}
+	\label{fig:node pie comp}
+\end{subfigure}
+
+\begin{subfigure}{.5\linewidth}
+	\centering
+	% Pie chart with colors
+	% Author: Henri Menke
+	\def\angle{0}
+	\def\radius{3}
+	\def\cyclelist{{"orange","blue","red","green"}}
+	\newcount\cyclecount \cyclecount=-1
+	\newcount\ind \ind=-1
+	\resizebox {68mm} {!} {
+	\begin{tikzpicture}[nodes = {font=\small},scale=.6]
+  		\foreach \percent/\name in {
+      		12.8/1,
+      		14.4/2,
+      		17.6/3,
+      		15.0/4,
+      		9.1/5,
+      		8.9/6,
+      		11.8/7,
+      		5.7/8,
+      		4.7/Other       
+    	} {
+      	\ifx\percent\empty\else               % If \percent is empty, do nothing
+        \global\advance\cyclecount by 1     % Advance cyclecount
+        \global\advance\ind by 1            % Advance list index
+        \ifnum3<\cyclecount                 % If cyclecount is larger than list
+        \global\cyclecount=0              %   reset cyclecount and
+        \global\ind=0                     %   reset list index
+        \fi
+        \pgfmathparse{\cyclelist[\the\ind]} % Get color from cycle list
+        \edef\color{\pgfmathresult}         %   and store as \color
+        % Draw angle and set labels
+        \draw[fill={\color!50},draw={\color}] (0,0) -- (\angle:\radius)
+          	arc (\angle:\angle+\percent*3.6:\radius) -- cycle;
+        \node at (\angle+0.5*\percent*3.6:0.7*\radius) {\percent\,\%};
+        \node[pin=\angle+0.5*\percent*3.6:\name]
+          	at (\angle+0.5*\percent*3.6:\radius) {};
+        \pgfmathparse{\angle+\percent*3.6}  % Advance angle
+        \xdef\angle{\pgfmathresult}         %   and store in \angle
+      	\fi
+    };
+	\end{tikzpicture}
+	}
+
+	\caption{Years Spent at Job}
+	\label{fig:node pie job}
+\end{subfigure}
+
+\hspace*{-7cm}\begin{subfigure}[h]{.25\linewidth}
+
+	% Pie chart with colors
+	% Author: Henri Menke
+	\def\angle{0}
+	\def\radius{3}
+	\def\cyclelist{{"orange","blue","red","green"}}
+	\newcount\cyclecount \cyclecount=-1
+	\newcount\ind \ind=-1
+	\resizebox {98mm} {!} {
+	\begin{tikzpicture}[nodes = {font=\small}]
+  		\foreach \percent/\name in {
+			5.9/New York NY,
+			7.1/Austin TX,
+			7.5/Phoenix AZ,
+			10.5/Denver CO,
+			8.5/San Fransico CA,
+			5.5/Philadelphia PA,
+			6.1/Portland OR,
+			7.3/Los Angeles CA,
+			8.5/Orlando FL,
+			7.9/Chicago IL,
+			5.9/Detroit MI,
+			6.1/Atlanta GA,
+			6.3/Houston TX,
+			6.9/Washington DC      
+    	} {
+      	\ifx\percent\empty\else               % If \percent is empty, do nothing
+        \global\advance\cyclecount by 1     % Advance cyclecount
+        \global\advance\ind by 1            % Advance list index
+        \ifnum3<\cyclecount                 % If cyclecount is larger than list
+        \global\cyclecount=0              %   reset cyclecount and
+        \global\ind=0                     %   reset list index
+        \fi
+        \pgfmathparse{\cyclelist[\the\ind]} % Get color from cycle list
+        \edef\color{\pgfmathresult}         %   and store as \color
+        % Draw angle and set labels
+        \draw[fill={\color!50},draw={\color}] (0,0) -- (\angle:\radius)
+          	arc (\angle:\angle+\percent*3.6:\radius) -- cycle;
+        \node at (\angle+0.5*\percent*3.6:0.7*\radius) {\percent\,\%};
+        \node[pin=\angle+0.5*\percent*3.6:\name]
+          	at (\angle+0.5*\percent*3.6:\radius) {};
+        \pgfmathparse{\angle+\percent*3.6}  % Advance angle
+        \xdef\angle{\pgfmathresult}         %   and store in \angle
+      	\fi
+    	};
+	\end{tikzpicture}
+	}
+	
+	\caption{Job Location}
+	\label{fig:node pie job}
+\end{subfigure}
+
+\caption{Lead Architect}
+\label{fig:Lead Arch}
+\end{figure}
 
 
 \subsection{Career Path Performance}
