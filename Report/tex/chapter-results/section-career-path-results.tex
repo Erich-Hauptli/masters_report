@@ -60,10 +60,19 @@ company versus all users who spent time working at that particular job.  To
 avoid having millions of entries, a threshold is set such that if the threshold
 is not met, the data is lumped into an Other group.  This Other group would then
 contain the total user data that did not meet the threshold.  Finally, a JSON
-Object containing any significant data points is also returned.  ProGENitor
-compares the users who reached the goal against all users who passed through the
-node to determine what was statistically different from the users who reached
-the target goal.  These differences are listed in the significant data object.
+Object containing any significant data points is also returned.  
+
+ProGENitor compares the users who reached the goal against all users who passed
+through the node to determine what was statistically different from the users
+who reached the target goal.  These differences are listed in the significant
+data object. In the example below, the significant data point is that 100\% of
+the users who passed through this node and reached the goal node worked for
+Verizon.  This is significant because only 11\% of the the users who spent time
+in this node worked for Verizon.  Thus, working for Verizon in the Timing job is
+an important step to reaching the goal node.  Significance is flagged whenever
+the users who reached the goal, had a data point occur 5\% more than then
+everyone who passed through the node.  This value could easily be modified by
+the company deploying ProGENitor if a greater difference was required for significance.
 
 \noindent \{"Nodes Data":\\*
 	\indent \{"Node Name":"Timing","Node Data":\\*
@@ -87,9 +96,9 @@ the target goal.  These differences are listed in the significant data object.
 		\indent	\indent	\{"name":"AT\&T\_all","value":"8.430233\%"\},\\*
 		\indent"Data Point Name":"company"\},\\*
 		\indent\ldots\\*
-		\indent \{"Significant":\}\},\\*
+		\indent \{"Significant":Verizon\}\},\\*
 
-\subsection{Example Carrer Map 1}
+\subsection{Example Carrer Path 1}
 With the ProGENitor tool, several examples of functionality can easily be
 demonstrated.  First, looking at a user that is interested in what it takes to
 become a partner in an architecture firm.  The user would submit the query on
@@ -353,7 +362,7 @@ the two.  This is done by adding the following line to the Masters text file.
 This is done by modify the Titles text file.  To make this change, the simple
 replacement of one line with two new lines was needed.
 	
-	\indent Remove}\textit{Lead Architect:Partner}\\*
+	\indent Remove\textit{Lead Architect:Partner}\\*
 	\indent Add:\textit{Lead Architect:Junior Partner}\\*
 	\indent Add:\textit{Junior Partner:Partner}\\*
 	
@@ -441,7 +450,7 @@ return for the Masters node with the following text:
 significant pieces of data as they occur much more frequently than all of the
 users who traveled through this Master's degree node.
 
-\subsection{Example Carrer Map }
+\subsection{Example Carrer Path 2 }
 Consider another user who is interested in reaching the System Chief Engineering
 role.  They would input this query into the tool and figure \ref{fig:node map
 sce} would be generated.  From this map, the user would quickly be able to see
