@@ -89,7 +89,7 @@ the target goal.  These differences are listed in the significant data object.
 		\indent\ldots\\*
 		\indent \{"Significant":\}\},\\*
 
-\subsection{Example Carrer Maps}
+\subsection{Example Carrer Map 1}
 With the ProGENitor tool, several examples of functionality can easily be
 demonstrated.  First, looking at a user that is interested in what it takes to
 become a partner in an architecture firm.  The user would submit the query on
@@ -340,6 +340,298 @@ year.
 
 \caption{Lead Architect}
 \label{fig:Lead Arch}
+\end{figure}
+
+To demonstrate the ease at which the data can be generated and shown through
+this tool, several modifications are now made to this example.  First, a second
+degree is added to Civil Engineer but it is only 33\% likely to occur between
+the two.  This is done by adding the following line to the Masters text file.
+
+	\indent \textit{Civil:Infrastructure,Energy,Infrastructure}\\*
+
+\noindent Next, an additional node, Junior Partner is added prior to Partner. 
+This is done by modify the Titles text file.  To make this change, the simple
+replacement of one line with two new lines was needed.
+	
+	\indent Remove}\textit{Lead Architect:Partner}\\*
+	\indent Add:\textit{Lead Architect:Junior Partner}\\*
+	\indent Add:\textit{Junior Partner:Partner}\\*
+	
+\noindent Finally, the likelihood of someone obtaining a Master's degree was
+reduced by incrementing the m\_chance variable by 2 in the User Data Generation
+Perl script.
+
+
+
+\usetikzlibrary{shapes,arrows,chains}
+
+\begin{figure}[H]
+	\centering
+  
+% Start the picture
+\resizebox {150mm} {!} {
+\begin{tikzpicture}[%
+    >=triangle 60,              % Nice arrows; your taste may be different
+    start chain=going below,    % General flow is top-to-bottom
+    node distance=3mm and 28mm, % Global setup of box spacing
+    every join/.style={norm},   % Default linetype for connecting boxes
+    ]
+% ------------------------------------------------- 
+% A few box styles 
+% <on chain> *and* <on grid> reduce the need for manual relative
+% positioning of nodes
+
+\tikzset{
+  base/.style={draw, on chain, on grid, align=center, minimum height=2ex},
+  node/.style={base, circle, text width=5em},
+  % Connector line styles for different parts of the diagram
+  norm/.style={->, draw},
+  thin/.style={->,>=stealth',shorten >=1pt, black},
+  nm/.style={->,>=stealth',shorten >=1pt, green},
+  to/.style={->,>=stealth',shorten >=1pt,semithick,blue},
+  thick/.style={->,shorten >=1pt,very thick, red},
+  it/.style={font={\small\itshape}}
+}
+% -------------------------------------------------
+% Start by placing the nodes
+\node [node, densely dotted, it] (a) {Bachelors};
+% Use join to connect a node to the previous one 
+\node [node, right = of a] (b) {Draftsman};
+\node [node, right = of b] (c) {Masters}; 
+\node [node, right = of c, yshift=20mm] (d) {Architect};
+\node [node, right = of c, yshift=-20mm] (e) {PHD};
+\node [node, right = of e, yshift=20mm] (f) {Lead Architect};
+\node [node, right = of f] (g) {Junior Partner};
+\node [node, right = of g] (h) {Partner};
+
+\draw[to] (a) to (b);		%Bachelors,Draftsman,5
+\draw[nm] (b) to [bend left=20] (d);		%Draftsman,Architect,4
+\draw[thick] (d) to (f);		%Architect,Lead Architect,7
+\draw[thick] (f) to (g);	%Lead Architect,Junior Partner,10
+\draw[thick] (g) to (h);	%Junior Partner,Partner,10
+\draw[to] (a) to [bend right=40] (c);		%Bachelors,Masters,4
+\draw[nm] (c) to (d); 	%Masters,Architect,2
+\draw[thin] (c) to (f);		%Masters,Lead Architect,1
+\draw[thin] (c) to (e);		%Masters,PHD,0
+\draw[thin] (e) to (f);		%PHD,Lead Architect,0
+\draw[thin] (b) to (c);		%Draftsman,Masters,0
+
+% -------------------------------------------------
+\end{tikzpicture}
+}
+
+	\caption{Modified Career Path Nodal Map}
+	\label{fig:mod partner nodal map}
+\end{figure}
+
+With the changes in place, the new career map for achieving the Partner
+position shows the new node step of Junior Partner.  It also shows the reduction
+of users obtain a Master's degree.  In the case of users transitioning from a
+Bachelor's to Master's degree, it is not clear from the colors, but looking at
+the actual return data, the frequency did decrease by 10\%.  Upon gathering the
+data for the Master's Degree node, it also shows that Infrastructure degrees now
+make up approximately 2/3rds of the degrees.  This is shown in the JSON
+return for the Masters node with the following text:
+
+\indent Data Breakout"\\*
+\indent \indent \indent \{"name":"Infrastructure","value":"61.50794\%"\},\\*
+\indent \indent \indent \{"name":"Energy","value":"38.49206\%"\}
+
+\noindent Additionally, both Infrastructure and Energy would be returned as
+significant pieces of data as they occur much more frequently than all of the
+users who traveled through this Master's degree node.
+
+\subsection{Example Carrer Map }
+Consider another user who is interested in reaching the System Chief Engineering
+role.  They would input this query into the tool and figure \ref{fig:node map
+sce} would be generated.  From this map, the user would quickly be able to see
+that obtaining an advanced degree was unnecessary to become a System Chief
+Engineer.  They could then delve deeper into each node if they wanted to learn
+more about users who did the various jobs that also became System Chief
+Engineers.
+
+
+\usetikzlibrary{shapes,arrows,chains}
+
+\begin{figure}[H]
+	\centering
+  
+% Start the picture
+\resizebox {150mm} {!} {
+\begin{tikzpicture}[%
+    >=triangle 60,              % Nice arrows; your taste may be different
+    start chain=going below,    % General flow is top-to-bottom
+    node distance=3mm and 28mm, % Global setup of box spacing
+    every join/.style={norm},   % Default linetype for connecting boxes
+    ]
+% ------------------------------------------------- 
+% A few box styles 
+% <on chain> *and* <on grid> reduce the need for manual relative
+% positioning of nodes
+\tikzset{
+  base/.style={draw, on chain, on grid, align=center, minimum height=2ex},
+  node/.style={base, circle, text width=5em},
+  % Connector line styles for different parts of the diagram
+  norm/.style={->, draw},
+  thin/.style={->,>=stealth',shorten >=1pt, black},
+  nm/.style={->,>=stealth',shorten >=1pt, green},
+  to/.style={->,>=stealth',shorten >=1pt,semithick,blue},
+  thick/.style={->,shorten >=1pt,very thick, red},
+  it/.style={font={\small\itshape}}
+}
+% -------------------------------------------------
+% Start by placing the nodes
+
+\node [node, densely dotted, it] (a) {Bachelors};
+% Use join to connect a node to the previous one 
+\node [node, right = of a,yshift=0mm] (b) {Entry Coder};
+\node [node, right = of a,yshift=40mm] (c) {Lab Tech}; 
+\node [node, right = of b] (d) {GSI};
+\node [node, right = of d] (e) {Embedded};
+\node [node, right = of e,xshift=5mm] (f) {GSI Lead};
+\node [node, right = of f,xshift=5mm] (g) {Integration Manager};
+\node [node, right = of g,xshift=5mm] (h) {System Chief Engineer};
+\node [node, right = of h,xshift=5mm] (i) {Platform Chief Engineer}; 
+
+\draw[nm] (a) to (c);		%Bachelors,Lab Tech,7
+\draw[nm] (c) to (d);		%Lab Tech,GSI,7
+\draw[thin] (d) to [bend left=40] (f);		%GSI,GSI Lead,4
+\draw[thick] (f) to (g);		%GSI Lead,Integration Manager,14
+\draw[thick] (g) to (h);		%Integration Manager,System Chief Engineer,14
+\draw[to] (h) to (i);		%System Chief Engineer,Platform Chief Engineer,11
+\draw[nm] (a) to (b);		%Bachelors,Entry Coder,7
+\draw[nm] (b) to [bend right=40] (e);		%Entry Coder,Embedded,7
+\draw[to] (e) to (f);		%Embedded,GSI Lead,10
+\draw[thin] (d) to (e);		%GSI,Embedded,3
+
+% -------------------------------------------------
+\end{tikzpicture}
+}
+
+	\caption{System Chief Engineer Nodal Map}
+	\label{fig:node map sce}
+\end{figure}
+
+One thing that might also spark an interest in the user is the fact that any
+jobs beyond the queried job that the matched users also completed would be shown
+as well.  In this case there was one of these such nodes, the Platform Chief
+Engineer.  From the node transitions it is clear that not all System Chief
+Engineers reached this job.  If the user were interested then instead in the
+Platform Chief Engineering role, they could re-run the query and they would be
+presented with the career map shown in figure \ref{fig:node map pce}.  This is
+obviously a much more complex map, but it still yields the same capability of
+quickly showing users complex career paths to a particular goal.  In this case
+it shows that there are essentially three paths to this job.  The first path was
+detailed in the initial query, the second path is through a Design career
+path, and the third path is through an advanced degree.  What is most notable
+about these paths is if the advanced degree path is taken, the initial jobs
+the users take don't have much impact, as long as it is within the career realm.
+The other notable thing is the most common path taken to getting to the Platform
+Chief Engineering job is through the design path.
+
+
+\usetikzlibrary{shapes,arrows,chains}
+
+\begin{figure}[H]
+	\centering
+  
+% Start the picture
+\resizebox {!} {190mm} {
+\begin{tikzpicture}[%
+    >=triangle 60,              % Nice arrows; your taste may be different
+    start chain=going below,    % General flow is top-to-bottom
+    node distance=3mm and 28mm, % Global setup of box spacing
+    every join/.style={norm},   % Default linetype for connecting boxes
+    ]
+% ------------------------------------------------- 
+% A few box styles 
+% <on chain> *and* <on grid> reduce the need for manual relative
+% positioning of nodes
+\tikzset{
+  base/.style={draw, on chain, on grid, align=center, minimum height=2ex},
+  node/.style={base, circle, text width=5em},
+  % Connector line styles for different parts of the diagram
+  norm/.style={->, draw},
+  thin/.style={->,>=stealth',shorten >=1pt, black},
+  nm/.style={->,>=stealth',shorten >=1pt, green},
+  to/.style={->,>=stealth',shorten >=1pt,semithick,blue},
+  thick/.style={->,shorten >=1pt,very thick, red},
+  it/.style={font={\small\itshape}}
+}
+% -------------------------------------------------
+% Start by placing the nodes
+
+\node [node, densely dotted, it] (a) {Bachelors};
+% Use join to connect a node to the previous one 
+\node [node, below = of a,yshift=-30mm,xshift=20mm] (b) {Entry Coder};
+\node [node, below = of a,yshift=-30mm,xshift=60mm] (c) {Lab Tech}; 
+\node [node, below = of a,yshift=-30mm,xshift=-60mm] (d) {Schematic Entry};
+\node [node, below = of a,yshift=-30mm,xshift=-20mm] (e) {Chiplet Designer};
+\node [node, below = of d,yshift=-30mm,xshift=40mm] (f) {Timing};
+\node [node, below = of d,yshift=-30mm,xshift=120mm] (g) {Signal Integrity};
+\node [node, below = of d,yshift=-30mm,xshift=-40mm] (h) {Circuit Designer};
+\node [node, below = of d,yshift=-30mm,xshift=80mm] (i) {Coder};
+\node [node, below = of d,yshift=-30mm,xshift=0mm] (j) {Schematic Lead};
+\node [node, below = of d,yshift=-30mm,xshift=160mm] (k) {GSI};
+\node [node, below = of i,yshift=-30mm] (l) {Function Lead};
+\node [node, below = of i,yshift=-30mm,xshift=40mm] (m) {Embedded};
+\node [node, below = of l,yshift=-30mm,xshift=-40mm] (n) {Masters};
+\node [node, below = of l,yshift=-30mm,xshift=40mm] (o) {GSI Lead};
+\node [node, below = of n,yshift=-30mm] (p) {PHD};
+\node [node, below = of o,yshift=-30mm] (q) {Integration Manager};
+\node [node, below = of q,yshift=-30mm] (r) {System Chief Engineer};
+\node [node, below = of p,yshift=-30mm] (s) {Block Owner};
+\node [node, below = of s,yshift=-30mm,xshift=40mm] (t) {Platform Chief
+Engineer}; 
+\node [node, below = of s,yshift=-30mm] (u) {Design Owner};
+\node [node, below = of u,yshift=-30mm,xshift=20mm] (v) {Processor Lead};
+
+\draw[to] (a) to [bend left=10] (n);		%Bachelors,Masters,6
+\draw[to] (n) to (h);		%Masters,Circuit Designer,7
+\draw[thick] (h) to (s);		%Circuit Designer,Block Owner,8
+\draw[thick] (s) to (u);		%Block Owner,Design Owner,9
+\draw[thick] (u) to (v);		%Design Owner,Processor Lead,9
+\draw[thick] (v) to (t);		%Processor Lead,Platform Chief Engineer,9
+\draw[thin] (a) to (d);		%Bachelors,Schematic Entry,0
+\draw[thin] (d) to (j);		%Schematic Entry,Schematic Lead,0
+\draw[thin] (j) to (n);		%Schematic Lead,Masters,0
+\draw[thin] (n) to (p);		%Masters,PHD,1
+\draw[thin] (p) to (s);		%PHD,Block Owner,1
+\draw[thin] (d) to [bend left=5](n);		%Schematic Entry,Masters,0
+\draw[thin] (a) to (c);		%Bachelors,Lab Tech,1
+\draw[thin] (c) to (k);		%Lab Tech,GSI,0
+\draw[thin] (k) to (o);		%GSI,GSI Lead,0
+\draw[thin] (o) to (q);		%GSI Lead,Integration Manager,1
+\draw[thin] (q) to (r);		%Integration Manager,System Chief Engineer,1
+\draw[thin] (r) to (t);		%System Chief Engineer,Platform Chief Engineer,1
+\draw[thin] (a) to (b);		%Bachelors,Entry Coder,1
+\draw[thin] (b) to (i);		%Entry Coder,Coder,0
+\draw[thin] (i) to (n);		%Coder,Masters,0
+\draw[thin] (c) to (b);		%Lab Tech,Power,0
+\draw[thin] (b) to (m);		%Entry Coder,Embedded,0
+\draw[thin] (m) to (n);		%Embedded,Masters,0
+\draw[thin] (c) to (n);		%Lab Tech,Masters,0
+\draw[thin] (b) to [bend right=5] (n);		%Entry Coder,Masters,0
+\draw[thin] (m) to (o);		%Embedded,GSI Lead,0
+\draw[thin] (d) to (h);		%Schematic Entry,Circuit Designer,0
+\draw[thin] (a) to (e);		%Bachelors,Chiplet Designer,0
+\draw[thin] (e) to [bend right=28] (n);		%Chiplet Designer,Masters,0
+\draw[thin] (k) to (m);		%GSI,Embedded,0
+\draw[thin] (e) to (h);		%Chiplet Designer,Circuit Designer,0
+\draw[thin] (c) to (g);		%Lab Tech,Signal Integrity,0
+\draw[thin] (g) to [bend left=22](n);		%Signal Integrity,Masters,0
+\draw[thin] (e) to (f);		%Chiplet Designer,Timing,0
+\draw[thin] (f) to (n);		%Timing,Masters,0
+\draw[thin] (h) to (n);		%Circuit Designer,Masters,0
+\draw[thin] (i) to (l);		%Coder,Function Lead,0
+\draw[thin] (l) to (n);		%Function Lead,Masters,0
+
+% -------------------------------------------------
+\end{tikzpicture}
+}
+
+	\caption{Platform Chief Engineer Nodal Map}
+	\label{fig:node map pce}
 \end{figure}
 
 
