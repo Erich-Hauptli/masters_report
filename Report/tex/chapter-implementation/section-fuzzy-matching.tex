@@ -20,11 +20,11 @@ done by using the Levenshtein distance algorithm\cite{fuzzy} outlined in table
   Set m to be the length of t.\newline
   If n = 0, return m and exit.\newline
   If m = 0, return n and exit.\newline
-  Construct a matrix containing 0..m rows and 0..n columns.  \\ \hline 
-  2 &  	Initialize the first row to 0..n.\newline
-  Initialize the first column to 0..m.\\ \hline 
-  3 & Examine each character of s (i from 1 to n). \\ \hline
-  4 & Examine each character of t (j from 1 to m). \\ \hline
+  Construct a matrix containing m+1 rows and n+1 columns.  \\ \hline 
+  2 &  	Initialize the first row, s[0], to column number (starting with
+  0) .\newline Initialize the first column, t[0], to row number (starting
+  with 0).\\
+  \hline 3 & Examine each character of s (i from 1 to n). \\ \hline 4 & Examine each character of t (j from 1 to m). \\ \hline
   5 &  	If s[i] equals t[j], the cost is 0.\newline
   If s[i] doesn't equal t[j], the cost is 1. \\\hline 
   6 &  	Set cell d[i,j] of the matrix equal to the minimum of:\newline

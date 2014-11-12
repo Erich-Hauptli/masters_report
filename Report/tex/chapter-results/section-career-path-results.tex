@@ -122,7 +122,7 @@ returned.
 	\centering
   
 % Start the picture
-\resizebox {100mm} {!} {
+\resizebox {125mm} {!} {
 \begin{tikzpicture}[%
     >=triangle 60,              % Nice arrows; your taste may be different
     start chain=going below,    % General flow is top-to-bottom
@@ -150,10 +150,10 @@ returned.
 % Use join to connect a node to the previous one 
 \node [node, right = of a, yshift=20mm] (b) {Masters};
 \node [node, right = of a, yshift=-20mm] (c) {Draftsman}; 
-\node [node, right = of b](d) {PhD};
-\node [node, right = of c](e) {Architect};
+\node [node, right = of b, xshift=2mm](d) {PhD};
+\node [node, right = of c, xshift=2mm](e) {Architect};
 \node [node, right = of e, yshift=20mm](f) {Lead Architect};
-\node [node, right = of f](g) {Partner};
+\node [node, right = of f, xshift=5mm](g) {Partner};
 
 \draw [to] (a) to (c);%Bachelors,Draftsman,4
 \draw [thin] (c) to (b);	%Draftsman,Masters,1
