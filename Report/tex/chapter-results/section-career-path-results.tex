@@ -38,7 +38,7 @@ interconnects flowing in the reverse order.
 	\indent\{"node	name":"Timing","order":"2"\},\\*
 	\indent\{"node name":"Signal Integrity","order":"2"\},\\*
 	\indent\{"node name":"Platform Chief Engineer","order":"7"\},\\*
-	\indent\{"node name":"PHD","order":"5"\},\\*
+	\indent\{"node name":"PhD","order":"5"\},\\*
 	\indent\{"node name":"Entry Coder","order":"1"\},\\*
 	\indent\ldots\\*
 	\indent\{"node name":"Block Owner","order":"6"\},\\*
@@ -135,11 +135,11 @@ returned.
 }
 % -------------------------------------------------
 % Start by placing the nodes
-\node [node, densely dotted, it] (a) {Bachelors};
+\node [node] (a) {Bachelors};
 % Use join to connect a node to the previous one 
 \node [node, right = of a, yshift=20mm] (b) {Masters};
 \node [node, right = of a, yshift=-20mm] (c) {Draftsman}; 
-\node [node, right = of b](d) {PHD};
+\node [node, right = of b](d) {PhD};
 \node [node, right = of c](e) {Architect};
 \node [node, right = of e, yshift=20mm](f) {Lead Architect};
 \node [node, right = of f](g) {Partner};
@@ -150,8 +150,8 @@ returned.
 \draw[thick] (e) to (f);	%Architect,Lead Architect,7
 \draw[thick] (f) to (g);	%Lead Architect,Partner,7
 \draw[to] (a) to (b);	%Bachelors,Masters,5
-\draw[thin] (b) to (d); %Masters,PHD,0
-\draw[thin] (d) to (f);	%PHD,Lead Architect,0
+\draw[thin] (b) to (d); %Masters,PhD,0
+\draw[thin] (d) to (f);	%PhD,Lead Architect,0
 \draw[nm] (c) to (e);	%Draftsman,Architect,2
 \draw[thin] (e) to [bend left=20] (b);	%Architect,Masters,0
 \draw[thin] (f) to [bend left=20] (b);	%Lead
@@ -165,15 +165,15 @@ returned.
 	\label{fig:partner nodal map}
 \end{figure}
 
-This map quickly shows the user that a Bachelors degree is required.  Next the
-users can see that a Master's degree could help them move into an architect
+This map quickly shows the user that a bachelor's degree is required.  Next the
+users can see that a master's degree could help them move into an architect
 role right away versus starting out as a Draftsman.  In either case, both
 options can eventually lead to the desired Partner position, with no major
 indicator which one yielded a higher likelihood of achieving the goal.  It also
-shows that it is rare for someone to return for a Master's degree once they've
+shows that it is rare for someone to return for a master's degree once they've
 entered the workforce and doing so later in your career can actually set the
 users back, if they've moved up to a Lead Architect position.  Finally, very
-few people who reached the Partner status also obtained a PHD, showing that this
+few people who reached the Partner status also obtained a PhD, showing that this
 is not a necessary step to achieve this goal.
 
 For additional information, the user could then select one of the nodes to pull
@@ -190,13 +190,13 @@ can expect their chances of doing so to diminish over time.  Also, they should
 know that where and who they work for is not important as long as they work for
 one of the five companies shown.
 
-Alternatively, the user could click on the Master's degree node, to see more
+Alternatively, the user could click on the master's degree node, to see more
 information about these users.  In doing so, the data in generated immediately
 shows everyone got a Master's degree in Infrastructure and did so in a single
 year.  The only variation is in the school attended.  In this case there were
 eight different schools attended, but none was attended at a more significant
 frequency than the rest.  Thus the user could immediately know if they wished to
-reach partner and do so by obtaining their Master's degree they need to do so by
+reach partner and do so by obtaining their master's degree they need to do so by
 attending one of these eight schools and get an Infrastructure degree within a
 year.
 
@@ -368,7 +368,7 @@ replacement of one line with two new lines was needed.
 	\indent Add:\textit{Lead Architect:Junior Partner}\\*
 	\indent Add:\textit{Junior Partner:Partner}\\*
 	
-\noindent Finally, the likelihood of someone obtaining a Master's degree was
+\noindent Finally, the likelihood of someone obtaining a master's degree was
 reduced by incrementing the m\_chance variable by 2 in the User Data Generation
 Perl script.
 
@@ -405,12 +405,12 @@ Perl script.
 }
 % -------------------------------------------------
 % Start by placing the nodes
-\node [node, densely dotted, it] (a) {Bachelors};
+\node [node] (a) {Bachelors};
 % Use join to connect a node to the previous one 
 \node [node, right = of a] (b) {Draftsman};
 \node [node, right = of b] (c) {Masters}; 
 \node [node, right = of c, yshift=20mm] (d) {Architect};
-\node [node, right = of c, yshift=-20mm] (e) {PHD};
+\node [node, right = of c, yshift=-20mm] (e) {PhD};
 \node [node, right = of e, yshift=20mm] (f) {Lead Architect};
 \node [node, right = of f] (g) {Junior Partner};
 \node [node, right = of g] (h) {Partner};
@@ -423,8 +423,8 @@ Perl script.
 \draw[to] (a) to [bend right=40] (c);		%Bachelors,Masters,4
 \draw[nm] (c) to (d); 	%Masters,Architect,2
 \draw[thin] (c) to (f);		%Masters,Lead Architect,1
-\draw[thin] (c) to (e);		%Masters,PHD,0
-\draw[thin] (e) to (f);		%PHD,Lead Architect,0
+\draw[thin] (c) to (e);		%Masters,PhD,0
+\draw[thin] (e) to (f);		%PhD,Lead Architect,0
 \draw[thin] (b) to (c);		%Draftsman,Masters,0
 
 % -------------------------------------------------
@@ -437,12 +437,12 @@ Perl script.
 
 With the changes in place, the new career map for achieving the Partner
 position shows the new node step of Junior Partner.  It also shows the reduction
-of users obtain a Master's degree.  In the case of users transitioning from a
-Bachelor's to Master's degree, it is not clear from the colors, but looking at
+of users obtain a master's degree.  In the case of users transitioning from a
+bachelor's to master's degree, it is not clear from the colors, but looking at
 the actual return data, the frequency did decrease by 10\%.  Upon gathering the
-data for the Master's Degree node, it also shows that Infrastructure degrees now
+data for the master's degree node, it also shows that Infrastructure degrees now
 make up approximately 2/3rds of the degrees.  This is shown in the JSON
-return for the Masters node with the following text:
+return for the masters node with the following text:
 
 \indent Data Breakout"\\*
 \indent \indent \indent \{"name":"Infrastructure","value":"61.50794\%"\},\\*
@@ -450,7 +450,7 @@ return for the Masters node with the following text:
 
 \noindent Additionally, both Infrastructure and Energy would be returned as
 significant pieces of data as they occur much more frequently than all of the
-users who traveled through this Master's degree node.
+users who traveled through this master's degree node.
 
 \subsection{Example Carrer Path 2 }
 Consider another user who is interested in reaching the System Chief Engineering
@@ -493,7 +493,7 @@ Engineers.
 % -------------------------------------------------
 % Start by placing the nodes
 
-\node [node, densely dotted, it] (a) {Bachelors};
+\node [node] (a) {Bachelors};
 % Use join to connect a node to the previous one 
 \node [node, right = of a,yshift=0mm] (b) {Entry Coder};
 \node [node, right = of a,yshift=40mm] (c) {Lab Tech}; 
@@ -572,7 +572,7 @@ Chief Engineering job is through the design path.
 % -------------------------------------------------
 % Start by placing the nodes
 
-\node [node, densely dotted, it] (a) {Bachelors};
+\node [node] (a) {Bachelors};
 % Use join to connect a node to the previous one 
 \node [node, below = of a,yshift=-30mm,xshift=20mm] (b) {Entry Coder};
 \node [node, below = of a,yshift=-30mm,xshift=60mm] (c) {Lab Tech}; 
@@ -588,7 +588,7 @@ Chief Engineering job is through the design path.
 \node [node, below = of i,yshift=-30mm,xshift=40mm] (m) {Embedded};
 \node [node, below = of l,yshift=-30mm,xshift=-40mm] (n) {Masters};
 \node [node, below = of l,yshift=-30mm,xshift=40mm] (o) {GSI Lead};
-\node [node, below = of n,yshift=-30mm] (p) {PHD};
+\node [node, below = of n,yshift=-30mm] (p) {PhD};
 \node [node, below = of o,yshift=-30mm] (q) {Integration Manager};
 \node [node, below = of q,yshift=-30mm] (r) {System Chief Engineer};
 \node [node, below = of p,yshift=-30mm] (s) {Block Owner};
@@ -606,8 +606,8 @@ Engineer};
 \draw[thin] (a) to (d);		%Bachelors,Schematic Entry,0
 \draw[thin] (d) to (j);		%Schematic Entry,Schematic Lead,0
 \draw[thin] (j) to (n);		%Schematic Lead,Masters,0
-\draw[thin] (n) to (p);		%Masters,PHD,1
-\draw[thin] (p) to (s);		%PHD,Block Owner,1
+\draw[thin] (n) to (p);		%Masters,PhD,1
+\draw[thin] (p) to (s);		%PhD,Block Owner,1
 \draw[thin] (d) to [bend left=5](n);		%Schematic Entry,Masters,0
 \draw[thin] (a) to (c);		%Bachelors,Lab Tech,1
 \draw[thin] (c) to (k);		%Lab Tech,GSI,0
@@ -658,7 +658,7 @@ much less in these run times than they could be with a remote database.
 
 For generating the career path map, 10 cases were run, as shown below in table
 \ref{table:career performance}.  These 10 cases generate a range of matched
-users, total users, and number of nodes returned.  By doing this, a ruff estimate as to how
+users, total users, and number of nodes returned.  By doing this, a rough estimate as to how
 long a query to ProGENitor might take can be ascertained.  As seen in table
 \ref{table:career performance}, an average query would take about 2.5 seconds,
 but might take much longer depending on the number of users in the database and the number that

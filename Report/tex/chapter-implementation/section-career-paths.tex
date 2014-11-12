@@ -16,14 +16,13 @@ degree. The nodes are arranged such that the user most likely travels from left
 to right, but the occasional infrequently traveled transition may flow in the
 reverse direction.  The frequency that the the path is traveled is depicted
 through color in this example.  Red depicts the most frequently traveled path,
-then blue, green, and finally the most infrequently traveled path is colored
-black.  It is assumed that each node would then be able to display the
-individual node information upon user request; either through clicking on the
-node or through some other user action.  Note, that ProGENitor does not limit
-the method in which the user interface is displayed; it simply passes back
-statistical information about the nodes, the transitions between each node, and
-the individual data about each node.  It is up to the web user interface
-developer to determine how the end product is rendered.
+then blue, green, and finally the least traveled path is colored black.  Each
+node would then be able to display the individual node information upon user
+request; either through clicking on the node or through some other user action. 
+Note, that ProGENitor does not limit the method in which the user interface is
+displayed; it simply passes back statistical information about the nodes, the
+transitions between each node, and the individual data about each node.  It is
+up to the web user interface developer to determine how the end product is rendered.
 
 
 \usetikzlibrary{shapes,arrows,chains}
@@ -55,7 +54,7 @@ developer to determine how the end product is rendered.
 }
 % -------------------------------------------------
 % Start by placing the nodes
-\node [node, densely dotted, it] (a) {A};
+\node [node] (a) {A};
 % Use join to connect a node to the previous one 
 \node [node, right = of a] (b) {B};
 \node [node, above = of b, yshift=25mm] (c) {C}; 
@@ -126,7 +125,7 @@ process to generate this node interconnection data is depicted in figure
 }
 % -------------------------------------------------
 % Start by placing the nodes
-\node [proc, densely dotted, it] (p0) {Pull all relevant data};
+\node [proc] (p0) {Pull all\newline relevant data};
 % Use join to connect a node to the previous one 
 \node [test, join] (t1) {IF transition is new, add to storage array};
 \node [test, join] (t2) {ELSE increment counter for transition in storage
@@ -215,7 +214,7 @@ that reach the destination goal.
 }
 % -------------------------------------------------
 % Start by placing the nodes
-\node [proc, densely dotted, it] (p0) {Generate HashSet of all nodes};
+\node [proc] (p0) {Generate HashSet of all nodes};
 % Use join to connect a node to the previous one 
 \node [test, join] (p1) {Find worst input and output transition};
 \node [proc, join] (p2) {Store worst transition edges};
@@ -344,7 +343,7 @@ details} below.
 }
 % -------------------------------------------------
 % Start by placing the nodes
-\node [proc, densely dotted, it] (p0) {Pull relevant and All Node Data};
+\node [proc] (p0) {Pull relevant and All Node Data};
 % Use join to connect a node to the previous one 
 \node [proc, join] (p1) {Count occurrences of each data instance};
 \node [proc, join] (p2) {Calculate percentage of occurrence for each

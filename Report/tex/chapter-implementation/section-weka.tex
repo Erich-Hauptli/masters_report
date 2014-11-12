@@ -25,7 +25,7 @@ following:\\*
 \\*
 @relation education\\*
 \\*
-@attribute degree \{PHD,Bachelors,Masters\}\\*
+@attribute degree \{PhD,Bachelors,Masters\}\\*
 @attribute specialization
 \{Electrical,Circuits,Analog,ComputerArchitecture,Digital\}\\* @attribute goal
 \{true,false\}\\* \\* @data\\*
@@ -33,7 +33,7 @@ Bachelors,Electrical,false\\*
 Masters,Circuits,false\\*
 Bachelors,Electrical,true\\*
 Masters,Circuits,true\\*
-PHD,MSU,Digital,true\\*
+PhD,MSU,Digital,true\\*
 
 ProGENitor currently generates the .arff file containing just the educational
 nodes.  One of the keys to getting quality insights out of Weka is controlling
@@ -69,7 +69,7 @@ later used by Weka.
 }
 % -------------------------------------------------
 % Start by placing the nodes
-\node [proc, densely dotted, it] (p0) {Setup Header and write it to .arff file};
+\node [proc] (p0) {Setup Header and write it to .arff file};
 % Use join to connect a node to the previous one 
 \node [proc, join] (p1) {Pull in database headers};
 \node [proc, join] (p2) {Establish list of attributes};
@@ -129,7 +129,7 @@ applied and the data is parsed in a useful fashion.
 }
 % -------------------------------------------------
 % Start by placing the nodes
-\node [proc, densely dotted, it] (p0) {Read in Arff File};
+\node [proc] (p0) {Read in Arff File};
 % Use join to connect a node to the previous one 
 \node [proc, join] (p1) {Setup Cluster Evaluation};
 \node [proc, join] (p2) {Evaluate Arff Data Using Cluster Method};
@@ -175,15 +175,15 @@ returned as the results.
 }
 % -------------------------------------------------
 % Start by placing the nodes
-\node [proc, densely dotted, it] (p0) {Set \# of\newline Clusters to 1};
+\node [proc] (p0) {Set \# of\newline Clusters to 1};
 % Use join to connect a node to the previous one 
 \node [proc, join] (p1) {Split Training Set into 10 Equal Sets};
 \node [proc, join] (p2) {Cross Validate, Using 1 Set for Testing and 9 Sets
 for Data}; 
 \node [proc, join] (p3) {EM Assigns Probability Distribution to Each
 Instance}; 
-\node [proc, join] (p4) {Log Likelyhood Averaged Over All 10 Runs};
-\node [test, join] (p5) {IF Log Likelyhood Has Increased, Increment Clusters by
+\node [proc, join] (p4) {Log Likelihood Averaged Over All 10 Runs};
+\node [test, join] (p5) {IF Log Likelihood Has Increased, Increment Clusters by
 1};
 
 \draw [->, dotted, thick, shorten >=1mm]

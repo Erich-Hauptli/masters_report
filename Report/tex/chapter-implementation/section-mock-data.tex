@@ -43,7 +43,7 @@ The second place that code must randomly select data is when it is determining
 if a user enters a node or not on each pass.  There are four possible nodes that
 a user could enter each pass and each pass they could potentially enter up to
 all of the nodes.  These nodes are an undergraduate degree, a master's degree, a
-PHD, and a job.  For each of these nodes, a chance value is assigned in the
+PhD, and a job.  For each of these nodes, a chance value is assigned in the
 variables at the top of the script.  Then essentially a 10 sided dice is rolled
 at each node, this is done by loading 1 through 10 into an array and applying
 the Perl rand function to the array.  If the dice roll is greater than the
@@ -89,15 +89,15 @@ depicts this process below.
 }
 % -------------------------------------------------
 % Start by placing the nodes
-\node [proc, densely dotted, it] (p0) {Initialize Tunable Variables, pull in
+\node [proc] (p0) {Initialize Tunable Variables, pull in
 data files};
 % Use join to connect a node to the previous one 
 \node [proc, join] (p1) {Increment ID}; 
 \node [proc, join] (p2) {Generate User Profile Data};
 \node [proc, join] (p3) {Calculate Years left in workforce/higher education};
-\node [test, join] (t0) {If UG, generate random Bachelors Degree};
-\node [test, join] (t1) {If MS, generate random Masters Degree};
-\node [test, join] (t2) {If PHD, generate random PHD information};
+\node [test, join] (t0) {If UG, generate random bachelor's degree};
+\node [test, join] (t1) {If MS, generate random master's degree};
+\node [test, join] (t2) {If PhD, generate random PhD information};
 \node [test, join] (t3) {If Job, generate random job information};
 \node [proc, join] (p4) {Print User Information to Users.csv};
 
