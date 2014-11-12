@@ -14,15 +14,19 @@ ProGENitor users.  Thus, the actual number of users transitioning from one node
 to another node is divided by the total number of users that data was pulled for
 the career map.  This percentage is then multiplied by 10 and rounded.
 
+\begin{tt}
+\begin{footnotesize}
 \noindent\{"Node Connections":\\*
 \{"node A":"Bachelors","node B":"Masters","transition frequency":6\},\\*
 \{"node A":"Masters","node 	B":"Circuit Designer","transition frequency":7\},\\*
 \{"node A":"Circuit Designer","node B":"Block 	Owner","transition
-frequency":8\},\\* \{"node A":"Block Owner","node B":"Design Owner","transition
-frequency":9\},\\*
+ frequency":8\},\\* 
+\{"node A":"Block Owner","node B":"Design Owner","transition frequency":9\},\\*
 \ldots\\* 
 \{"node A":"Coder","node B":"Function Lead","transition frequency":0\},\\*
-\{"node A":"Function Lead","node B":"Masters","transition frequency":0\}]\},\\*
+\{"node A":"Function Lead","node B":"Masters","transitionfrequency":0\}\},\\*
+\end{footnotesize}
+\end{tt}
 
 
 \subsection{Node Ordering JSON Results}
@@ -34,6 +38,8 @@ moving sequentially up, each node in the group should be displayed until the
 final node group is displayed.  This will allow the map to flow with minimum
 interconnects flowing in the reverse order.
 
+\begin{tt}
+\begin{footnotesize}
 \noindent \{"Node Ordering":\\*
 	\indent\{"node	name":"Timing","order":"2"\},\\*
 	\indent\{"node name":"Signal Integrity","order":"2"\},\\*
@@ -43,7 +49,8 @@ interconnects flowing in the reverse order.
 	\indent\ldots\\*
 	\indent\{"node name":"Block Owner","order":"6"\},\\*
 	\indent\{"node name":"Chiplet Designer","order":"1"\}]\},\\*
-
+\end{footnotesize}
+\end{tt}
 
 \subsection{Node Details JSON Results}
 In the node detail JSON Object, an Array containing all of the various nodes
@@ -75,6 +82,8 @@ everyone who passed through the node.  This value could easily be modified by
 the company deploying ProGENitor if a greater difference was required for significance.
 
 \pagebreak
+\begin{tt}
+\begin{footnotesize}
 \noindent \{"Nodes Data":\\*
 	\indent \{"Node Name":"Timing","Node Data":\\*
 		\indent \{"Data Breakout":\\*
@@ -97,6 +106,8 @@ the company deploying ProGENitor if a greater difference was required for signif
 		\indent"Data Point Name":"company"\},\\*
 		\indent\ldots\\*
 		\indent \{"Significant":Verizon\}\},\\*
+\end{footnotesize}
+\end{tt}
 
 \subsection{Example Carrer Path 1}
 With the ProGENitor tool, several examples of functionality can easily be
@@ -358,15 +369,18 @@ this tool, several modifications are now made to this example.  First, a second
 degree is added to Civil Engineer but it is only 33\% likely to occur between
 the two.  This is done by adding the following line to the Masters text file.
 
-	\indent \textit{Civil:Infrastructure,Energy,Infrastructure}\\*
+	\indent
+	\begin{footnotesize}\begin{tt}{Civil:Infrastructure,Energy,Infrastructure}\\*\end{tt}\end{footnotesize}
 
 \noindent Next, an additional node, Junior Partner is added prior to Partner. 
 This is done by modify the Titles text file.  To make this change, the simple
 replacement of one line with two new lines was needed.
 	
-	\indent Remove\textit{Lead Architect:Partner}\\*
-	\indent Add:\textit{Lead Architect:Junior Partner}\\*
-	\indent Add:\textit{Junior Partner:Partner}\\*
+	\begin{footnotesize}
+	\indent Remove: \begin{tt}Lead Architect:Partner\\*\end{tt}
+	\indent Add: \begin{tt}Lead Architect:Junior Partner\\*\end{tt}
+	\indent Add: \begin{tt}Junior Partner:Partner\\*\end{tt}
+	\end{footnotesize}
 	
 \noindent Finally, the likelihood of someone obtaining a master's degree was
 reduced by incrementing the m\_chance variable by 2 in the User Data Generation
@@ -444,9 +458,13 @@ data for the master's degree node, it also shows that Infrastructure degrees now
 make up approximately 2/3rds of the degrees.  This is shown in the JSON
 return for the masters node with the following text:
 
+\begin{tt}
+\begin{footnotesize}
 \indent Data Breakout"\\*
 \indent \indent \indent \{"name":"Infrastructure","value":"61.50794\%"\},\\*
 \indent \indent \indent \{"name":"Energy","value":"38.49206\%"\}
+\end{footnotesize}
+\end{tt}
 
 \noindent Additionally, both Infrastructure and Energy would be returned as
 significant pieces of data as they occur much more frequently than all of the

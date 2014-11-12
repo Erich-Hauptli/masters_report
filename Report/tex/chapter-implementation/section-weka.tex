@@ -18,26 +18,30 @@ classification.
 \subsection{Arff Creation}
 Weka uses the .arff file format to feed data into the Weka toolset.  The Arff
 file contains two major sections.  These sections are the header section and the
-data section. \cite{arff}  The header contains the name of the relation, a list
+data section \cite{arff}.  The header contains the name of the relation, a list
 of attributes, and their types.  The data section contains the data that will
 be used for machine learning.  A sample .arff file would look like the
 following:\\*
 \\*
+\begin{tt}
+\begin{footnotesize}
 @relation education\\*
-\\*
+\\
 @attribute degree \{PhD,Bachelors,Masters\}\\*
 @attribute specialization
-\{Electrical,Circuits,Analog,ComputerArchitecture,Digital\}\\* @attribute goal
-\{true,false\}\\* \\* @data\\*
+\{Electrical,Circuits,Analog,Computer\newline \indent Architecture,Digital\}\\*
+@attribute goal \{true,false\}\\ \\* @data\\*
 Bachelors,Electrical,false\\*
 Masters,Circuits,false\\*
 Bachelors,Electrical,true\\*
 Masters,Circuits,true\\*
 PhD,MSU,Digital,true\\*
+\end{footnotesize}
+\end{tt}
 
 ProGENitor currently generates the .arff file containing just the educational
 nodes.  One of the keys to getting quality insights out of Weka is controlling
-the data being fed into the tools.  Thus, in this case, only the educational
+the data being fed into the tools.  In this case, only the educational
 data is fed into the tool.  This process could easily be replicated for additional
 insights.  To generate the arff file, ProGENitor contains a Java method called
 generate arff in the connections package.  This code follows the procedure
@@ -99,7 +103,7 @@ One major advantage to using the Weka library is it takes complex code and makes
 it relatively simple.  As seen in Figure \ref{fig:clustering}, the process that is
 followed to analyze the data in the Arrf file is very simple and straight
 forward.  Once the Weka jar is imported into the project, the code is very quick
-to implement, as good documentation is available for the API.\cite{weka}  The
+to implement, as good documentation is available for the API \cite{weka}.  The
 complex portion of work is then ensuring that the appropriate classification is
 applied and the data is parsed in a useful fashion.
 
@@ -143,7 +147,7 @@ applied and the data is parsed in a useful fashion.
 In the case of ProGENitor, EM (expectation maximization) clustering was chosen
 as it automatically determines the number of clusters required through cross
 validation.  The algorithm that EM follows is shown in figure
-\ref{fig:EM}\cite{EM}.  EM differs from other clustering algorithms in that it
+\ref{fig:EM} \cite{EM}.  EM differs from other clustering algorithms in that it
 uses probability of cluster membership instead of a distance method used by
 other clustering methods such as k-mean clustering.  EM starts with one cluster,
 then cross validates the data and applies the probability of cluster membership

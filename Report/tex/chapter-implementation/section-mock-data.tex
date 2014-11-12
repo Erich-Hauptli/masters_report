@@ -21,9 +21,11 @@ array when it needs one of these values.  The second type contains a listing of
 possible values dependant on a previous value.  For example, in the line below,
 to get a Master's Degree in Circuits or Computer Systems, the user must first
 obtain a Bachelor's Degree in Electrical.
-\\*
+\begin{footnotesize}
+\\*\begin{tt}
 \\*Electrical:Circuits,Computer Systems\\*
-\\*
+\\*\end{tt}
+\end{footnotesize}
 Thus, the code will search the second file type for the line that meets the
 dependency.  Once the line is found, it will load the possible values into an
 array and then randomly select from one of these values.
