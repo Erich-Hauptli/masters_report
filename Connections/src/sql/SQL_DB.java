@@ -200,6 +200,7 @@ public class SQL_DB implements SQL_Interface{
 			e1.printStackTrace();
 		}
 		
+		ArrayList<String> querries = new ArrayList<String>();
 		int query_count = 0;
 		String query_values = null;
 		for(String field_value: field_values){
@@ -209,47 +210,63 @@ public class SQL_DB implements SQL_Interface{
 			}else if(query_count < 500){
 				query_count++;
 				query_values = query_values + " OR " + field + " LIKE '" + field_value + "'";
+			}else if(query_count == 500){
+				querries.add(query_values);
+				query_values = field + " LIKE '" + field_value + "'";
+				query_count = 1;
 			}
 		}
+		querries.add(query_values);
+		
+		/*for(String each_query:querries){
+			System.out.println(each_query + "\n\n\n\n");
+		}*/
+		
 		
         Statement stat = null;
-        String query = "SELECT * FROM " + database + " WHERE " + query_values;
         ArrayList<String> results = new ArrayList<String>();
+
         ArrayList<String> headers = null;
         SQL_DB sql_query = new SQL_DB();
+
 		try {
 			headers = sql_query.query_headers(database);
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-        try {
-            stat = conn.createStatement();
-            ResultSet rs = stat.executeQuery(query);
+		
+		for(String each_query:querries){
+			String query = "SELECT * FROM " + database + " WHERE " + each_query;
+			try {
+            	stat = conn.createStatement();
+            	ResultSet rs = stat.executeQuery(query);
                         
-            while (rs.next()) {
-            	int i = 0;
-            	String result = null;
-            	for(String header : headers){
-            		if (i == 0){
-            			result = rs.getString(header);
-            			i++;
+            	while (rs.next()) {
+            		int i = 0;
+            		String result = null;
+            		for(String header : headers){
+            			if (i == 0){
+            				result = rs.getString(header);
+            				i++;
+            			}
+            			else{
+            				result = result + "," + rs.getString(header);
+            			}
             		}
-            		else{
-            			result = result + "," + rs.getString(header);
-            		}
+            		results.add(result);
             	}
-            	results.add(result);
-            }
-        } catch (SQLException e ) {
-        } finally {
-            if (stat != null) { try {
-				stat.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} }
-        }
+        	} catch (SQLException e ) {
+        	} finally {
+            	if (stat != null) { try {
+					stat.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} }
+        	}
+		}
+        //System.out.println(results);
 		return results;
     }
 	
