@@ -7,15 +7,15 @@ machine learning is hidden behind the library and often there are nice user
 interfaces or APIs associated with the library.  Typically, there are many
 different methods that can be called to comb through the data to extract
 insights and relationships about the data.  In the case of ProGENitor the Weka
-library was chosen as it has an excellent Java API and access to many different
+library was chosen as it has an excellent API and access to many different
 methods.  Choosing the method to extract information from the data requires some
 knowledge about the data itself.  In this case, clustering was chosen as the
 data is mostly nominal data and the goal is to define some grouping that leads
-to the end goal.  To extract the data, first ProGENitor must generate an
-arff file to feed into Weka and then Weka has to evaluate it with the clustering
-classification.
+to the end goal.  To extract the data, first ProGENitor must generate a data
+file to feed into Weka.  Then Weka has to evaluate it with the chosen
+classification, which in ProGENitor's case is clustering.
 
-\subsection{Arff Creation}
+\subsection{Weka Data File Creation}
 Weka uses the .arff file format to feed data into the Weka tool set.  The arff
 file contains two major sections.  These sections are the header section and the
 data section \cite{arff}.  The header contains the name of the relation, a list
@@ -43,10 +43,9 @@ ProGENitor currently generates the .arff file containing just the educational
 nodes.  One of the keys to getting quality insights out of Weka is controlling
 the data being fed into the tools.  In this case, only the educational
 data is fed into the tool.  This process could easily be replicated for additional
-insights.  To generate the arff file, ProGENitor contains a Java method called
-generate arff in the connections package.  This code follows the procedure
-detailed in figure \ref{fig:arff generation} to generate the arff file that is
-later used by Weka.
+insights.  ProGENitor contains a method that follows the procedure detailed in
+figure \ref{fig:arff generation} to generate the data file that is later used by
+Weka.
 
 \usetikzlibrary{shapes,arrows,chains}
 
@@ -73,14 +72,15 @@ later used by Weka.
 }
 % -------------------------------------------------
 % Start by placing the nodes
-\node [proc] (p0) {Setup Header and write it to .arff file};
+\node [proc] (p0) {Setup file header and write it to Weka data file};
 % Use join to connect a node to the previous one 
 \node [proc, join] (p1) {Pull in database headers};
-\node [proc, join] (p2) {Establish list of attributes};
+\node [proc, join] (p2) {Establish list of attributes based on headers};
 \node [proc, join] (p3) {Collect all possible values from user data};
-\node [proc, join] (p4) {Write attribute values to .arff file}; 
-\node [proc, join] (p5) {Pull data associated with each attribute};
-\node [proc, join] (p6) {Write data line to .arff file};
+\node [proc, join] (p4) {Write attribute values to Weka data file}; 
+\node [proc, join] (p5) {Extract data associated with each attribute from
+database}; 
+\node [proc, join] (p6) {Write extracted data line to Weka data file};
 
 \draw [->, dotted, thick, shorten >=1mm]
   (p4.south) -- ++(50mm,-3mm)  -- ++(27mm,0) 
@@ -94,16 +94,16 @@ later used by Weka.
 
 % -------------------------------------------------
 \end{tikzpicture}
-	\caption{Arff File Generation}
+	\caption{Weka Data File Generation}
 	\label{fig:arff generation}
 \end{figure}
 
 \subsection{Clustering}
 One major advantage to using the Weka library is it takes complex code and makes
 it relatively simple.  As seen in Figure \ref{fig:clustering}, the process that is
-followed to analyze the data in the arff file is very simple and straight
-forward.  Once the Weka jar is imported into the project, the code is very quick
-to implement, as good documentation is available for the API \cite{weka}.  The
+followed to analyze the data in the Weka data file is very simple and straight
+forward.  Once the Weka library is imported into the project, the code is very
+quick to implement, as good documentation is available for the API \cite{weka}.  The
 complex portion of work is then ensuring that the appropriate classification is
 applied and the data is parsed in a useful fashion.
 
@@ -112,6 +112,7 @@ applied and the data is parsed in a useful fashion.
 
 \begin{figure}[H]
 	\centering
+	\resizebox {!} {55mm} {
 % Start the picture
 \begin{tikzpicture}[%
     >=triangle 60,              % Nice arrows; your taste may be different
@@ -133,13 +134,14 @@ applied and the data is parsed in a useful fashion.
 }
 % -------------------------------------------------
 % Start by placing the nodes
-\node [proc] (p0) {Read in Arff File};
+\node [proc] (p0) {Read in Weka Data File};
 % Use join to connect a node to the previous one 
 \node [proc, join] (p1) {Setup Cluster Evaluation};
-\node [proc, join] (p2) {Evaluate Arff Data Using Cluster Method};
+\node [proc, join] (p2) {Evaluate Data in Data File Using Cluster Method};
 \node [proc, join] (p3) {Parse and Return Results};
 % -------------------------------------------------
 \end{tikzpicture}
+}
 	\caption{High Level Data Clustering}
 	\label{fig:clustering}
 \end{figure}
@@ -158,6 +160,7 @@ returned as the results.
 
 \begin{figure}[H]
 	\centering
+	\resizebox {!} {145mm} {
 % Start the picture
 \begin{tikzpicture}[%
     >=triangle 60,              % Nice arrows; your taste may be different
@@ -207,6 +210,7 @@ Instance};
     {} (p0);
 % -------------------------------------------------
 \end{tikzpicture}
+}
 	\caption{EM Clustering Algorithm}
 	\label{fig:EM}
 \end{figure}

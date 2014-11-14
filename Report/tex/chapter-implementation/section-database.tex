@@ -1,23 +1,22 @@
 \section{Database}
 \label{sect:database}
 As ProGENitor needed a method to pull large amounts of data off the back end
-server database, a Java method had to be implemented that interfaced with
+server database, a method had to be implemented that interfaced with
 the database.  MySQL was chosen as it is open source, widely used, and fairly
 easy to quickly learn.  Once the MySQL interface was established a wrapper was
 added such that another database method could be inserted without a significant
 work effort in the rest of the code.  Then, through this wrapper, the many
 different function calls were implemented to collect the data needed to generate
-the career map and derive any further insights through Weka.
+the career path graph and derive any further insights through Weka.
 
-\subsection{MySQL Interface}
-To greatly simplify this work, a predefined library jar was added
-to the project.  In this case, the library used was SQLite JDBC.  The SQLite
-library allows for easy access to a MySQL database for creating, reading from,
+\subsection{Database Interface}
+To greatly simplify this work, a predefined library was added to the project.  The 
+library allows for easy access to a database for creating, reading from,
 writing to, and querying the database.  In the case of ProGENitor, once the
 library was added, the code was very straight forward.  Through a couple
 commands, the code established the database connection, ran the specified query
 or other command, and collected the returned data \cite{sqlite}.  Using the
-SQLite library allowed the MySQL interface to quickly add in functions to create
+library allowed the interface to quickly add in functions to create
 a database, collect query matches from the database, upload lines and files to
 the database, modify lines within the database, and even pull the entire
 database.  With these functions in place, ProGENitor easily and quickly can
@@ -40,19 +39,17 @@ with the code a bit more clear.  Commands such as add user, database
 setup, query matching users, and return headers all allow users working through
 other portions of code to understand what the function calls are actually doing
 and do not require the developer to necessarily understand the database
-interface commands.  Then using these commands, ProGENitor can then collect
-data that it passes along to be interpreted by the connections and insights
-packages.
+interface commands.  Then using these commands, ProGENitor can collect data that
+it passes along to be processed by the career path graphing and Weka packages.
 
 \subsection{Data Collection}
 With the wrapper and SQL interface in place, ProGENitor then implements a couple
-different calls to gather data to be analyzed.  The first of these calls is find
-same, in which the code polls the data base for all users that match the query
-field value passed to the method.  This method then returns the user IDs in a
-TreeSet for all of the users that matched the query.  The next data collection
-method available, find all node data, does the same function, but instead
-returns all of the matching data in an ArrayList.  The final data collection method available,
-database pull, returns in an ArrayList, all of the data associated with the
-TreeSet of IDs passed to the method.  These methods are all very similar, but
-allow for easy data collection by the mapping and Weka methods within the
-connections and insights packages.
+different calls to gather data to be analyzed.  The first of these calls code
+that polls the data base for all users that match the query field value passed
+to the method.  This method then returns the user IDs in a set for all of the
+users that matched the query.  The next data collection method available does
+the same function, but instead returns all of the matching data in a list.  The
+final data collection method available returns a list containing all of the
+data associated with the set of IDs passed to the method.  These methods are all
+very similar, but allow for easy data collection by the career path graphing and
+Weka methods.

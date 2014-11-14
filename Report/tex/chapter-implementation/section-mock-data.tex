@@ -1,22 +1,23 @@
-\section{Mock Data}
+\section{Synthetic Data}
 \label{sect:mock-data}
 As most end user's databases are not easily accessible and having control over
-the data in databases allows for better testing, generating mock data that is
-then loaded into a local database was chosen for ProGENitor development. 
+the data in databases allows for better testing, generating synthetic data that
+is then loaded into a local database was chosen for ProGENitor development. 
 ProGENitor is easily attached to any other databases, so this only speeds up the
-development process.  To generate this data, a Perl script was written that
-consumes various data files to obtain possible data values and then randomly
-selects the values to populate.  The number of users it generates and many other
-variables are also controllable.  Once the script completes it outputs a .csv
-containing all of the user data, which can be uploaded to the database through
-the database architecture included with ProGENitor.
+development process.  To generate this data, a script was written that
+consumes various data files containing possible data values and then randomly
+selects from these values to populate the database.  The number of users
+generated and other variables are also controllable within the script.  Once the
+script completes it outputs a file containing all of the user data, which can
+then be uploaded to the database through the database architecture included with
+ProGENitor.
 
 \subsection{Data Files}
-To allow for easily updatable mock data, separate data files were implemented,
-so that the values weren't embedded deep within the data generation code.  There
-are two different types of data files.  The first type simply contains a list
+To allow for easily updatable synthetic data, separate data files were
+implemented.  This was done so that the values weren't embedded deep within the
+data generation code.  There are two different types of data files.  The first type simply contains a list
 of all possible values.  These values are then simply loaded into an array by
-the Generate Data script.  Then, the script will randomly select from this
+the data generation script.  Then, the script randomly selects from the
 array when it needs one of these values.  The second type contains a listing of
 possible values dependant on a previous value.  For example, in the line below,
 to get a Master's Degree in Circuits or Computer Systems, the user must first
@@ -33,37 +34,37 @@ array and then randomly select from one of these values.
 \subsection{Random Selection}
 There are two places the code must randomly select data.  The first is the
 data that is loaded for each node.  This random selection simply places the data
-from one of the data files into an array and uses the Perl rand function to
-randomly select an array index value to pull the data from.  This data is then
-applied to the individual user's node and then when the node has all necessary
-data generated, it is loaded into the Users.csv file.  This file is then later
-uploaded into the database.  In testing, if you want a particular piece of data
-to occur more frequently, place it multiple times in the data files and it
-will increase the frequency that it will show up in the user data.
+from one of the data files into an array and uses a standard random function
+to randomly select an array index value to pull the data from.  This data is then
+applied to the individual user's node.  When the node has all necessary data
+generated, it is loaded into the data file to be loaded into the database.  In
+testing, to force a particular piece of data to occur more frequently,
+simply placing it multiple times into the data files will increase the
+frequency that it will show up in the user data.
 
 The second place that code must randomly select data is when it is determining
-if a user enters a node or not on each pass.  There are four possible nodes that
-a user could enter each pass and each pass they could potentially enter up to
-all of the nodes.  These nodes are an undergraduate degree, a master's degree, a
-PhD, and a job.  For each of these nodes, a chance value is assigned in the
-variables at the top of the script.  Then essentially a 10 sided dice is rolled
-at each node, this is done by loading 1 through 10 into an array and applying
-the Perl rand function to the array.  If the dice roll is greater than the
-predefined chance value, the node is entered and data is generated.  When any
-node is entered, all educational chance values are incremented by 1.  This means
-it will be much less likely someone will get an advanced degree as their career
+if a user enters a node or not on each pass.  There are four possible types
+of nodes that a user could enter during each loop.  In each pass of the loop,
+they could potentially enter up to all of the nodes.  These nodes are an
+undergraduate degree, a master's degree, a PhD, and a job.  For each of these
+nodes, a chance value is assigned in the variables at the top of the script. 
+Then essentially a ten sided dice is rolled at each node, this is done by
+loading values 1 through 10 into an array and applying the standard random
+function to the array.  If the dice roll is greater than the predefined chance
+variable value, the node is entered and data is generated.  When any node is
+entered, all educational chance variable values are incremented by 1.  This
+means it is much less likely someone will get an advanced degree as their career
 progresses.  Additionally, each educational degree level is currently limited to
 one degree and requires the previous level have been completed.  All of these
-variables are adjustable in the code; so many different scenarios can be
-generated.
+variables are adjustable in the code; so many different scenarios can be generated.
 
 
 \subsection{Code Flow}
 Once the data files and random data selection is understood, the code flow is
-relatively straight forward.  Essentially, the code just steps through section
-by section generating data for each user and loading it into a .csv file that
+relatively straight forward.  The code steps through the data, section by
+section, generating data for each user and then stores it in a data file that
 can later be uploaded into the database.  Figure \ref {fig:data generation}
-depicts this process below.
+depicts this process.
 
 \pagebreak
 \usetikzlibrary{shapes,arrows,chains}
@@ -101,7 +102,7 @@ data files};
 \node [test, join] (t1) {If MS, generate random master's degree};
 \node [test, join] (t2) {If PhD, generate random PhD information};
 \node [test, join] (t3) {If Job, generate random job information};
-\node [proc, join] (p4) {Print User Information to Users.csv};
+\node [proc, join] (p4) {Store User Information to Data File};
 
 \draw [->, dotted, thick, shorten >=1mm] (t3.south) -- ++(40mm,-5mm)  --
 ++(27mm,0) |- node [black, near end, yshift=0.75em, it]

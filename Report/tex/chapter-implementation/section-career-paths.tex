@@ -1,28 +1,25 @@
 \section{Career Paths}
 \label{sect:career-paths}
 The goal of the career paths module is to generate data, such that a web user
-interface could generate a nodal mapping of the career paths taken to reach the
+interface could generate a nodal graph of the career paths taken to reach the
 specified career goal.  The node transitions along with the transition
-frequencies are returned to the user interface as JSON Objects.  Additionally,
+frequencies are returned to the user interface as objects.  Additionally,
 the node ordering and information about each individual node is also returned in
-a JSON Object.  This information can then be used to generate a nodal map
+an object.  This information can then be used to generate a nodal map
 depicting various ways of achieving a career goal.  
 
 An example is depicted in figure \ref{fig:nodal map}, which shows various
-interconnected nodes that eventually arrive at the goal node, J.  Currently,
-each node is labeled with a letter from the alphabet, but ProGENitor would
-replace these with actual node names, such as a job title or an educational
-degree. The nodes are arranged such that the user most likely travels from left
-to right, but the occasional infrequently traveled transition may flow in the
-reverse direction.  The frequency that the the path is traveled is depicted
-through color in this example.  Red depicts the most frequently traveled path,
-then blue, green, and finally the least traveled path is colored black.  Each
-node would then be able to display the individual node information upon user
-request; either through clicking on the node or through some other user action. 
-Note, that ProGENitor does not limit the method in which the user interface is
-displayed; it simply passes back statistical information about the nodes, the
-transitions between each node, and the individual data about each node.  It is
-up to the web user interface developer to determine how the end product is rendered.
+interconnected nodes that eventually arrive at the goal node.  The nodes are
+arranged such that the user most likely travels from left to right, but the
+occasional infrequently traveled transition may flow in the reverse direction. 
+The frequency that the the path is traveled is depicted through line thickness
+in this example.  Each node would then be able to display the individual node
+information upon user request; either through clicking on the node or through
+some other user action.  Note, that ProGENitor does not limit the method in
+which the user interface is displayed; it simply passes back statistical
+information about the nodes, the transitions between each node, and the
+individual data about each node.  It is up to the web user interface developer
+to determine how the end product is rendered.
 
 
 \usetikzlibrary{shapes,arrows,chains}
@@ -86,18 +83,18 @@ up to the web user interface developer to determine how the end product is rende
 % -------------------------------------------------
 \end{tikzpicture}
 
-	\caption{Career Path Nodal Map}
+	\caption{Career Path Graph}
 	\label{fig:nodal map}
 \end{figure}
 
-\subsection{Node Interconnects}
-The node interconnect portion of code finds all of the nodes that
+\subsection{Graph Edges}
+The graph edges portion of code finds all of the nodes that
 users pass through and the order at which they pass through them.  It then
 tallies the number of times all of the users pass along each transition
-path to allow for the career map to depict not only the point to point
-connections, but also how frequently that path is traveled.  The high level
-process to generate this node interconnection data is depicted in figure
-\ref{fig:node interconnect} below.
+path to allow for the career path graph to depict not only the point to point
+connections, but also how frequently that edge is traveled.  The high level
+process to generate this graph interconnection data is depicted in figure
+\ref{fig:node interconnect}.
 
 
 \usetikzlibrary{shapes,arrows,chains}
@@ -105,6 +102,7 @@ process to generate this node interconnection data is depicted in figure
 \begin{figure}[H]
 	\centering
 % Start the picture
+\resizebox {!} {110mm} {
 \begin{tikzpicture}[%
     >=triangle 60,              % Nice arrows; your taste may be different
     start chain=going below,    % General flow is top-to-bottom
@@ -130,7 +128,7 @@ process to generate this node interconnection data is depicted in figure
 \node [test, join] (t1) {IF transition is new, add to storage array};
 \node [test, join] (t2) {ELSE increment counter for transition in storage
 array}; 
-\node [proc, join](p1) {Generate return JSON and ArrayList};
+\node [proc, join](p1) {Generate return object and list};
 
 \draw [->, dotted, thick, shorten >=1mm]
   (t2.south) -- ++(50mm,-3mm)  -- ++(27mm,0) 
@@ -139,51 +137,51 @@ array};
 
 % -------------------------------------------------
 \end{tikzpicture}
-	\caption{High Level Node Interconnect Generation}
+}
+	\caption{High Level Graph Edge Generation}
 	\label{fig:node interconnect}
 \end{figure}
 
-The process in defining and counting these interconnects was coded in Java in
-the find edges method of the connections package.  The process flow is listed
+\noindent The process flow in defining and counting these edges is listed
 in detail below:
 
 \begin{description}
-    \item[Node Interconnect Generation:]
+    \item[Graph Edge Generation:]
 \end{description}
 \begin{enumerate}
-  \item For each ID passed to Interconnect Generation Module:
+  \item For each ID passed to edge generation module:
   \begin{enumerate}
-    \item Pull Job Data and add it to the Nodes Array List.
-    \item Pull Education Data and add it to the Nodes Array List.
-    \item Set Min equal to MAX Integer and Max equal to MIN Integer.
-    \item For each element of the Nodes ArrayList:
+    \item Pull job data and add it to the nodes list.
+    \item Pull education data and add it to the nodes list.
+    \item Set Min equal to Max Integer and Max equal to MIN Integer.
+    \item For each element of the nodes list:
     \begin{enumerate}
-      \item If date of data for element of Nodes is less than Min and more than
+      \item If date of data for element of nodes is less than Min and more than
       Max, store the data and set Min equal to date of data.
-      \item After all elements of Nodes ArrayList considered, Add stored data
-      to User ArrayList and set Max equal to Min.
+      \item After all elements of nodes list considered, add stored data
+      to user list and set Max equal to Min.
   	\end{enumerate}
-  	\item For each element of User ArrayList:
+  	\item For each element of user list:
   	\begin{enumerate}
-  	  \item If A is NULL, set A equal to User element node name.
-  	  \item Else set B equal to A and set A equal to User element node name.
-  	  \item If Connects ArrayList is empty, add B,A,1 to Connects ArrayList.
-  	  \item Else check if B,A exists in the Connects ArrayList:
+  	  \item If A is NULL, set A equal to user element node name.
+  	  \item Else set B equal to A and set A equal to user element node name.
+  	  \item If edges list is empty, add B,A,1 to edges list.
+  	  \item Else check if B,A exists in the edges list:
   	  \begin{enumerate}
   	    \item If it exists, increment the counter of the row.
-  	    \item If it does not exist, add B,A,1 to the Connects ArrayList.
+  	    \item If it does not exist, add B,A,1 to the edges list.
   	  \end{enumerate}
   	\end{enumerate}
   \end{enumerate}
-  \item Push Connects ArrayList containing all node transitions and transition
-  counts to a JSON Object containing a JSON Array.
-  \item Return both the ArrayList and the JSON Object.
+  \item Push edges list containing all graph transitions and transition
+  counts to an object containing an array.
+  \item Return both the list and the object.
 \end{enumerate}
 
 \subsection{Node Ordering}
 The node ordering portion of code sorts the nodes such that the major
 transitions flow in order from start to finish. It does this so that the flow
-of transitions can be mapped in a manner that is not overly confusing.  Figure
+of transitions can be graphed in a manner that is not overly confusing.  Figure
 \ref{fig:node ordering} shows the high level process that the code follows
 to generate the node groupings.  These groupings can then be fed to the end user
 interface to order the nodes in a fashion that shows the typical flow of careers
@@ -193,6 +191,7 @@ that reach the destination goal.
 
 \begin{figure}[H]
 	\centering
+	\resizebox {!} {145mm} {
 % Start the picture
 \begin{tikzpicture}[%
     >=triangle 60,              % Nice arrows; your taste may be different
@@ -214,14 +213,14 @@ that reach the destination goal.
 }
 % -------------------------------------------------
 % Start by placing the nodes
-\node [proc] (p0) {Generate HashSet of all nodes};
+\node [proc] (p0) {Generate set of all nodes};
 % Use join to connect a node to the previous one 
 \node [test, join] (p1) {Find worst input and output transition};
 \node [proc, join] (p2) {Store worst transition edges};
-\node [proc, join] (p3) {Identify Starting Nodes}; 
-\node [test, join] (p4) {Group Nodes based on prior connections};
-\node [proc, join] (p5) {Store node Grouping in ArrayList};
-\node [proc, join] (p6) {Return Node Ordering as JSON Object and ArrayList};
+\node [proc, join] (p3) {Identify starting nodes}; 
+\node [test, join] (p4) {Group nodes based on prior connections};
+\node [proc, join] (p5) {Store node grouping in list};
+\node [proc, join] (p6) {Return node ordering as object and list};
 
 \draw [->, dotted, thick, shorten >=1mm]
   (p2.south) -- ++(40mm,-3mm)  -- ++(27mm,0) 
@@ -234,69 +233,69 @@ that reach the destination goal.
 
 % -------------------------------------------------
 \end{tikzpicture}
+}
 	\caption{High Level Node Order Generation}
 	\label{fig:node ordering}
 \end{figure}
 
-The process in defining the node ordering for the nodes was coded in Java in the
-find node order method of the connections package.  The process flow is listed
+\noindent The process flow in defining the node ordering for the nodes is listed
 in detail below:
 
 \begin{description}
     \item[Node Ordering Generation:]
 \end{description}
  \begin{enumerate}
-   \item Generate HashSet of All Nodes
-   \item For each Node in HashSet:
+   \item Generate set of all nodes
+   \item For each node in set:
    \begin{enumerate}
      \item Initialize transitional weight to 0.
-     \item For each element of the Node Interconnect Array List:
+     \item For each element of the graph edge list:
      \begin{enumerate}
-       \item Check if Node matches the input node.
+       \item Check if node matches the input node.
        \item Check if the number of transitions to the node is greater than the
        transitional weight.
        \item If both checks are true; set the transitional weight to the current
-       Array List line's number of transitions.
-       \item Also, if both checks are true; store this Array List line.
+       list line's number of transitions.
+       \item Also, if both checks are true; store this list line.
      \end{enumerate}
      \item After the worst input transition is found for the node, store it in
-     the Heavy Edges HashSet.
+     the heavy edges set.
      \item Repeat this entire step for the output nodes.
    \end{enumerate}
-   \item For each Heavy Edge element, search the Node Interconnect Array List
+   \item For each heavy edge element, search the graph edge list
    for input nodes that are also destination nodes.
    \begin{enumerate}
      \item Any nodes not found are set as start nodes.
      \item Repeat this step for output nodes that are also starting nodes.  Any
      nodes not found are set as ending nodes.
    \end{enumerate}
-   \item Add all the starting nodes to node 0 and add them to the Node Store
-   HashSet.
-   \item Add all nodes that are not starting nodes to the Remaining Nodes
-   HashSet.
+   \item Add all the starting nodes to node 0 and add them to the node store
+   set.
+   \item Add all nodes that are not starting nodes to the remaining nodes
+   set.
    \item Increment the group number to 1.
-   \item Until the Remaining Nodes HashSet is empty, loop through the following
+   \item Until the remaining nodes set is empty, loop through the following
    steps.
    \begin{enumerate}
-     \item For each Node in Node Store, store all destination nodes in a HashSet
-     that Node in Node Store transitions to.
+     \item For each node in node store, store all destination nodes in a set
+     that node in node store transitions to.
      \item For each destination node stored in the previous step, find all
      possible next destination nodes and check if they are contained within the
-     HashSet generated in the previous step.
+     set generated in the previous step.
      \begin{enumerate}
-       \item If one is contained within the previously generated HashSet, remove
-       the node from the HashSet.
+       \item If one is contained within the previously generated set, remove
+       the node from the set.
      \end{enumerate}
      \item Add remaining nodes to next node grouping.  Also remove remaining
-     nodes from Remaining Nodes HashSet.
-     \item Add the node group to the NodeReturn ArrayList.
+     nodes from remaining nodes set.
+     \item Add the node group to the node return list.
      \item Increment the group number.
-     \item Replace the nodes in the Starting Nodes hash set with the nodes that
+     \item Replace the nodes in the starting nodes set with the nodes that
      were just added to a group.
    \end{enumerate} 
-   \item Generate a JSON Object containing a JSON Array the node groupings from
-   the NodeReturn ArrayList.
-   \item Return both the JSON Object and the NodeReturn ArrayList.
+   \item Generate an object containing an array of the node groupings from
+   the node return list.
+   \item Return both the object and the node return list.
  \end{enumerate}
 
 
@@ -307,7 +306,7 @@ so instead many of the details are buried within each node and can be queried
 by the end user, by selecting the node of interest.  As each node contains
 additional details such as the place of employment or education, time spent at
 the school or job, or any other node relevant pieces of information; the data
-must be gathered upon user request, as to not slow down the overall map
+must be gathered upon user request, as to not slow down the overall graph
 generation.  Once the request is made, the data about the individuals who
 reached the goal node and the data about all of the users who passed through a
 particular node are pulled.  This data is then broken down into a statistic for
@@ -316,7 +315,7 @@ more frequently for the users who reached the goal node versus those who had
 not.  This way any significant differences could be raised to the end user's
 attention as potentially important steps to reaching the final goal.  The high
 level process to generating this data is depicted in figure \ref{fig:node
-details} below.
+details}.
 
 \usetikzlibrary{shapes,arrows,chains}
 
@@ -343,7 +342,7 @@ details} below.
 }
 % -------------------------------------------------
 % Start by placing the nodes
-\node [proc] (p0) {Pull relevant and All Node Data};
+\node [proc] (p0) {Pull relevant and all node data};
 % Use join to connect a node to the previous one 
 \node [proc, join] (p1) {Count occurrences of each data instance};
 \node [proc, join] (p2) {Calculate percentage of occurrence for each
@@ -353,8 +352,7 @@ instance};
  \node [test, join] (t0) {IF relevant is more than five percent greater than
  all};
  \node [proc, join] (p4) {Flag relevant data occurrence as significant};
- \node [proc, join] (p5) {Return JSON Object and ArrayList containing
- relative percentage node data};
+ \node [proc, join] (p5) {Return object and list containing relative percentage node data};
 
 \draw [->, dotted, thick, shorten >=1mm]
   (p2.south) -- ++(50mm,-3mm)  -- ++(27mm,0) 
@@ -372,27 +370,26 @@ instance};
 \end{figure}
 \pagebreak
 
-The process in defining the details and significant details for each node was
-coded in Java in the find node info method of the connections package.  The
-process flow is listed in detail below:
+\noindent The process flow in defining the details and significant details for
+each node is listed in detail below:
 
 \begin{description}
     \item[Node Detail Generation:]
 \end{description}
 \begin{enumerate}
-  \item Pull in Profile ArrayList, tag each element as a profile, and then add
-  the element to the Complete ArrayList.
-  \item Repeat this for the Jobs ArrayList and the Education ArrayList.
-  \item Check each element of the Complete ArrayList.
+  \item Pull in profile list, tag each element as a profile, and then add
+  the element to the complete list.
+  \item Repeat this for the jobs list and the education list.
+  \item Check each element of the complete list.
   \begin{enumerate}
     \item If the element contains the node that details are being pulled on, add
-    the element to the Relevant ArrayList.
+    the element to the relevant list.
   \end{enumerate}
   \item Pull the headers associated with the node that details are being pulled
   from.
-  \item Pull all the data in the database for that node and store in the All
-  Node Data ArrayList.
-  \item For each element of the Complete ArrayList:
+  \item Pull all the data in the database for that node and store in the all
+  node data list.
+  \item For each element of the complete list:
   \begin{enumerate}
     \item Split the element into columns and step through each column.
     \begin{enumerate}
@@ -402,25 +399,26 @@ process flow is listed in detail below:
     	  \item If the end year is set to current, find the current year and then
     	  calculate the total years spent at the node.
     	\end{enumerate}
-    	\item Add the column value to a HashSet to obtain all possible values for
+    	\item Add the column value to a set to obtain all possible values for
     	the column.
     	\item Step through the column counting each value instance to obtain a
     	count for each different value.
     	\item Calculate the percentage for each value in the column by diving the
     	count by the total number of elements.
-    	\item Push these values into the Relevant ArrayList.
+    	\item Push these values into the relevant list.
     \end{enumerate} 
   \end{enumerate}
-  \item Repeat for each element of the All Node Data Array List
-  \item Compare the percentages for each element of the Relevant ArrayList to
-  the percentages from the All Node Data Array List.
+  \item Repeat for each element of the all node data list
+  \item Compare the percentages for each element of the relevant list to
+  the percentages from the all node data list.
   \begin{enumerate}
-    \item Flag the column value for any instance where the Relevant value's
+    \item Flag the column value for any instance where the relevant value's
     percentage exceeds the percentage for all the data by 5\%.
     \item Return this value as relevant so that it can be identified to the user
     as significant to the node.
   \end{enumerate}
-  \item Return the Relevant ArrayList and a JSON Object containing a JSON Array
+  \item Return the relevant list and an object containing an array
   of the same data.
 \end{enumerate}
+\pagebreak
 
