@@ -4,8 +4,8 @@ Examples of the objects returned by the career path graph portion of the
 ProGENitor code are shown below.  Each example does not contain a complete set
 of data as that would be too much to show in this report.
 
-\subsection{Node Vertex Results}
-In the node vertex object, an array of node vertices is returned.  Each element
+\subsection{Node Edge Results}
+In the node edge object, an array of node edges is returned.  Each element
 of the array contains a starting node and an ending node for the transition. 
 Additionally, the array element also contains a transition frequency.  The
 transition frequency indicates how often the transition occurs.  To
@@ -34,7 +34,7 @@ and the order number it should be displayed.  Thus, the nodes with an order of
 1 should be the first nodes displayed in the career path graph, then
 moving sequentially up, each node in the group should be displayed until the
 final node group is displayed.  This will allow the graph to flow with minimum
-vertices flowing in the reverse direction.
+edges flowing in the reverse direction.
 
 \begin{tt}
 \begin{footnotesize}
@@ -455,7 +455,7 @@ With these changes in place, the new career path graph for achieving the partner
 position shows the expected changes.  The new node step of junior partner is
 present and it also shows the reduction of users obtain a master's degree.  In
 the case of users transitioning from a bachelor's to master's degree, it is not
-clear from the vertices, but by looking at the data in the returned object, the
+clear from the edges, but by looking at the data in the returned object, the
 frequency did decrease by 10\%.  In the detailed data for the master's degree
 node, the Infrastructure degree makes up approximately 2/3rds of the total
 degrees.  This is shown in the object return for the masters node with the
@@ -548,7 +548,7 @@ became system chief engineers.
 One thing that might also spark an interest in the user is the fact that any
 jobs beyond the queried job that the matched users also completed would be shown
 as well.  In this case there was one of these such nodes, the platform chief
-engineer.  From the node vertices it is clear that not all system chief
+engineer.  From the node edges it is clear that not all system chief
 engineers reached this job.  If the user were interested then instead in the
 platform chief engineering role, they could re-run the query.  They would then
 be presented with the career graph shown in figure \ref{fig:node map pce}.  This
