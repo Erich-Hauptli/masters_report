@@ -12,11 +12,11 @@ methods.  Choosing the method to extract information from the data requires some
 knowledge about the data itself.  In this case, clustering was chosen as the
 data is mostly nominal data and the goal is to define some grouping that leads
 to the end goal.  To extract the data, first ProGENitor must generate an
-Arrf file to feed into Weka and then Weka has to evaluate it with the clustering
+arff file to feed into Weka and then Weka has to evaluate it with the clustering
 classification.
 
 \subsection{Arff Creation}
-Weka uses the .arff file format to feed data into the Weka toolset.  The Arff
+Weka uses the .arff file format to feed data into the Weka tool set.  The arff
 file contains two major sections.  These sections are the header section and the
 data section \cite{arff}.  The header contains the name of the relation, a list
 of attributes, and their types.  The data section contains the data that will
@@ -101,7 +101,7 @@ later used by Weka.
 \subsection{Clustering}
 One major advantage to using the Weka library is it takes complex code and makes
 it relatively simple.  As seen in Figure \ref{fig:clustering}, the process that is
-followed to analyze the data in the Arrf file is very simple and straight
+followed to analyze the data in the arff file is very simple and straight
 forward.  Once the Weka jar is imported into the project, the code is very quick
 to implement, as good documentation is available for the API \cite{weka}.  The
 complex portion of work is then ensuring that the appropriate classification is

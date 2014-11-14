@@ -24,7 +24,7 @@ the career map.  This percentage is then multiplied by 10 and rounded.
 \{"node A":"Block Owner","node B":"Design Owner","transition frequency":9\},\\*
 \ldots\\* 
 \{"node A":"Coder","node B":"Function Lead","transition frequency":0\},\\*
-\{"node A":"Function Lead","node B":"Masters","transitionfrequency":0\}\},\\*
+\{"node A":"Function Lead","node B":"Masters","transition frequency":0\}\},\\*
 \end{footnotesize}
 \end{tt}
 
@@ -109,7 +109,7 @@ the company deploying ProGENitor if a greater difference was required for signif
 \end{footnotesize}
 \end{tt}
 
-\subsection{Example Carrer Path 1}
+\subsection{Example Career Path 1}
 With the ProGENitor tool, several examples of functionality can easily be
 demonstrated.  First, looking at a user that is interested in what it takes to
 become a partner in an architecture firm.  The user would submit the query on
@@ -470,7 +470,7 @@ return for the masters node with the following text:
 significant pieces of data as they occur much more frequently than all of the
 users who traveled through this master's degree node.
 
-\subsection{Example Carrer Path 2 }
+\subsection{Example Career Path 2 }
 Consider another user who is interested in reaching the System Chief Engineering
 role.  They would input this query into the tool and figure \ref{fig:node map
 sce} would be generated.  From this map, the user would quickly be able to see
@@ -754,12 +754,12 @@ expert who could help refine the database accesses.
 \end{table}
 
 In table \ref{table:node-perf}, the node detail generation performance is shown
-for the same 10 cases run previously.  This is broken out seperately because the
+for the same 10 cases run previously.  This is broken out separately because the
 assumption is that when ProGENitor is deployed the career map would be initially
 presented in the user interface and the details about each node would be
 displayed upon user request.  Looking at table \ref{table:node-perf} shows that
 this would be done because if all the data were returned at once, it could
 potentially add 13 seconds to the overall run time.  This would be too slow and
-unecessary for the end user.  By making each node call seperate, the average
+unnecessary for the end user.  By making each node call separate, the average
 return time on the node information would be about half a second prior to
 rendering the data.  This would make the data much more user friendly.
