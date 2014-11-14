@@ -678,15 +678,9 @@ For generating the career path map, 10 cases were run, as shown below in table
 \ref{table:career performance}.  These 10 cases generate a range of matched
 users, total users, and number of nodes returned.  By doing this, a rough estimate as to how
 long a query to ProGENitor might take can be ascertained.  As seen in table
-\ref{table:career performance}, an average query would take about 2.5 seconds,
+\ref{table:career performance}, an average query would take about 6.9 seconds,
 but might take much longer depending on the number of users in the database and the number that
-match the query.  One thing to note about the data in these tables is that there
-is currently a bug in the ProGENitor code that forced a cap of 500 matched
-users.  Any number of matched users returned beyond that 500 is currently
-ignored.  This does not invalidate the data and may be something that is deisred
-simply to improve overall performance.  In the future this issue would be
-resolved, but for now, please note this limiting factor when looking over the
-data in the following tables.
+match the query.
 
 \begin{table}[H]
   \centering
@@ -698,29 +692,29 @@ data in the following tables.
   Generation&Order Generation&Total\\
   \hline\hline
   Platform Chief&109&5000&708.9ms&341.4ms&74.4ms&1.12s\\ \hline
-  Civil\newline Degree&2684&5000&2.28s&2.37s&6.3ms&4.65s\\ \hline 
-  Architect&2330&5000&2.27s&2.19s&5.7ms&4.47s\\ \hline
-  Circuit Designer&675&5000&2.23s&1.0s&68.5ms&3.3s\\ \hline
+  Civil\newline Degree&2684&5000&11.0s&12.2s&8.1ms&23.2s\\ \hline 
+  Architect&2330&5000&9.53s&9.67s&7.3ms&19.2s\\ \hline
+  Circuit Designer&675&5000&2.97s&1.2s&76.9ms&4.3s\\ \hline
   Worked For IBM&260&5000&1.31s&457.5ms&85.6ms&1.85s\\ \hline
   Fission Degree&260&5000&1.31s&407.6ms&6.3ms&1.73s\\ \hline
   Analog Degree&24&5000&361.2ms&66.8ms&43.1ms&471.3ms\\ \hline
   Embedded&55&5000&466.8ms&269.5ms&94.7ms&831.1ms\\ \hline
   Floor- \newline planning&49&5000&441.5ms&106.5ms&103.3ms&651.5ms\\ \hline
-  Circuit Designer&1401&10000&4.27s&1.72s&70.8ms&6.06s\\ \hline
+  Circuit Designer&1401&10000&11.4s&4.2s&84.7ms&15.7s\\ \hline
   \hline\hline
-  Minimum&24&5000&361.2ms&66.8ms&5.7ms&471.3ms\\ \hline
-  Maximum&2684&10000&4.27s&2.37s&103.3ms&6.06s\\ \hline
-  Average&785&550&1.55s&893ms&55.9ms&2.5s\\ \hline
+  Minimum&24&5000&361.2ms&66.8ms&6.3ms&471.3ms\\ \hline
+  Maximum&2684&10000&11.4s&12.2s&103.3ms&23.2s\\ \hline
+  Average&785&550&3.95s&2.9s&58.4ms&6.9s\\ \hline
   \end{tabular}
   \caption{Career Path Generation Time}
   \label{table:career performance}
 \end{table}
 
-As seen in table \ref{table:career performance}, the bulk of the time that
+As seen in table \ref{table:career performance}, more than half of the time that
 ProGENitor runs is spent in querying the database and pulling in the data to be
-processed.  Then generating the node interconnects takes up about a third of the
-run time. Lastly, determining the order in which to display the nodes runs in
-about 1 to 2\% of the overall runtime.  Thus, to improve or maintain performance most of
+processed.  Then about 40\% of the time is spent generating the node
+interconnects. Finally, determining the order in which to display the nodes runs
+in about 1 to 2\% of the overall runtime.  Thus, to improve or maintain performance most of
 the focus needs to be on the database pull.  This is not an uncommon problem and
 many people spend careers working on this problem.  ProGENitor assumes that
 whoever deploys the tool would either have a smaller database or a database
@@ -735,19 +729,19 @@ expert who could help refine the database accesses.
   Case&Matched Users&Total Users&Total Nodes&All Nodes&Average Node\\
   \hline\hline
   Platform Chief&109&5000&23&4.7s&204.4ms\\ \hline
-  Civil\newline Degree&2684&5000&7&6.34s&906.3ms\\ \hline 
-  Architect&2330&5000&6&6.15s&1.02s\\ \hline
-  Circuit Designer&675&5000&32&7.79s&243.5ms\\ \hline
+  Civil\newline Degree&2684&5000&7&10.9s&1.55s\\ \hline 
+  Architect&2330&5000&6&9.4s&1.57s\\ \hline
+  Circuit Designer&675&5000&34&9.48s&278.7ms\\ \hline
   Worked For IBM&260&5000&40&6.8s&170.1ms\\ \hline
   Fission Degree&260&5000&6&1.72s&653.8ms\\ \hline
   Analog Degree&24&5000&12&3.94s&328.6ms\\ \hline
   Embedded&55&5000&30&5.1s&170.1ms\\ \hline
   Floor- \newline planning&49&5000&18&4.6s&155.2ms\\ \hline
-  Circuit Designer&1401&10000&31&13.0s&419.7ms\\ \hline
+  Circuit Designer&1401&10000&34&18.0s&529.1ms\\ \hline
   \hline\hline
   Minimum&24&5000&6&1.72s&155.2ms\\ \hline
-  Maximum&2684&10000&40&13.0s&1.02s\\ \hline
-  Average&785&550&20.5&6.0s&427.2ms\\ \hline
+  Maximum&2684&10000&40&18.0s&1.57s\\ \hline
+  Average&785&550&21&7.5s&561.0ms\\ \hline
   \end{tabular}
   \caption{Node Detail Generation Time}
   \label{table:node-perf}
@@ -759,7 +753,7 @@ assumption is that when ProGENitor is deployed the career map would be initially
 presented in the user interface and the details about each node would be
 displayed upon user request.  Looking at table \ref{table:node-perf} shows that
 this would be done because if all the data were returned at once, it could
-potentially add 13 seconds to the overall run time.  This would be too slow and
+potentially add 18 seconds to the overall run time.  This would be too slow and
 unnecessary for the end user.  By making each node call separate, the average
 return time on the node information would be about half a second prior to
 rendering the data.  This would make the data much more user friendly.
