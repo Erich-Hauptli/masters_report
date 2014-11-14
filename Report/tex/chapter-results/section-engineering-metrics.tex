@@ -10,16 +10,16 @@ The code work took about 4 weeks; however this was only working part time, so in
 man years this would be approximately 4\% of a man year.  The most difficult
 part of this code was simply learning and using the SQL database calls.  In
 total the code was approximately 1100 lines of code.
-\subsection{Generating Mock Data}
-Writing the code for generating the mock data took about 13 commits.  The code
-work took about 2 weeks or approximately 2\% of a man year.  The most difficult
+\subsection{Generating Synthetic Data}
+Writing the code for generating the synthetic data took about 13 commits.  The
+code work took about 2 weeks or approximately 2\% of a man year.  The most difficult
 portion of this code was randomizing the data.  In total the code was about 375
 lines of code.
-\subsection{Career Path Mapping}
-Writing the code for the career path mapping took about 11 commits.  The code
+\subsection{Career Path Graph}
+Writing the code for the career path graphing took about 11 commits.  The code
 work took about 5 weeks or about 10\% of a man year.  This code has several
 areas that were particular challenging.  One piece that was challenging, in the
-node transitions code, was the pulling only the worst case node transitions from
+node vertices code, was the pulling only the worst case node transitions from
 the database.  Another challenging part of the code, in the node ordering
 section, was ensuring that a node wasn't placed in a group if the prior node
 wasn't already in a previous group.  Finally, in the node details code, pulling
@@ -36,3 +36,12 @@ code was about 150 lines of code.
 Combining all this code, there was approximately 60 commits and about 2700 lines
 of code.  All this coding took about 17\% of a man year or about 2 solid months
 of coding.  In reality, the project stretched out about three and a half months.
+\subsection{Version Control}
+This project used GIT to manage the version control of the code.  This helped
+greatly with managing the many aspects of the code, maintaining a change list,
+and reverting code back to functional states when something went wrong.  If
+ProGENitor became a multi-person project, GIT would become increasingly more
+important as branching and merging would become very important.  Finally,
+with a customer or multi-customer deployment, release trees would need to be
+implemented to avoid releasing development code or customer directed code to all
+customers.

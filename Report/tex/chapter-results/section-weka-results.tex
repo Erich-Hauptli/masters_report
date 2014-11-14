@@ -1,9 +1,9 @@
 \section{Weka Results}
 \label{sect:weka-results}
-When running Weka, the results are not initially returned in a JSON Object. 
-Weka returns the data in the following way shown below.  Then ProGENitor has to
-parse the data and place the extracted insights into a JSON Object that can be
-returned to the end user as part of the overall JSON Object.
+When running Weka, the results are not initially returned in an object. 
+Weka returns the data in the following way shown below.  Then ProGENitor parses
+the data and place the extracted insights into an object that can be returned to
+the end user as part of the overall object.
 
 \pagebreak 
 \begin{tt}
@@ -65,41 +65,41 @@ Clustered Instances\\*
 \subsection{Explanation of Weka Results}
 In the example above, 212 user instances reached the end goal the query was
 searching for.  This can be determined by adding up all the data in the goal
-equals yes row and subtracting the number of columns.  Weka uses a minimum value of 1 for
-each element in the columns, thus the total instances of a value within an arff
-file would be the sum of the row minus the number of columns.  When it states that 212
-instances reached the end goal, this does not mean there were 212 users who
-reached the end goal.  The arff file treats each educational instances as a new
-input, thus, when all is said in done for this particular arff file there are
-9481 educational instances with the database.  This makes sense if you add up
-all the rows for bachelor degrees, master degrees, and PhDs.  This math will
-also result in 9481 instances, assuming you subtract one for each value.  One
-other odd piece about the data is the fact that the numbers are not crisp
-integers.  In the attempt to generate the various clusters, Weka assigns a
-probability to each educational instance that it belongs in a cluster.  This
-means the math will get complex and not always place a value perfectly in only
-one cluster.  This causes the values to come close to integers, but some times
-instances don't neatly fit within one cluster.
+equals yes row and subtracting the number of columns.  Weka uses a minimum value
+of 1 for each element in the columns, thus the total instances of a value within
+a Weka data file would be the sum of the row minus the number of columns.  When
+it states that 212 instances reached the end goal, this does not mean there were
+212 users who reached the end goal, but instead there were 212 user educational instances.
+The Weka data file treats each educational instances as a new input, thus, when
+all is said in done for this particular data file there are 9481 educational
+instances with the database.  This makes sense if you add up all the rows for
+bachelor degrees, master degrees, and PhDs.  This math will also result in 9481
+instances, assuming you subtract one for each value.  One other odd piece about
+the data is the fact that the numbers are not crisp integers.  In the attempt to
+generate the various clusters, Weka assigns a probability to each educational
+instance that it belongs in a cluster.  This means the math will get complex and
+not always place a value perfectly in only one cluster.  This causes the values
+to come close to integers, but some times instances don't neatly fit within one cluster.
 
 Once how the data is populated in the results and is understood; it can be used
 to draw some educated conclusions from the various clusters.  As the interest
-is in the users who reached the end goal is the focus of the work, any clusters that are equal to
-1 for a goal of yes can immediately be ignored.  In this case, that leaves three
-clusters.  Looking through cluster 4 for instances, shows a higher number of
-users who obtained a Master's Degree in Circuits and attended Stanford, Texas,
-MSU, MIT, or Caltech for this degree.  
+is in the users who reached the end goal is the focus of the work, any clusters
+that are equal to 1 for a goal of yes can immediately be ignored.  In this case,
+that leaves three clusters.  Looking through cluster column 4 for instance,
+shows a higher number of users who obtained a Master's Degree in Circuits and
+attended Stanford, Texas, MSU, MIT, or Caltech for this degree.  
 
-Cluster 5 shows the same information, only instead the users obtained a
-bachelor's degree.  The interesting thing of note between clusters 4 and 5 is
-the slight drop in users who reached the goal who obtained the master's degree. 
+Cluster column 5 shows the same information, only instead the users obtained a
+bachelor's degree.  The interesting thing of note between cluster columns 4 and
+5 is the slight drop in users who reached the goal who obtained the master's degree. 
 The drop is not significant which implies getting the master's degree is still
 very important for a user who wishes to reach the end goal.  One other thing to note,
 in the above group of data, important information has been chopped as the total
 master's degrees does not match the ones displayed.  This data was simply
-shorted for the report, but would normally be displayed in the Weka results.  The same
-is true for the other clusters.  
+shortened for the report, but would normally be displayed in the Weka results. 
+The same is true for the other clusters.  
 
-In the third cluster, cluster 7, only a few users show up as reaching the goal. 
+In the third cluster, column 7, only a few users show up as reaching the goal. 
 This cluster shows students who obtained a PhD.  The school from which they
 obtained the degree did not stand out in the cluster, but the degrees obtained
 did.  The core degrees highlighted were RF, Magnetics, Analog, and Digital.  It
@@ -113,7 +113,7 @@ but not required in reaching the goal node.
 For the Weka runs, the same 10 previous runs for the career path performance
 testing were also used to estimate the Weka performance.  In figure
 \ref{tab:weka-perf}, a couple things can be observed.  First, generating the
-.arff file takes an insignificant time compared to the time it takes Weka to
+Weka data file takes an insignificant time compared to the time it takes Weka to
 analyze the data.  Second, the time it takes Weka to analyze the data takes far
 too long to be part of batched request.  This would have to be an option that a
 user specifically requests in addition to what ProGENitor typically runs.  Weka
@@ -122,16 +122,16 @@ a server because it is strictly computational and not limited by database
 accesses.  That being said, the average run currently takes about seven and a
 half minutes, which would be far too long to ever be deployed to an end user. 
 Thus, the server would have to significantly speed up the run over the
-development laptop used to do this project to ever considering deploying Weka
+development laptop used in this project to ever considering deploying Weka
 within the ProGENitor tool.
 
  \begin{table}[H]
   \centering
-  \begin{tabular}{|p{17mm}|p{16mm}|p{18mm}|p{19mm}|p{20mm}|}
+  \begin{tabular}{|p{17mm}|p{16mm}|p{20mm}|p{19mm}|p{20mm}|}
   \hline
   \
   %heading
-  Case&Matched Users&Arff\newline Generation&Weka&Total\\
+  Case&Matched Users&Weka Data\newline Generation&Weka \newline Analysis&Total\\
   \hline\hline
   Platform Chief&109&159.3ms&280.5s&280.6s\\ \hline
   Civil\newline Degree&2684&155.7ms&739.0s&739.1s\\ \hline 

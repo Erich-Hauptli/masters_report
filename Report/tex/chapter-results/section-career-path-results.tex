@@ -1,18 +1,16 @@
 \section{Career Path Results}
 \label{sect:career-path-results}
-Examples of the JSON objects returned by the career mapping portion of the
+Examples of the objects returned by the career path graph portion of the
 ProGENitor code are shown below.  Each example does not contain a complete set
 of data as that would be too much to show in this report.
 
-\subsection{Node Interconnect JSON Results}
-In the node interconnect JSON Object, an array of node interconnections is
-returned.  Each element of the array contains a starting node and an ending node
-for the transition.  Additionally, the array element also contains a transition
-frequency.  The transition frequency indicates how often the transition occurs. 
-Currently this is on a scale of 0-10, so that user data is not exposed to the
-ProGENitor users.  Thus, the actual number of users transitioning from one node
-to another node is divided by the total number of users that data was pulled for
-the career map.  This percentage is then multiplied by 10 and rounded.
+\subsection{Node Vertex Results}
+In the node vertex object, an array of node vertices is returned.  Each element
+of the array contains a starting node and an ending node for the transition. 
+Additionally, the array element also contains a transition frequency.  The
+transition frequency indicates how often the transition occurs.  To
+prevent exposure of user data, these transitions are scaled to a value
+ranging from 0 and 10.
 
 \begin{tt}
 \begin{footnotesize}
@@ -30,13 +28,13 @@ the career map.  This percentage is then multiplied by 10 and rounded.
 
 
 \subsection{Node Ordering JSON Results}
-In the node ordering JSON Object, an array containing the order which the nodes
+In the node ordering object, an array containing the order which the nodes
 should be display is returned.  Each element of the array contains a node name
 and the order number it should be displayed.  Thus, the nodes with an order of
-1 should be the first nodes displayed in the career path map, then
+1 should be the first nodes displayed in the career path graph, then
 moving sequentially up, each node in the group should be displayed until the
-final node group is displayed.  This will allow the map to flow with minimum
-interconnects flowing in the reverse order.
+final node group is displayed.  This will allow the graph to flow with minimum
+vertices flowing in the reverse direction.
 
 \begin{tt}
 \begin{footnotesize}
@@ -52,22 +50,23 @@ interconnects flowing in the reverse order.
 \end{footnotesize}
 \end{tt}
 
-\subsection{Node Details JSON Results}
-In the node detail JSON Object, an array containing all of the various nodes
-will be returned.  Each node will be nested object containing an array of data
+\subsection{Node Details Results}
+In the node detail object, an array containing all of the various nodes
+will be returned.  Each node will be a nested object containing an array of data
 points.  Examples of these data points are titles, companies, time spent at the
 node, and any other points of interest within the database.  Each of these data
-points will be an Object that also contains a nested JSON array.  This array
+points will be an object that also contains a nested array.  This array
 will then contain data about each data point, broken down into the percentage of
 users who matched a specific piece of information for that data point.  For
 example, shown below is a data point for the companies that users worked for
 when they worked at a Timing job.  To protect user data, this is not shown as
 number of users, but as the percentage of users who spent time working for one
 company versus all users who spent time working at that particular job.  To
-avoid having millions of entries, a threshold is set such that if the threshold
-is not met, the data is lumped into an Other group.  This Other group would then
-contain the total user data that did not meet the threshold.  Finally, a JSON
-Object containing any significant data points is also returned.  
+avoid returning millions of entries, a threshold is set such that only
+statistically relevant data is returned and everything else is lumped into an
+``other'' group.  This ``other'' group would then contain the total user data
+that did not meet the threshold.  Finally, an object containing any significant data
+points is also returned.
 
 ProGENitor compares the users who reached the goal against all users who passed
 through the node to determine what was statistically different from the users
@@ -111,10 +110,10 @@ the company deploying ProGENitor if a greater difference was required for signif
 
 \subsection{Example Career Path 1}
 With the ProGENitor tool, several examples of functionality can easily be
-demonstrated.  First, looking at a user that is interested in what it takes to
-become a partner in an architecture firm.  The user would submit the query on
-Partner and the career map shown in figure \ref{fig:partner nodal map} would be
-returned.
+demonstrated.  In the first example, consider a user that is interested in
+what it takes to become a partner in an architecture firm.  The user would submit the query on
+partner and the career graph shown in figure \ref{fig:partner nodal map} would
+be returned.
 
 \usetikzlibrary{shapes,arrows,chains}
 
@@ -172,44 +171,45 @@ returned.
 \end{tikzpicture}
 }
 
-	\caption{Career Path Nodal Map}
+	\caption{Career Path Graph}
 	\label{fig:partner nodal map}
 \end{figure}
 
-This map quickly shows the user that a bachelor's degree is required.  Next the
-users can see that a master's degree could help them move into an architect
-role right away versus starting out as a Draftsman.  In either case, both
-options can eventually lead to the desired Partner position, with no major
+This graph quickly shows the user that a bachelor's degree is required.  Next
+the users can see that a master's degree could help them move into an architect
+role right away versus starting out as a draftsman.  In either case, both
+options can eventually lead to the desired partner position, with no major
 indicator which one yielded a higher likelihood of achieving the goal.  It also
 shows that it is rare for someone to return for a master's degree once they've
 entered the workforce and doing so later in your career can actually set the
-users back, if they've moved up to a Lead Architect position.  Finally, very
-few people who reached the Partner status also obtained a PhD, showing that this
-is not a necessary step to achieve this goal.
+users back, if they've moved up past the architect position.  Finally, very
+few people who reached the partner status also obtained a PhD, showing that this
+is not a common path to reaching partner, but still is an option that could be
+pursued.
 
-For additional information, the user could then select one of the nodes to pull
-up information about that node.  The three pie charts below in figure
-\ref{fig:Lead Arch} show the information that would be returned if the user
-were to select the Lead Architect node.  These charts show that there were five
-key employers for all of the users who reached Partner.  They also show that
-most of the Partners were Lead Architects for less than five years, and it
-became increasingly rare to reach Partner after this time.  The data also shows
-that no particular city had Lead Architects getting promoted to Partner more
-frequently.  Thus, any Lead Architects looking at this data would know to reach
-Partner they need to be focused on doing so within the five year window or they
-can expect their chances of doing so to diminish over time.  Also, they should
-know that where and who they work for is not important as long as they work for
-one of the five companies shown.
+Next, the user could select one of the nodes to pull up additional information
+about that node.  The three pie charts below in figure \ref{fig:Lead Arch} show
+the information that would be returned if the user were to select the lead
+architect node.  These charts show that there were five key employers for all of
+the users who reached partner.  They also show that most of the partners were
+lead architects for less than five years, and it became increasingly rare to
+reach partner after this time.  The data also shows that no particular city had
+lead architects getting promoted to partner more frequently.  Thus, any lead
+architects looking at this data would know to reach partner they need to be
+focused on doing so within the five year window or they can expect their chances
+of doing so to diminish over time.  Also, they should know that where and who
+they work for is not important, as long as they work for one of the five
+companies shown.
 
 Alternatively, the user could click on the master's degree node, to see more
-information about these users.  In doing so, the data in generated immediately
-shows everyone got a Master's degree in Infrastructure and did so in a single
-year.  The only variation is in the school attended.  In this case there were
-eight different schools attended, but none was attended at a more significant
-frequency than the rest.  Thus the user could immediately know if they wished to
-reach partner and do so by obtaining their master's degree they need to do so by
-attending one of these eight schools and get an Infrastructure degree within a
-year.
+information about these users.  In doing so, the data generated immediately
+shows everyone who got a Master's degree did so in a single year with a
+specialization in Infrastructure and the only variation being in the school
+attended.  In this case there were eight different schools attended, but none
+were attended at a more significant frequency than the rest.  Thus, the user
+could immediately know if they wished to reach partner and do so by obtaining their
+master's degree, they need to get an Infrastructure degree within a year by
+attending one of these eight schools.
 
 
 \begin{figure}[H]
@@ -364,16 +364,18 @@ year.
 \label{fig:Lead Arch}
 \end{figure}
 
-To demonstrate the ease at which the data can be generated and shown through
-this tool, several modifications are now made to this example.  First, a second
-degree is added to Civil Engineer but it is only 33\% likely to occur between
-the two.  This is done by adding the following line to the Masters text file.
+The proper functionality of the algorithms can be demonstrated trough
+several modifications to the data fed into the synthetic data generation script.
+With the following modifications, it will be shown that the results
+ProGENitor produce align with the expected changes. First, a second
+specialization is added to Civil Engineering but it is occurs a third of the
+time.  This is done by adding the following line to the Masters text file.
 
 	\indent
 	\begin{footnotesize}\begin{tt}{Civil:Infrastructure,Energy,Infrastructure}\\*\end{tt}\end{footnotesize}
 
-\noindent Next, an additional node, Junior Partner is added prior to Partner. 
-This is done by modify the Titles text file.  To make this change, the simple
+\noindent Next, an additional node, junior partner is added prior to partner. 
+This is done by modify the titles text file.  To make this change, the simple
 replacement of one line with two new lines was needed.
 	
 	\begin{footnotesize}
@@ -383,8 +385,8 @@ replacement of one line with two new lines was needed.
 	\end{footnotesize}
 	
 \noindent Finally, the likelihood of someone obtaining a master's degree was
-reduced by incrementing the m\_chance variable by 2 in the User Data Generation
-Perl script.
+reduced by incrementing a probability variable by 2 in the data generation
+script.
 
 
 
@@ -445,18 +447,19 @@ Perl script.
 \end{tikzpicture}
 }
 
-	\caption{Modified Career Path Nodal Map}
+	\caption{Modified Career Path Graph}
 	\label{fig:mod partner nodal map}
 \end{figure}
 
-With the changes in place, the new career map for achieving the Partner
-position shows the new node step of Junior Partner.  It also shows the reduction
-of users obtain a master's degree.  In the case of users transitioning from a
-bachelor's to master's degree, it is not clear from the colors, but looking at
-the actual return data, the frequency did decrease by 10\%.  Upon gathering the
-data for the master's degree node, it also shows that Infrastructure degrees now
-make up approximately 2/3rds of the degrees.  This is shown in the JSON
-return for the masters node with the following text:
+With these changes in place, the new career path graph for achieving the partner
+position shows the expected changes.  The new node step of junior partner is
+present and it also shows the reduction of users obtain a master's degree.  In
+the case of users transitioning from a bachelor's to master's degree, it is not
+clear from the vertices, but by looking at the data in the returned object, the
+frequency did decrease by 10\%.  In the detailed data for the master's degree
+node, the Infrastructure degree makes up approximately 2/3rds of the total
+degrees.  This is shown in the object return for the masters node with the
+following text:
 
 \begin{tt}
 \begin{footnotesize}
@@ -467,17 +470,18 @@ return for the masters node with the following text:
 \end{tt}
 
 \noindent Additionally, both Infrastructure and Energy would be returned as
-significant pieces of data as they occur much more frequently than all of the
-users who traveled through this master's degree node.
+significant pieces of data, as they occurred much less frequently for the users
+who traveled through this master's degree node and did not reach the partner
+node.
 
 \subsection{Example Career Path 2 }
-Consider another user who is interested in reaching the System Chief Engineering
-role.  They would input this query into the tool and figure \ref{fig:node map
-sce} would be generated.  From this map, the user would quickly be able to see
-that obtaining an advanced degree was unnecessary to become a System Chief
-Engineer.  They could then delve deeper into each node if they wanted to learn
-more about users who did the various jobs that also became System Chief
-Engineers.
+In the second example, consider another user who is interested in reaching the
+system chief engineering role.  They would input this query into the tool and
+figure \ref{fig:node map sce} would be generated.  From this graph, the user
+would quickly be able to see that obtaining an advanced degree was unnecessary
+to become a system chief engineer.  They could then delve deeper into each node
+if they wanted to learn more about users who did the various jobs that also
+became system chief engineers.
 
 
 \usetikzlibrary{shapes,arrows,chains}
@@ -537,26 +541,26 @@ Engineers.
 \end{tikzpicture}
 }
 
-	\caption{System Chief Engineer Nodal Map}
+	\caption{System Chief Engineer Graph}
 	\label{fig:node map sce}
 \end{figure}
 
 One thing that might also spark an interest in the user is the fact that any
 jobs beyond the queried job that the matched users also completed would be shown
-as well.  In this case there was one of these such nodes, the Platform Chief
-Engineer.  From the node transitions it is clear that not all System Chief
-Engineers reached this job.  If the user were interested then instead in the
-Platform Chief Engineering role, they could re-run the query and they would be
-presented with the career map shown in figure \ref{fig:node map pce}.  This is
-obviously a much more complex map, but it still yields the same capability of
-quickly showing users complex career paths to a particular goal.  In this case
-it shows that there are essentially three paths to this job.  The first path was
-detailed in the initial query, the second path is through a Design career
-path, and the third path is through an advanced degree.  What is most notable
-about these paths is if the advanced degree path is taken, the initial jobs
-the users take don't have much impact, as long as it is within the career realm.
-The other notable thing is the most common path taken to getting to the Platform
-Chief Engineering job is through the design path.
+as well.  In this case there was one of these such nodes, the platform chief
+engineer.  From the node vertices it is clear that not all system chief
+engineers reached this job.  If the user were interested then instead in the
+platform chief engineering role, they could re-run the query.  They would then
+be presented with the career graph shown in figure \ref{fig:node map pce}.  This
+is obviously a much more complex graph, but it still yields the same capability
+of quickly showing users complex career paths to a particular goal.  In this
+case it shows that there are essentially three paths to this job.  The first
+path was detailed in the initial query, the second path is through a design
+career path, and the third path is through an advanced degree.  What is most
+notable about these paths is if the advanced degree path is taken, the initial
+jobs the users take don't have much impact, as long as it is within the career realm.
+The other notable thing is the most common path taken to getting to the platform
+chief engineering job is through the design path.
 
 
 \usetikzlibrary{shapes,arrows,chains}
@@ -659,7 +663,7 @@ Engineer};
 \end{tikzpicture}
 }
 
-	\caption{Platform Chief Engineer Nodal Map}
+	\caption{Platform Chief Engineer Graph}
 	\label{fig:node map pce}
 \end{figure}
 
@@ -674,13 +678,13 @@ the number of users within the database and the total access times to the
 database itself.  As the database was on a local drive, the access times were
 much less in these run times than they could be with a remote database.  
 
-For generating the career path map, 10 cases were run, as shown below in table
-\ref{table:career performance}.  These 10 cases generate a range of matched
-users, total users, and number of nodes returned.  By doing this, a rough estimate as to how
-long a query to ProGENitor might take can be ascertained.  As seen in table
-\ref{table:career performance}, an average query would take about 6.9 seconds,
-but might take much longer depending on the number of users in the database and the number that
-match the query.
+To estimate career path graph performance, 10 cases were run, as shown below in
+table \ref{table:career performance}.  These 10 cases generate a range of matched
+users, total users, and number of nodes returned.  By doing this, a rough
+estimate as to how long a query to ProGENitor might take can be ascertained.  As
+seen in table \ref{table:career performance}, an average query would take about
+6.9 seconds, but might take much longer depending on the number of users in the
+database and the number that match the query.
 
 \begin{table}[H]
   \centering
@@ -749,8 +753,8 @@ expert who could help refine the database accesses.
 
 In table \ref{table:node-perf}, the node detail generation performance is shown
 for the same 10 cases run previously.  This is broken out separately because the
-assumption is that when ProGENitor is deployed the career map would be initially
-presented in the user interface and the details about each node would be
+assumption is that when ProGENitor is deployed, the career path graph would be
+initially presented in the user interface and the details about each node would be
 displayed upon user request.  Looking at table \ref{table:node-perf} shows that
 this would be done because if all the data were returned at once, it could
 potentially add 18 seconds to the overall run time.  This would be too slow and
