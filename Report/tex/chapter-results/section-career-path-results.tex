@@ -121,7 +121,7 @@ be returned.
 	\centering
   
 % Start the picture
-\resizebox {125mm} {!} {
+\resizebox {108mm} {!} {
 \begin{tikzpicture}[%
     >=triangle 60,              % Nice arrows; your taste may be different
     start chain=going below,    % General flow is top-to-bottom
@@ -137,34 +137,34 @@ be returned.
   node/.style={base, circle, text width=5em},
   % Connector line styles for different parts of the diagram
   norm/.style={->, draw},
-  thin/.style={->,>=stealth',shorten >=1pt, black},
-  nm/.style={->,>=stealth',shorten >=1pt, green},
-  to/.style={->,>=stealth',shorten >=1pt,semithick,blue},
-  thick/.style={->,shorten >=1pt,very thick, red},
+  tn/.style={->,>=stealth',shorten >=1pt, loosely dotted},
+  nm/.style={->,>=stealth',shorten >=1pt,dashed},
+  to/.style={->,>=stealth',shorten >=1pt,thick},
+  tk/.style={->,shorten >=1pt,ultra thick},
   it/.style={font={\small\itshape}}
 }
 % -------------------------------------------------
 % Start by placing the nodes
 \node [node] (a) {Bachelors};
 % Use join to connect a node to the previous one 
-\node [node, right = of a, yshift=20mm] (b) {Masters};
-\node [node, right = of a, yshift=-20mm] (c) {Draftsman}; 
+\node [node, right = of a, yshift=15mm] (b) {Masters};
+\node [node, right = of a, yshift=-15mm] (c) {Draftsman}; 
 \node [node, right = of b, xshift=2mm](d) {PhD};
 \node [node, right = of c, xshift=2mm](e) {Architect};
-\node [node, right = of e, yshift=20mm](f) {Lead Architect};
+\node [node, right = of e, yshift=15mm](f) {Lead Architect};
 \node [node, right = of f, xshift=5mm](g) {Partner};
 
-\draw [to] (a) to (c);%Bachelors,Draftsman,4
-\draw [thin] (c) to (b);	%Draftsman,Masters,1
-\draw[thick] (b) to (e);	%Masters,Architect,7
-\draw[thick] (e) to (f);	%Architect,Lead Architect,7
-\draw[thick] (f) to (g);	%Lead Architect,Partner,7
+\draw[to] (a) to (c);%Bachelors,Draftsman,4
+\draw[tn] (c) to (b);	%Draftsman,Masters,1
+\draw[tk] (b) to (e);	%Masters,Architect,7
+\draw[tk] (e) to (f);	%Architect,Lead Architect,7
+\draw[tk] (f) to (g);	%Lead Architect,Partner,7
 \draw[to] (a) to (b);	%Bachelors,Masters,5
-\draw[thin] (b) to (d); %Masters,PhD,0
-\draw[thin] (d) to (f);	%PhD,Lead Architect,0
+\draw[tn] (b) to (d); %Masters,PhD,0
+\draw[tn] (d) to (f);	%PhD,Lead Architect,0
 \draw[nm] (c) to (e);	%Draftsman,Architect,2
-\draw[thin] (e) to [bend left=20] (b);	%Architect,Masters,0
-\draw[thin] (f) to [bend left=20] (b);	%Lead
+\draw[tn] (e) to [bend left=20] (b);	%Architect,Masters,0
+\draw[tn] (f) to [bend left=20] (b);	%Lead
 % Architect,Masters,0
 
 % -------------------------------------------------
@@ -396,11 +396,11 @@ script.
 	\centering
   
 % Start the picture
-\resizebox {150mm} {!} {
+\resizebox {140mm} {!} {
 \begin{tikzpicture}[%
     >=triangle 60,              % Nice arrows; your taste may be different
     start chain=going below,    % General flow is top-to-bottom
-    node distance=3mm and 28mm, % Global setup of box spacing
+    node distance=4mm and 28mm, % Global setup of box spacing
     every join/.style={norm},   % Default linetype for connecting boxes
     ]
 % ------------------------------------------------- 
@@ -413,35 +413,35 @@ script.
   node/.style={base, circle, text width=5em},
   % Connector line styles for different parts of the diagram
   norm/.style={->, draw},
-  thin/.style={->,>=stealth',shorten >=1pt, black},
-  nm/.style={->,>=stealth',shorten >=1pt, green},
-  to/.style={->,>=stealth',shorten >=1pt,semithick,blue},
-  thick/.style={->,shorten >=1pt,very thick, red},
+  tn/.style={->,>=stealth',shorten >=1pt, loosely dotted},
+  nm/.style={->,>=stealth',shorten >=1pt,dashed},
+  to/.style={->,>=stealth',shorten >=1pt,thick},
+  tk/.style={->,shorten >=1pt,ultra thick},
   it/.style={font={\small\itshape}}
 }
 % -------------------------------------------------
 % Start by placing the nodes
-\node [node] (a) {Bachelors};
+\node [node, xshift=-10mm] (a) {Bachelors};
 % Use join to connect a node to the previous one 
-\node [node, right = of a] (b) {Draftsman};
-\node [node, right = of b] (c) {Masters}; 
+\node [node, right = of a, xshift=3mm] (b) {Draftsman};
+\node [node, right = of b, xshift=3mm] (c) {Masters}; 
 \node [node, right = of c, yshift=20mm] (d) {Architect};
 \node [node, right = of c, yshift=-20mm] (e) {PhD};
 \node [node, right = of e, yshift=20mm] (f) {Lead Architect};
-\node [node, right = of f] (g) {Junior Partner};
-\node [node, right = of g] (h) {Partner};
+\node [node, right = of f, xshift=3mm] (g) {Junior Partner};
+\node [node, right = of g, xshift=3mm] (h) {Partner};
 
 \draw[to] (a) to (b);		%Bachelors,Draftsman,5
 \draw[nm] (b) to [bend left=20] (d);		%Draftsman,Architect,4
-\draw[thick] (d) to (f);		%Architect,Lead Architect,7
-\draw[thick] (f) to (g);	%Lead Architect,Junior Partner,10
-\draw[thick] (g) to (h);	%Junior Partner,Partner,10
+\draw[tk] (d) to (f);		%Architect,Lead Architect,7
+\draw[tk] (f) to (g);	%Lead Architect,Junior Partner,10
+\draw[tk] (g) to (h);	%Junior Partner,Partner,10
 \draw[to] (a) to [bend right=40] (c);		%Bachelors,Masters,4
 \draw[nm] (c) to (d); 	%Masters,Architect,2
-\draw[thin] (c) to (f);		%Masters,Lead Architect,1
-\draw[thin] (c) to (e);		%Masters,PhD,0
-\draw[thin] (e) to (f);		%PhD,Lead Architect,0
-\draw[thin] (b) to (c);		%Draftsman,Masters,0
+\draw[tn] (c) to (f);		%Masters,Lead Architect,1
+\draw[tn] (c) to (e);		%Masters,PhD,0
+\draw[tn] (e) to (f);		%PhD,Lead Architect,0
+\draw[tn] (b) to (c);		%Draftsman,Masters,0
 
 % -------------------------------------------------
 \end{tikzpicture}
@@ -490,7 +490,7 @@ became system chief engineers.
 	\centering
   
 % Start the picture
-\resizebox {150mm} {!} {
+\resizebox {140mm} {!} {
 \begin{tikzpicture}[%
     >=triangle 60,              % Nice arrows; your taste may be different
     start chain=going below,    % General flow is top-to-bottom
@@ -506,10 +506,10 @@ became system chief engineers.
   node/.style={base, circle, text width=5em},
   % Connector line styles for different parts of the diagram
   norm/.style={->, draw},
-  thin/.style={->,>=stealth',shorten >=1pt, black},
-  nm/.style={->,>=stealth',shorten >=1pt, green},
-  to/.style={->,>=stealth',shorten >=1pt,semithick,blue},
-  thick/.style={->,shorten >=1pt,very thick, red},
+  tn/.style={->,>=stealth',shorten >=1pt, loosely dotted},
+  nm/.style={->,>=stealth',shorten >=1pt,dashed},
+  to/.style={->,>=stealth',shorten >=1pt,thick},
+  tk/.style={->,shorten >=1pt,ultra thick},
   it/.style={font={\small\itshape}}
 }
 % -------------------------------------------------
@@ -517,10 +517,10 @@ became system chief engineers.
 
 \node [node] (a) {Bachelors};
 % Use join to connect a node to the previous one 
-\node [node, right = of a,yshift=0mm] (b) {Entry Coder};
-\node [node, right = of a,yshift=40mm] (c) {Lab Tech}; 
-\node [node, right = of b] (d) {GSI};
-\node [node, right = of d] (e) {Embedded};
+\node [node, right = of a,xshift=-5mm,yshift=-20mm] (b) {Entry Coder};
+\node [node, right = of a,xshift=-5mm,yshift=20mm] (c) {Lab Tech}; 
+\node [node, right = of b,xshift=-5mm,yshift=20mm] (d) {GSI};
+\node [node, right = of d,xshift=5mm] (e) {Embedded};
 \node [node, right = of e,xshift=5mm] (f) {GSI Lead};
 \node [node, right = of f,xshift=5mm] (g) {Integration Manager};
 \node [node, right = of g,xshift=5mm] (h) {System Chief Engineer};
@@ -528,14 +528,14 @@ became system chief engineers.
 
 \draw[nm] (a) to (c);		%Bachelors,Lab Tech,7
 \draw[nm] (c) to (d);		%Lab Tech,GSI,7
-\draw[thin] (d) to [bend left=40] (f);		%GSI,GSI Lead,4
-\draw[thick] (f) to (g);		%GSI Lead,Integration Manager,14
-\draw[thick] (g) to (h);		%Integration Manager,System Chief Engineer,14
+\draw[tn] (d) to [bend left=40] (f);		%GSI,GSI Lead,4
+\draw[tk] (f) to (g);		%GSI Lead,Integration Manager,14
+\draw[tk] (g) to (h);		%Integration Manager,System Chief Engineer,14
 \draw[to] (h) to (i);		%System Chief Engineer,Platform Chief Engineer,11
 \draw[nm] (a) to (b);		%Bachelors,Entry Coder,7
 \draw[nm] (b) to [bend right=40] (e);		%Entry Coder,Embedded,7
 \draw[to] (e) to (f);		%Embedded,GSI Lead,10
-\draw[thin] (d) to (e);		%GSI,Embedded,3
+\draw[tn] (d) to (e);		%GSI,Embedded,3
 
 % -------------------------------------------------
 \end{tikzpicture}
@@ -585,10 +585,10 @@ chief engineering job is through the design path.
   node/.style={base, circle, text width=5em},
   % Connector line styles for different parts of the diagram
   norm/.style={->, draw},
-  thin/.style={->,>=stealth',shorten >=1pt, black},
-  nm/.style={->,>=stealth',shorten >=1pt, green},
-  to/.style={->,>=stealth',shorten >=1pt,semithick,blue},
-  thick/.style={->,shorten >=1pt,very thick, red},
+  tn/.style={->,>=stealth',shorten >=1pt, loosely dotted},
+  nm/.style={->,>=stealth',shorten >=1pt,dashed},
+  to/.style={->,>=stealth',shorten >=1pt,thick},
+  tk/.style={->,shorten >=1pt,ultra thick},
   it/.style={font={\small\itshape}}
 }
 % -------------------------------------------------
@@ -621,43 +621,43 @@ Engineer};
 
 \draw[to] (a) to [bend left=10] (n);		%Bachelors,Masters,6
 \draw[to] (n) to (h);		%Masters,Circuit Designer,7
-\draw[thick] (h) to (s);		%Circuit Designer,Block Owner,8
-\draw[thick] (s) to (u);		%Block Owner,Design Owner,9
-\draw[thick] (u) to (v);		%Design Owner,Processor Lead,9
-\draw[thick] (v) to (t);		%Processor Lead,Platform Chief Engineer,9
-\draw[thin] (a) to (d);		%Bachelors,Schematic Entry,0
-\draw[thin] (d) to (j);		%Schematic Entry,Schematic Lead,0
-\draw[thin] (j) to (n);		%Schematic Lead,Masters,0
-\draw[thin] (n) to (p);		%Masters,PhD,1
-\draw[thin] (p) to (s);		%PhD,Block Owner,1
-\draw[thin] (d) to [bend left=5](n);		%Schematic Entry,Masters,0
-\draw[thin] (a) to (c);		%Bachelors,Lab Tech,1
-\draw[thin] (c) to (k);		%Lab Tech,GSI,0
-\draw[thin] (k) to (o);		%GSI,GSI Lead,0
-\draw[thin] (o) to (q);		%GSI Lead,Integration Manager,1
-\draw[thin] (q) to (r);		%Integration Manager,System Chief Engineer,1
-\draw[thin] (r) to (t);		%System Chief Engineer,Platform Chief Engineer,1
-\draw[thin] (a) to (b);		%Bachelors,Entry Coder,1
-\draw[thin] (b) to (i);		%Entry Coder,Coder,0
-\draw[thin] (i) to (n);		%Coder,Masters,0
-\draw[thin] (c) to (b);		%Lab Tech,Power,0
-\draw[thin] (b) to (m);		%Entry Coder,Embedded,0
-\draw[thin] (m) to (n);		%Embedded,Masters,0
-\draw[thin] (c) to (n);		%Lab Tech,Masters,0
-\draw[thin] (b) to [bend right=5] (n);		%Entry Coder,Masters,0
-\draw[thin] (m) to (o);		%Embedded,GSI Lead,0
-\draw[thin] (d) to (h);		%Schematic Entry,Circuit Designer,0
-\draw[thin] (a) to (e);		%Bachelors,Chiplet Designer,0
-\draw[thin] (e) to [bend right=28] (n);		%Chiplet Designer,Masters,0
-\draw[thin] (k) to (m);		%GSI,Embedded,0
-\draw[thin] (e) to (h);		%Chiplet Designer,Circuit Designer,0
-\draw[thin] (c) to (g);		%Lab Tech,Signal Integrity,0
-\draw[thin] (g) to [bend left=22](n);		%Signal Integrity,Masters,0
-\draw[thin] (e) to (f);		%Chiplet Designer,Timing,0
-\draw[thin] (f) to (n);		%Timing,Masters,0
-\draw[thin] (h) to (n);		%Circuit Designer,Masters,0
-\draw[thin] (i) to (l);		%Coder,Function Lead,0
-\draw[thin] (l) to (n);		%Function Lead,Masters,0
+\draw[tk] (h) to (s);		%Circuit Designer,Block Owner,8
+\draw[tk] (s) to (u);		%Block Owner,Design Owner,9
+\draw[tk] (u) to (v);		%Design Owner,Processor Lead,9
+\draw[tk] (v) to (t);		%Processor Lead,Platform Chief Engineer,9
+\draw[tn] (a) to (d);		%Bachelors,Schematic Entry,0
+\draw[tn] (d) to (j);		%Schematic Entry,Schematic Lead,0
+\draw[tn] (j) to (n);		%Schematic Lead,Masters,0
+\draw[tn] (n) to (p);		%Masters,PhD,1
+\draw[tn] (p) to (s);		%PhD,Block Owner,1
+\draw[tn] (d) to [bend left=5](n);		%Schematic Entry,Masters,0
+\draw[tn] (a) to (c);		%Bachelors,Lab Tech,1
+\draw[tn] (c) to (k);		%Lab Tech,GSI,0
+\draw[tn] (k) to (o);		%GSI,GSI Lead,0
+\draw[tn] (o) to (q);		%GSI Lead,Integration Manager,1
+\draw[tn] (q) to (r);		%Integration Manager,System Chief Engineer,1
+\draw[tn] (r) to (t);		%System Chief Engineer,Platform Chief Engineer,1
+\draw[tn] (a) to (b);		%Bachelors,Entry Coder,1
+\draw[tn] (b) to (i);		%Entry Coder,Coder,0
+\draw[tn] (i) to (n);		%Coder,Masters,0
+\draw[tn] (c) to (b);		%Lab Tech,Power,0
+\draw[tn] (b) to (m);		%Entry Coder,Embedded,0
+\draw[tn] (m) to (n);		%Embedded,Masters,0
+\draw[tn] (c) to (n);		%Lab Tech,Masters,0
+\draw[tn] (b) to [bend right=5] (n);		%Entry Coder,Masters,0
+\draw[tn] (m) to (o);		%Embedded,GSI Lead,0
+\draw[tn] (d) to (h);		%Schematic Entry,Circuit Designer,0
+\draw[tn] (a) to (e);		%Bachelors,Chiplet Designer,0
+\draw[tn] (e) to [bend right=28] (n);		%Chiplet Designer,Masters,0
+\draw[tn] (k) to (m);		%GSI,Embedded,0
+\draw[tn] (e) to (h);		%Chiplet Designer,Circuit Designer,0
+\draw[tn] (c) to (g);		%Lab Tech,Signal Integrity,0
+\draw[tn] (g) to [bend left=22](n);		%Signal Integrity,Masters,0
+\draw[tn] (e) to (f);		%Chiplet Designer,Timing,0
+\draw[tn] (f) to (n);		%Timing,Masters,0
+\draw[tn] (h) to [bend left=10] (n);		%Circuit Designer,Masters,0
+\draw[tn] (i) to (l);		%Coder,Function Lead,0
+\draw[tn] (l) to (n);		%Function Lead,Masters,0
 
 % -------------------------------------------------
 \end{tikzpicture}

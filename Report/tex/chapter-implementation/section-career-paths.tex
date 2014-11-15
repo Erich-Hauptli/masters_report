@@ -28,10 +28,11 @@ to determine how the end product is rendered.
 	\centering
   
 % Start the picture
+\resizebox {125mm} {!} {
 \begin{tikzpicture}[%
     >=triangle 60,              % Nice arrows; your taste may be different
     start chain=going below,    % General flow is top-to-bottom
-    node distance=3mm and 20mm, % Global setup of box spacing
+    node distance=3mm and 28mm, % Global setup of box spacing
     every join/.style={norm},   % Default linetype for connecting boxes
     ]
 % ------------------------------------------------- 
@@ -40,48 +41,42 @@ to determine how the end product is rendered.
 % positioning of nodes
 \tikzset{
   base/.style={draw, on chain, on grid, align=center, minimum height=2ex},
-  node/.style={base, circle, text width=3em},
+  node/.style={base, circle, text width=5em},
   % Connector line styles for different parts of the diagram
   norm/.style={->, draw},
-  thin/.style={->,>=stealth',shorten >=1pt, black},
-  nm/.style={->,>=stealth',shorten >=1pt, green},
-  to/.style={->,>=stealth',shorten >=1pt,semithick,blue},
-  thick/.style={->,shorten >=1pt,very thick, red},
+  tn/.style={->,>=stealth',shorten >=1pt, loosely dotted},
+  nm/.style={->,>=stealth',shorten >=1pt,dashed},
+  to/.style={->,>=stealth',shorten >=1pt,thick},
+  tk/.style={->,shorten >=1pt,ultra thick},
   it/.style={font={\small\itshape}}
 }
 % -------------------------------------------------
 % Start by placing the nodes
-\node [node] (a) {A};
+\node [node] (a) {Bachelors};
 % Use join to connect a node to the previous one 
-\node [node, right = of a] (b) {B};
-\node [node, above = of b, yshift=25mm] (c) {C}; 
-\node [node, below of = b, yshift=-25mm](d) {D};
-\node [node, right=of d, yshift =15mm](e) {E};
-\node [node, right=of c, yshift=-15mm](f) {F};
-\node [node, right=of f, yshift=-15mm](g) {G};
-\node [node, right=of f, yshift=15mm](h) {H};
-\node [node, right=of f, yshift=-40mm](i) {I};
-\node [node, right=of g](j) {J};
+\node [node, right = of a, yshift=20mm] (b) {Masters};
+\node [node, right = of a, yshift=-20mm] (c) {Draftsman}; 
+\node [node, right = of b, xshift=2mm](d) {PhD};
+\node [node, right = of c, xshift=2mm](e) {Architect};
+\node [node, right = of e, yshift=20mm](f) {Lead Architect};
+\node [node, right = of f, xshift=5mm](g) {Partner};
 
-\draw[thick] (a) to (b);
-\draw[thick] (a) to[bend left=30] (c);
-\draw[nm] (a) to[bend right=30] (d);
-\draw[nm] (d) to (e); 
-\draw[thin] (a) to[bend right=30] (e);
-\draw[nm] (c) to (e);
-\draw[to] (c) to (f);
-\draw[thin] (e) to (b);
-\draw[to] (e) to (g);
-\draw[to] (f) to (g);
-\draw[thick] (b) to (g);
-\draw[thin] (f) to (h);
-\draw[thin] (e) to (i);
-\draw[thick] (g) to (j);
-\draw[thin] (h) to (j);
-\draw[thin] (i) to (j);
+\draw[to] (a) to (c);%Bachelors,Draftsman,4
+\draw[tn] (c) to (b);	%Draftsman,Masters,1
+\draw[tk] (b) to (e);	%Masters,Architect,7
+\draw[tk] (e) to (f);	%Architect,Lead Architect,7
+\draw[tk] (f) to (g);	%Lead Architect,Partner,7
+\draw[to] (a) to (b);	%Bachelors,Masters,5
+\draw[tn] (b) to (d); %Masters,PhD,0
+\draw[tn] (d) to (f);	%PhD,Lead Architect,0
+\draw[nm] (c) to (e);	%Draftsman,Architect,2
+\draw[tn] (e) to [bend left=20] (b);	%Architect,Masters,0
+\draw[tn] (f) to [bend left=20] (b);	%Lead
+% Architect,Masters,0
 
 % -------------------------------------------------
 \end{tikzpicture}
+}
 
 	\caption{Career Path Graph}
 	\label{fig:nodal map}
