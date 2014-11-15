@@ -1,14 +1,17 @@
 \section{High Level Architecture}
 \label{sect:high-level-architecture}
-ProGENitor is broken into several different groupings of code.  To place a call
-to ProGENitor, the user must send a JSON Object containing a query and a query
-type.  This JSON Object is then passed to the Database block which will fetch
-data from the database based on the user passed JSON Object.  The fetched data
-will be passed to a block of Analytics code, which will process the data to
-produce a career mapping and then extract the significant information in that
-career map.  This data is then returned in a large JSON Object containing multiple JSON
-Arrays. See Figure
-\ref{fig:HighLevelProjectArchitecture}
+ProGENitor is broken into several different pieces of code.  To place a call
+to ProGENitor, the user must send a query and a query type when starting the
+application.  This query is typically a job title that the user wishes to reach.
+The query is then passed to the database block which will fetch data from the
+database.  The data in the database is loaded with synthetic data for testing
+purposes, but could easily be replaced with an actual database. The fetched data
+would then be passed to a block of code, that processes the data to produce a
+career path graph and then extracts the significant information about the graph
+points.  Additional information is also extracted by a tool called Weka, to
+provide more complex insights into the combinations of data points that may be
+relevant to reaching the queried goal.  This data is then returned to the user
+in a data object that can be rendered by a user interface.  See Figure \ref{fig:HighLevelProjectArchitecture}
 for a representation of this sequence.
 
 \usetikzlibrary{shapes,arrows,chains}
@@ -40,11 +43,11 @@ for a representation of this sequence.
 }
 % -------------------------------------------------
 % Start by placing the nodes
-\node [node, join, xshift=-30mm] (a) {Mock Data};
+\node [node, join, xshift=-30mm] (a) {Synthetic Data};
 \node [node, join, right = of a, xshift=8mm] (b) {Database};
 \node [node, join, right = of b, xshift=12mm] (c) {Data Fetch}; 
-\node [node, join, right = of c, xshift=10mm] (d) {Career Mapping \& Weka};
-\node [node, join, right = of d, xshift=10mm] (e) {JSON Return};
+\node [node, join, right = of c, xshift=10mm] (d) {Career Path Graph \& Weka};
+\node [node, join, right = of d, xshift=10mm] (e) {Data Return};
 
 \draw [->](c.west) |- node {} (b);
 
@@ -56,7 +59,7 @@ for a representation of this sequence.
 \end{figure}
 
 \subsection{Overall Technology Stack}
-All of the code for ProGENitor is written in Java except for the mock data
+All of the code for ProGENitor is written in Java except for the synthetic data
 generation code which is written in Perl.  Java was selected because the code
 needed to interface well with web applications and pages.  Java is easily run through
 web interfaces and can easily pass data by passing JSON Objects.  Additionally,

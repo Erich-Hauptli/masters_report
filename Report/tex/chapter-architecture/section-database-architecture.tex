@@ -23,22 +23,20 @@ These databases contain information on each individual user, user job history,
 user education history, and a listing of all of the headers for each database. 
 The database SQL code allows for reading from, writing to, and creating the databases.  The
 user wrapper creates a single point that the SQL interface would need to be
-modify to support a change in database architecture.  Additionally, it
+modify to support a change in database architecture.  Additionally, the wrapper
 provides some basic query commands to pull data from the database, based on a
 search field.  It can also extract Meta data about the databases.  The database
-is then pulled through a data collection package.  The data collection package
-pulls data based on either a similar query field, a similar node, or a similar
-user id.
+is then pulled through a data collection package, which pulls data based on
+either a similar query field, node, or user id.
 
 
 \subsection{Database Technology Stack}
-For the database in ProGENitor, a MySQL database was used.  This decision was
-made not because it was the optimum solution for the data set, but because MySQL
-is easier to learn and manage.  As the point of the project was not focusing on
-databases, but on the analytics side of what can be done with the data, the goal
-was to get a database setup quickly with less effort.  NoSQL databases are
-better for unstructured data and in many instances, databases containing career
-information, such as LinkedIN have chosen to go the NoSQL route.  For instance,
+For the database in ProGENitor, a MySQL database was used.  The MySQL database
+was chosen as it is relatively easy to learn and manage.  The goal
+was to quickly setup a database with minimal effort, so that the core of the
+project, career data analytics, could be focused on.  In many instances,
+databases containing career information, such as LinkedIN have chosen to go the
+NoSQL route as these databases are better for unstructured data.  For instance,
 LinkedIN uses a database called Sensei\cite{sensei}, which is a NoSQL based
 database.  Many NoSQL databases are proprietary, where as the MySQL database
 follows a standard that the entire database community is familiar with.  Thus,
