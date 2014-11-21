@@ -33,25 +33,25 @@ array and then randomly select from one of these values.
 
 \subsection{Random Selection}
 There are two places the code must randomly select data.  The first is the
-data that is loaded for each node.  This random selection simply places the data
+data that is loaded for each vertex.  This random selection simply places the data
 from one of the data files into an array and uses a standard random function
 to randomly select an array index value to pull the data from.  This data is then
-applied to the individual user's node.  When the node has all necessary data
+applied to the individual user's vertex.  When the vertex has all necessary data
 generated, it is loaded into the data file to be loaded into the database.  In
 testing, to force a particular piece of data to occur more frequently,
 simply placing it multiple times into the data files will increase the
 frequency that it will show up in the user data.
 
 The second place that code must randomly select data is when it is determining
-if a user enters a node or not on each pass.  There are four possible types
-of nodes that a user could enter during each loop.  In each pass of the loop,
-they could potentially enter up to all of the nodes.  These nodes are an
+if a user enters a vertex or not on each pass.  There are four possible types
+of vertices that a user could enter during each loop.  In each pass of the loop,
+they could potentially enter up to all of the vertices.  These vertices are an
 undergraduate degree, a master's degree, a PhD, and a job.  For each of these
-nodes, a chance value is assigned in the variables at the top of the script. 
-Then essentially a ten sided dice is rolled at each node, this is done by
+vertices, a chance value is assigned in the variables at the top of the script. 
+Then essentially a ten sided dice is rolled at each vertex, this is done by
 loading values 1 through 10 into an array and applying the standard random
 function to the array.  If the dice roll is greater than the predefined chance
-variable value, the node is entered and data is generated.  When any node is
+variable value, the vertex is entered and data is generated.  When any vertex is
 entered, all educational chance variable values are incremented by 1.  This
 means it is much less likely someone will get an advanced degree as their career
 progresses.  Additionally, each educational degree level is currently limited to

@@ -10,13 +10,13 @@ the data file first indicates the database the line should be loaded into and
 then the user id the data is associated with.  Each individual user is assumed
 to have a distinct user id.  The subsequent data in each row is built off a
 random selection from an array of data for each column.  For example, when
-generating the university for a particular user's education node, a text file
+generating the university for a particular user's education vertex, a text file
 containing potential universities is loaded into an array and then the value is
 randomly selected from the array.  This is done for each piece of data loaded
 into the database, such  that the database looks like it contains real user
 data.  The randomness can be controlled and particular elements can be weighted
 so they show up more frequently.  Additionally, the paths and frequency users
-traverse through nodes can also be adjusted through variables and the content
+traverse through vertices can also be adjusted through variables and the content
 within the text files.  This process will be stepped through in detail in
 Chapter~3.
 

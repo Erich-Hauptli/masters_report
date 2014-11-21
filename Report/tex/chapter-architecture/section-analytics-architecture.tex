@@ -3,16 +3,16 @@ Once the databases are established and loaded, the real work can begin.
 ProGENitor takes in a request query and then using the career path modules,
 graphs out the similar career paths taken by others who traversed through the
 query point.  It also provides details about what was special about these
-individuals, as they went through each node of their lives.  Then, through Weka,
+individuals, as they went through each vertex of their lives.  Then, through Weka,
 the code draws out the complex events that had the largest impact towards the
 the users passing through the query point.  As depicted in figure
 \ref{fig:analytics_block}, the code is broken into four pieces.  One piece
-gathers all of the nodes and defines the important edges between the nodes. 
-Another piece of the code looks at the many different edges and attempts to
-order the nodes in a manner that they can be graphed from left to right without
-a lot of confusing edge crossings.  A third piece of code draws out the data
-about each node and identifies the significant pieces of information that
-separate the users in the query from everyone else who passed through the node. 
+gathers all of the vertices and defines the important edges between the
+vertices.  Another piece of the code looks at the many different edges and attempts to
+order the vertices in a manner that they can be graphed from left to right
+without a lot of confusing edge crossings.  A third piece of code draws out the data
+about each vertex and identifies the significant pieces of information that
+separate the users in the query from everyone else who passed through the vertex. 
 Finally, the last piece of code, uses Weka to draw out the complex action or
 actions that had the greatest significance in causing the users to pass through
 the query point.
@@ -29,9 +29,9 @@ the query point.
 		\put(17,12.5){\vector(2,-1){4}}
 		\put(17,12.5){\vector(2,1){4}}
 		\put(17,12.5){\vector(1,3){3}}
-		\put(21,21){\framebox(14,5){Node Ordering}}
-		\put(21,14){\framebox(14,5){Node Details}}
-		\put(21,7){\framebox(14,5){Node Edges}}
+		\put(21,21){\framebox(14,5){Edges}}
+		\put(21,14){\framebox(14,5){Vertex Ordering}}
+		\put(21,7){\framebox(14,5){Vertex Details}}
 		\put(21,0){\framebox(14,5){Weka}}
 		\put(35,23.5){\vector(2,-3){6}}
 		\put(35,16.5){\vector(2,-1){4}}

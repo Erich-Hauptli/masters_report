@@ -2,23 +2,23 @@
 \label{sect:career-paths}
 The goal of the career paths module is to generate data, such that a web user
 interface could generate a nodal graph of the career paths taken to reach the
-specified career goal.  The node transitions along with the transition
+specified career goal.  The vertex transitions along with the transition
 frequencies are returned to the user interface as objects.  Additionally,
-the node ordering and information about each individual node is also returned in
+the vertex ordering and information about each individual vertex is also returned in
 an object.  This information can then be used to generate a nodal map
 depicting various ways of achieving a career goal.  
 
 An example is depicted in Figure \ref{fig:nodal map}, which shows various
-interconnected nodes that eventually arrive at the goal node.  The nodes are
-arranged such that the user most likely travels from left to right, but the
+interconnected vertices that eventually arrive at the goal vertex.  The vertices
+are arranged such that the user most likely travels from left to right, but the
 occasional infrequently traveled transition may flow in the reverse direction. 
 The frequency that the the path is traveled is depicted through line thickness
-in this example.  Each node would then be able to display the individual node
-information upon user request; either through clicking on the node or through
+in this example.  Each vertex would then be able to display the individual vertex
+information upon user request; either through clicking on the vertex or through
 some other user action.  Note, that ProGENitor does not limit the method in
 which the user interface is displayed; it simply passes back statistical
-information about the nodes, the transitions between each node, and the
-individual data about each node.  It is up to the web user interface developer
+information about the vertices, the transitions between each vertex, and the
+individual data about each vertex.  It is up to the web user interface developer
 to determine how the end product is rendered.
 
 
@@ -83,7 +83,7 @@ to determine how the end product is rendered.
 \end{figure}
 
 \subsection{Graph Edges}
-The graph edges portion of code finds all of the nodes that
+The graph edges portion of code finds all of the vertices that
 users pass through and the order at which they pass through them.  It then
 tallies the number of times all of the users pass along each transition
 path to allow for the career path graph to depict not only the point to point
@@ -128,7 +128,7 @@ array};
 \draw [->, dotted, thick, shorten >=1mm]
   (t2.south) -- ++(50mm,-3mm)  -- ++(27mm,0) 
   |- node [black, near end, yshift=0.75em, it]
-    {For each node transition} (t1);
+    {For each vertex transition} (t1);
 
 % -------------------------------------------------
 \end{tikzpicture}
@@ -146,20 +146,20 @@ in detail below:
 \begin{enumerate}
   \item For each ID passed to edge generation module:
   \begin{enumerate}
-    \item Pull job data and add it to the nodes list.
-    \item Pull education data and add it to the nodes list.
+    \item Pull job data and add it to the vertices list.
+    \item Pull education data and add it to the vertices list.
     \item Set Min equal to Max Integer and Max equal to MIN Integer.
-    \item For each element of the nodes list:
+    \item For each element of the vertices list:
     \begin{enumerate}
-      \item If date of data for element of nodes is less than Min and more than
-      Max, store the data and set Min equal to date of data.
-      \item After all elements of nodes list considered, add stored data
+      \item If date of data for element of vertices is less than Min and more
+      than Max, store the data and set Min equal to date of data.
+      \item After all elements of vertices list considered, add stored data
       to user list and set Max equal to Min.
   	\end{enumerate}
   	\item For each element of user list:
   	\begin{enumerate}
-  	  \item If A is NULL, set A equal to user element node name.
-  	  \item Else set B equal to A and set A equal to user element node name.
+  	  \item If A is NULL, set A equal to user element vertex name.
+  	  \item Else set B equal to A and set A equal to user element vertex name.
   	  \item If edges list is empty, add B,A,1 to edges list.
   	  \item Else check if B,A exists in the edges list:
   	  \begin{enumerate}
@@ -173,14 +173,14 @@ in detail below:
   \item Return both the list and the object.
 \end{enumerate}
 
-\subsection{Node Ordering}
-The node ordering portion of code sorts the nodes such that the major
+\subsection{Vertex Ordering}
+The vertex ordering portion of code sorts the vertices such that the major
 transitions flow in order from start to finish. It does this so that the flow
 of transitions can be graphed in a manner that is not overly confusing.  Figure
 \ref{fig:node ordering} shows the high level process that the code follows
-to generate the node groupings.  These groupings can then be fed to the end user
-interface to order the nodes in a fashion that shows the typical flow of careers
-that reach the destination goal.
+to generate the vertex groupings.  These groupings can then be fed to the end user
+interface to order the vertices in a fashion that shows the typical flow of
+careers that reach the destination goal.
 
 \usetikzlibrary{shapes,arrows,chains}
 
@@ -208,105 +208,105 @@ that reach the destination goal.
 }
 % -------------------------------------------------
 % Start by placing the nodes
-\node [proc] (p0) {Generate set of all nodes};
+\node [proc] (p0) {Generate set of all vertices};
 % Use join to connect a node to the previous one 
-\node [test, join] (p1) {Find worst input and output transition};
+\node [test, join] (p1) {Find worst input and output transitions};
 \node [proc, join] (p2) {Store worst transition edges};
-\node [proc, join] (p3) {Identify starting nodes}; 
-\node [test, join] (p4) {Group nodes based on prior connections};
-\node [proc, join] (p5) {Store node grouping in list};
-\node [proc, join] (p6) {Return node ordering as object and list};
+\node [proc, join] (p3) {Identify starting vertices}; 
+\node [test, join] (p4) {Group vertices based on prior connections};
+\node [proc, join] (p5) {Store vertex grouping in list};
+\node [proc, join] (p6) {Return vertex ordering as object and list};
 
 \draw [->, dotted, thick, shorten >=1mm]
   (p2.south) -- ++(40mm,-3mm)  -- ++(27mm,0) 
   |- node [black, near end, yshift=0.75em, it]
-    {For Each Node} (p1);
+    {For Each Vertex} (p1);
 \draw [->, dotted, thick, shorten >=1mm]
   (p5.south) -- ++(40mm,-3mm)  -- ++(27mm,0) 
   |- node [black, near end, yshift=0.75em, it]
-    {For Remaining Nodes} (p4);
+    {For Remaining Vertices} (p4);
 
 % -------------------------------------------------
 \end{tikzpicture}
 }
-	\caption{High Level Node Order Generation}
+	\caption{High Level Vertex Order Generation}
 	\label{fig:node ordering}
 \end{figure}
 
-\noindent The process flow in defining the node ordering for the nodes is listed
-in detail below:
+\noindent The process flow in defining the vertex ordering for the vertices is
+listed in detail below:
 
 \begin{description}
-    \item[Node Ordering Generation:]
+    \item[Vertex Ordering Generation:]
 \end{description}
  \begin{enumerate}
-   \item Generate set of all nodes
-   \item For each node in set:
+   \item Generate set of all vertices
+   \item For each vertex in set:
    \begin{enumerate}
      \item Initialize transitional weight to 0.
      \item For each element of the graph edge list:
      \begin{enumerate}
-       \item Check if node matches the input node.
-       \item Check if the number of transitions to the node is greater than the
+       \item Check if vertex matches the input vertex.
+       \item Check if the number of transitions to the vertex is greater than the
        transitional weight.
        \item If both checks are true; set the transitional weight to the current
        list line's number of transitions.
        \item Also, if both checks are true; store this list line.
      \end{enumerate}
-     \item After the worst input transition is found for the node, store it in
+     \item After the worst input transition is found for the vertex, store it in
      the heavy edges set.
-     \item Repeat this entire step for the output nodes.
+     \item Repeat this entire step for the output vertices.
    \end{enumerate}
    \item For each heavy edge element, search the graph edge list
-   for input nodes that are also destination nodes.
+   for input vertices that are also destination vertices.
    \begin{enumerate}
-     \item Any nodes not found are set as start nodes.
-     \item Repeat this step for output nodes that are also starting nodes.  Any
-     nodes not found are set as ending nodes.
+     \item Any vertices not found are set as start vertices.
+     \item Repeat this step for output vertices that are also starting vertices. 
+     Any vertices not found are set as ending vertices.
    \end{enumerate}
-   \item Add all the starting nodes to node 0 and add them to the node store
+   \item Add all the starting vertices to vertex 0 and add them to the vertex store
    set.
-   \item Add all nodes that are not starting nodes to the remaining nodes
-   set.
+   \item Add all vertices that are not starting vertices to the remaining
+   vertices set.
    \item Increment the group number to 1.
-   \item Until the remaining nodes set is empty, loop through the following
+   \item Until the remaining vertices set is empty, loop through the following
    steps.
    \begin{enumerate}
-     \item For each node in node store, store all destination nodes in a set
-     that node in node store transitions to.
-     \item For each destination node stored in the previous step, find all
-     possible next destination nodes and check if they are contained within the
-     set generated in the previous step.
+     \item For each vertex in vertex store, store all destination vertices in a
+     set that vertex in vertex store transitions to.
+     \item For each destination vertex stored in the previous step, find all
+     possible next destination vertices and check if they are contained within
+     the set generated in the previous step.
      \begin{enumerate}
        \item If one is contained within the previously generated set, remove
-       the node from the set.
+       the vertex from the set.
      \end{enumerate}
-     \item Add remaining nodes to next node grouping.  Also remove remaining
-     nodes from remaining nodes set.
-     \item Add the node group to the node return list.
+     \item Add remaining vertices to next vertex grouping.  Also remove remaining
+     vertices from remaining vertices set.
+     \item Add the vertex group to the vertex return list.
      \item Increment the group number.
-     \item Replace the nodes in the starting nodes set with the nodes that
-     were just added to a group.
+     \item Replace the vertices in the starting vertices set with the vertices
+     that were just added to a group.
    \end{enumerate} 
-   \item Generate an object containing an array of the node groupings from
-   the node return list.
-   \item Return both the object and the node return list.
+   \item Generate an object containing an array of the vertex groupings from
+   the vertex return list.
+   \item Return both the object and the vertex return list.
  \end{enumerate}
 
 
 
-\subsection{Node Details}
+\subsection{Vertex Details}
 Presenting all of the potential information would overwhelm any user interface,
-so instead many of the details are buried within each node and can be queried
-by the end user, by selecting the node of interest.  As each node contains
+so instead many of the details are buried within each vertex and can be queried
+by the end user, by selecting the vertex of interest.  As each vertex contains
 additional details such as the place of employment or education, time spent at
-the school or job, or any other node relevant pieces of information; the data
+the school or job, or any other vertex relevant pieces of information; the data
 must be gathered upon user request, as to not slow down the overall graph
 generation.  Once the request is made, the data about the individuals who
-reached the goal node and the data about all of the users who passed through a
-particular node are pulled.  This data is then broken down into a statistic for
+reached the goal vertex and the data about all of the users who passed through a
+particular vertex are pulled.  This data is then broken down into a statistic for
 both cases and compared against each other to determine if something occurred
-more frequently for the users who reached the goal node versus those who had
+more frequently for the users who reached the goal vertex versus those who had
 not.  This way any significant differences could be raised to the end user's
 attention as potentially important steps to reaching the final goal.  The high
 level process to generating this data is depicted in Figure \ref{fig:node
@@ -337,7 +337,7 @@ details}.
 }
 % -------------------------------------------------
 % Start by placing the nodes
-\node [proc] (p0) {Pull relevant and all node data};
+\node [proc] (p0) {Pull relevant and all vertex data};
 % Use join to connect a node to the previous one 
 \node [proc, join] (p1) {Count occurrences of each data instance};
 \node [proc, join] (p2) {Calculate percentage of occurrence for each
@@ -347,7 +347,7 @@ instance};
  \node [test, join] (t0) {IF relevant is more than five percent greater than
  all};
  \node [proc, join] (p4) {Flag relevant data occurrence as significant};
- \node [proc, join] (p5) {Return object and list containing relative percentage node data};
+ \node [proc, join] (p5) {Return object and list containing relative percentage vertex data};
 
 \draw [->, dotted, thick, shorten >=1mm]
   (p2.south) -- ++(50mm,-3mm)  -- ++(27mm,0) 
@@ -360,16 +360,16 @@ instance};
 
 % -------------------------------------------------
 \end{tikzpicture}
-	\caption{High Level Node Detail Generation}
+	\caption{High Level Vertex Detail Generation}
 	\label{fig:node details}
 \end{figure}
 \pagebreak
 
 \noindent The process flow in defining the details and significant details for
-each node is listed in detail below:
+each vertex is listed in detail below:
 
 \begin{description}
-    \item[Node Detail Generation:]
+    \item[Vertex Detail Generation:]
 \end{description}
 \begin{enumerate}
   \item Pull in profile list, tag each element as a profile, and then add
@@ -377,22 +377,22 @@ each node is listed in detail below:
   \item Repeat this for the jobs list and the education list.
   \item Check each element of the complete list.
   \begin{enumerate}
-    \item If the element contains the node that details are being pulled on, add
+    \item If the element contains the vertex that details are being pulled on, add
     the element to the relevant list.
   \end{enumerate}
-  \item Pull the headers associated with the node that details are being pulled
+  \item Pull the headers associated with the vertex that details are being pulled
   from.
-  \item Pull all the data in the database for that node and store in the all
-  node data list.
+  \item Pull all the data in the database for that vertex and store in the all
+  vertex data list.
   \item For each element of the complete list:
   \begin{enumerate}
     \item Split the element into columns and step through each column.
     \begin{enumerate}
     	\item Check if the column element is a start or end year and instead
-    	calculate the years spent at the node.
+    	calculate the years spent at the vertex.
     	\begin{enumerate}
     	  \item If the end year is set to current, find the current year and then
-    	  calculate the total years spent at the node.
+    	  calculate the total years spent at the vertex.
     	\end{enumerate}
     	\item Add the column value to a set to obtain all possible values for
     	the column.
@@ -403,14 +403,14 @@ each node is listed in detail below:
     	\item Push these values into the relevant list.
     \end{enumerate} 
   \end{enumerate}
-  \item Repeat for each element of the all node data list
+  \item Repeat for each element of the all vertex data list
   \item Compare the percentages for each element of the relevant list to
-  the percentages from the all node data list.
+  the percentages from the all vertex data list.
   \begin{enumerate}
     \item Flag the column value for any instance where the relevant value's
     percentage exceeds the percentage for all the data by 5\%.
     \item Return this value as relevant so that it can be identified to the user
-    as significant to the node.
+    as significant to the vertex.
   \end{enumerate}
   \item Return the relevant list and an object containing an array
   of the same data.

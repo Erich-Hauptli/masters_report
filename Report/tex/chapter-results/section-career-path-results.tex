@@ -4,9 +4,9 @@ Examples of the objects returned by the career path graph portion of the
 ProGENitor code are shown below.  Each example does not contain a complete set
 of data as that would be too much to show in this report.
 
-\subsection{Node Edge Results}
-In the node edge object, an array of node edges is returned.  Each element
-of the array contains a starting node and an ending node for the transition. 
+\subsection{Vertex Edge Results}
+In the vertex edge object, an array of vertex edges is returned.  Each element
+of the array contains a starting vertex and an ending vertex for the transition. 
 Additionally, the array element also contains a transition frequency.  The
 transition frequency indicates how often the transition occurs.  To
 prevent exposure of user data, these transitions are scaled to a value
@@ -14,48 +14,48 @@ ranging from 0 and 10.
 
 \begin{tt}
 \begin{footnotesize}
-\noindent\{"Node Connections":\\*
-\{"node A":"Bachelors","node B":"Masters","transition frequency":6\},\\*
-\{"node A":"Masters","node 	B":"Circuit Designer","transition frequency":7\},\\*
-\{"node A":"Circuit Designer","node B":"Block 	Owner","transition
+\noindent\{"Vertex Connections":\\*
+\{"vertex A":"Bachelors","vertex B":"Masters","transition frequency":6\},\\*
+\{"vertex A":"Masters","vertex 	B":"Circuit Designer","transition frequency":7\},\\*
+\{"vertex A":"Circuit Designer","vertex B":"Block 	Owner","transition
  frequency":8\},\\* 
-\{"node A":"Block Owner","node B":"Design Owner","transition frequency":9\},\\*
+\{"vertex A":"Block Owner","vertex B":"Design Owner","transition frequency":9\},\\*
 \ldots\\* 
-\{"node A":"Coder","node B":"Function Lead","transition frequency":0\},\\*
-\{"node A":"Function Lead","node B":"Masters","transition frequency":0\}\},\\*
+\{"vertex A":"Coder","vertex B":"Function Lead","transition frequency":0\},\\*
+\{"vertex A":"Function Lead","vertex B":"Masters","transition frequency":0\}\},\\*
 \end{footnotesize}
 \end{tt}
 
 
-\subsection{Node Ordering JSON Results}
-In the node ordering object, an array containing the order which the nodes
-should be display is returned.  Each element of the array contains a node name
-and the order number it should be displayed.  Thus, the nodes with an order of
-1 should be the first nodes displayed in the career path graph, then
-moving sequentially up, each node in the group should be displayed until the
-final node group is displayed.  This will allow the graph to flow with minimum
+\subsection{Vertex Ordering Results}
+In the vertex ordering object, an array containing the order which the vertices
+should be display is returned.  Each element of the array contains a vertex name
+and the order number it should be displayed.  Thus, the vertices with an order
+of 1 should be the first vertices displayed in the career path graph, then
+moving sequentially up, each vertex in the group should be displayed until the
+final vertex group is displayed.  This will allow the graph to flow with minimum
 edges flowing in the reverse direction.
 
 \begin{tt}
 \begin{footnotesize}
-\noindent \{"Node Ordering":\\*
-	\indent\{"node	name":"Timing","order":"2"\},\\*
-	\indent\{"node name":"Signal Integrity","order":"2"\},\\*
-	\indent\{"node name":"Platform Chief Engineer","order":"7"\},\\*
-	\indent\{"node name":"PhD","order":"5"\},\\*
-	\indent\{"node name":"Entry Coder","order":"1"\},\\*
+\noindent \{"Vertex Ordering":\\*
+	\indent\{"vertex name":"Timing","order":"2"\},\\*
+	\indent\{"vertex name":"Signal Integrity","order":"2"\},\\*
+	\indent\{"vertex name":"Platform Chief Engineer","order":"7"\},\\*
+	\indent\{"vertex name":"PhD","order":"5"\},\\*
+	\indent\{"vertex name":"Entry Coder","order":"1"\},\\*
 	\indent\ldots\\*
-	\indent\{"node name":"Block Owner","order":"6"\},\\*
-	\indent\{"node name":"Chiplet Designer","order":"1"\}]\},\\*
+	\indent\{"vertex name":"Block Owner","order":"6"\},\\*
+	\indent\{"vertex name":"Chiplet Designer","order":"1"\}]\},\\*
 \end{footnotesize}
 \end{tt}
 
-\subsection{Node Details Results}
-In the node detail object, an array containing all of the various nodes
-will be returned.  Each node will be a nested object containing an array of data
+\subsection{Vertex Details Results}
+In the vertex detail object, an array containing all of the various vertices
+will be returned.  Each vertex will be a nested object containing an array of data
 points.  Examples of these data points are titles, companies, time spent at the
-node, and any other points of interest within the database.  Each of these data
-points will be an object that also contains a nested array.  This array
+vertex, and any other points of interest within the database.  Each of these
+data points will be an object that also contains a nested array.  This array
 will then contain data about each data point, broken down into the percentage of
 users who matched a specific piece of information for that data point.  For
 example, shown below is a data point for the companies that users worked for
@@ -65,26 +65,26 @@ company versus all users who spent time working at that particular job.  To
 avoid returning millions of entries, a threshold is set such that only
 statistically relevant data is returned and everything else is lumped into an
 ``other'' group.  This ``other'' group would then contain the total user data
-that did not meet the threshold.  Finally, an object containing any significant data
-points is also returned.
+that did not meet the threshold.  Finally, an object containing any significant
+data points is also returned.
 
 ProGENitor compares the users who reached the goal against all users who passed
-through the node to determine what was statistically different from the users
+through the vertex to determine what was statistically different from the users
 who reached the target goal.  These differences are listed in the significant
 data object. In the example below, the significant data point is that 100\% of
-the users who passed through this node and reached the goal node worked for
+the users who passed through this vertex and reached the goal vertex worked for
 Verizon.  This is significant because only 11\% of the the users who spent time
-in this node worked for Verizon.  Thus, working for Verizon in the Timing job is
-an important step to reaching the goal node.  Significance is flagged whenever
+in this vertex worked for Verizon.  Thus, working for Verizon in the Timing job is
+an important step to reaching the goal vertex.  Significance is flagged whenever
 the users who reached the goal, had a data point occur 5\% more than then
-everyone who passed through the node.  This value could easily be modified by
+everyone who passed through the vertex.  This value could easily be modified by
 the company deploying ProGENitor if a greater difference was required for significance.
 
 \pagebreak
 \begin{tt}
 \begin{footnotesize}
-\noindent \{"Nodes Data":\\*
-	\indent \{"Node Name":"Timing","Node Data":\\*
+\noindent \{"Vertices Data":\\*
+	\indent \{"Vertex Name":"Timing","Vertex Data":\\*
 		\indent \{"Data Breakout":\\*
 		\indent \indent	\{"name":"Other","value":"0.9174312\%"\}\\*
 		\indent	\indent \{"name":"Timing\_all","value":"100.0\%"\},\\*
@@ -187,10 +187,10 @@ few people who reached the partner status also obtained a PhD, showing that this
 is not a common path to reaching partner, but still is an option that could be
 pursued.
 
-Next, the user could select one of the nodes to pull up additional information
-about that node.  The three pie charts below in Figure \ref{fig:Lead Arch} show
+Next, the user could select one of the vertices to pull up additional
+information about that vertex.  The three pie charts below in Figure \ref{fig:Lead Arch} show
 the information that would be returned if the user were to select the lead
-architect node.  These charts show that there were five key employers for all of
+architect vertex.  These charts show that there were five key employers for all of
 the users who reached partner.  They also show that most of the partners were
 lead architects for less than five years, and it became increasingly rare to
 reach partner after this time.  The data also shows that no particular city had
@@ -201,7 +201,7 @@ of doing so to diminish over time.  Also, they should know that where and who
 they work for is not important, as long as they work for one of the five
 companies shown.
 
-Alternatively, the user could click on the master's degree node, to see more
+Alternatively, the user could click on the master's degree vertex, to see more
 information about these users.  In doing so, the data generated immediately
 shows everyone who got a Master's degree did so in a single year with a
 specialization in Infrastructure and the only variation being in the school
@@ -374,7 +374,7 @@ time.  This is done by adding the following line to the Masters text file.
 	\indent
 	\begin{footnotesize}\begin{tt}{Civil:Infrastructure,Energy,Infrastructure}\\*\end{tt}\end{footnotesize}
 
-\noindent Next, an additional node, junior partner is added prior to partner. 
+\noindent Next, an additional vertex, junior partner is added prior to partner. 
 This is done by modify the titles text file.  To make this change, the simple
 replacement of one line with two new lines was needed.
 	
@@ -452,13 +452,13 @@ script.
 \end{figure}
 
 With these changes in place, the new career path graph for achieving the partner
-position shows the expected changes.  The new node step of junior partner is
+position shows the expected changes.  The new vertex step of junior partner is
 present and it also shows the reduction of users obtain a master's degree.  In
 the case of users transitioning from a bachelor's to master's degree, it is not
 clear from the edges, but by looking at the data in the returned object, the
 frequency did decrease by 10\%.  In the detailed data for the master's degree
-node, the Infrastructure degree makes up approximately 2/3rds of the total
-degrees.  This is shown in the object return for the masters node with the
+vertex, the Infrastructure degree makes up approximately 2/3rds of the total
+degrees.  This is shown in the object return for the masters vertex with the
 following text:
 
 \begin{tt}
@@ -471,15 +471,15 @@ following text:
 
 \noindent Additionally, both Infrastructure and Energy would be returned as
 significant pieces of data, as they occurred much less frequently for the users
-who traveled through this master's degree node and did not reach the partner
-node.
+who traveled through this master's degree vertex and did not reach the partner
+vertex.
 
 \subsection{Example Career Path 2 }
 In the second example, consider another user who is interested in reaching the
 system chief engineering role.  They would input this query into the tool and
 Figure \ref{fig:node map sce} would be generated.  From this graph, the user
 would quickly be able to see that obtaining an advanced degree was unnecessary
-to become a system chief engineer.  They could then delve deeper into each node
+to become a system chief engineer.  They could then delve deeper into each vertex
 if they wanted to learn more about users who did the various jobs that also
 became system chief engineers.
 
@@ -547,8 +547,8 @@ became system chief engineers.
 
 One thing that might also spark an interest in the user is the fact that any
 jobs beyond the queried job that the matched users also completed would be shown
-as well.  In this case there was one of these such nodes, the platform chief
-engineer.  From the node edges it is clear that not all system chief
+as well.  In this case there was one of these such vertices, the platform chief
+engineer.  From the edges it is clear that not all system chief
 engineers reached this job.  If the user were interested then instead in the
 platform chief engineering role, they could re-run the query.  They would then
 be presented with the career graph shown in Figure \ref{fig:node map pce}.  This
@@ -680,8 +680,8 @@ much less in these run times than they could be with a remote database.
 
 To estimate career path graph performance, 10 cases were run, as shown below in
 Table \ref{table:career performance}.  These 10 cases generate a range of
-matched users, total users, and number of nodes returned.  By doing this, a rough
-estimate as to how long a query to ProGENitor might take can be ascertained.  As
+matched users, total users, and number of vertices returned.  By doing this, a
+rough estimate as to how long a query to ProGENitor might take can be ascertained.  As
 seen in Table \ref{table:career performance}, an average query would take about
 6.9 seconds, but might take much longer depending on the number of users in the
 database and the number that match the query.
@@ -716,8 +716,8 @@ database and the number that match the query.
 
 As seen in Table \ref{table:career performance}, more than half of the time that
 ProGENitor runs is spent in querying the database and pulling in the data to be
-processed.  Then about 40\% of the time is spent generating the node
-interconnects. Finally, determining the order in which to display the nodes runs
+processed.  Then about 40\% of the time is spent generating the vertex
+edges. Finally, determining the order in which to display the vertices runs
 in about 1 to 2\% of the overall runtime.  Thus, to improve or maintain performance most of
 the focus needs to be on the database pull.  This is not an uncommon problem and
 many people spend careers working on this problem.  ProGENitor assumes that
@@ -730,7 +730,7 @@ expert who could help refine the database accesses.
   \hline
   \
   %heading
-  Case&Matched Users&Total Users&Total Nodes&All Nodes&Average Node\\
+  Case&Matched Users&Total Users&Total Vertices&All Vertices&Average Vertex\\
   \hline\hline
   Platform Chief&109&5000&23&4.7s&204.4ms\\ \hline
   Civil\newline Degree&2684&5000&7&10.9s&1.55s\\ \hline 
@@ -747,17 +747,17 @@ expert who could help refine the database accesses.
   Maximum&2684&10000&40&18.0s&1.57s\\ \hline
   Average&785&550&21&7.5s&561.0ms\\ \hline
   \end{tabular}
-  \caption{Node Detail Generation Time}
+  \caption{Vertex Detail Generation Time}
   \label{table:node-perf}
 \end{table}
 
-In Table \ref{table:node-perf}, the node detail generation performance is shown
+In Table \ref{table:node-perf}, the vertex detail generation performance is shown
 for the same 10 cases run previously.  This is broken out separately because the
 assumption is that when ProGENitor is deployed, the career path graph would be
-initially presented in the user interface and the details about each node would be
+initially presented in the user interface and the details about each vertex would be
 displayed upon user request.  Looking at Table \ref{table:node-perf} shows that
 this would be done because if all the data were returned at once, it could
 potentially add 18 seconds to the overall run time.  This would be too slow and
-unnecessary for the end user.  By making each node call separate, the average
-return time on the node information would be about half a second prior to
+unnecessary for the end user.  By making each vertex call separate, the average
+return time on the vertex information would be about half a second prior to
 rendering the data.  This would make the data much more user friendly.
