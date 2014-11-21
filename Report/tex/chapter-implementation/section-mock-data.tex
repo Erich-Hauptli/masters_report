@@ -105,16 +105,16 @@ data files};
 \node [proc, join] (p4) {Store User Information to Data File};
 
 \draw [->, dotted, thick, shorten >=1mm] (t3.south) -- ++(40mm,-5mm)  --
-++(27mm,0) |- node [black, near end, yshift=0.75em, it]
+++(27mm,0) |- node [black, near end, yshift=0.75em, xshift=5mm, it]
     [above]{While time remaining}(p3);
     
 \draw [->, dotted, thick, shorten >=1mm] (t3.south) -- ++(40mm,-5mm)  --
-++(27mm,0) |- node [black, near end, yshift=0.75em, it]
+++(27mm,0) |- node [black, near end, yshift=0.75em, xshift=-2mm, it]
     {in workforce}(p3);
 
 \draw [->, dotted, thick, shorten >=1mm]
   (p4.south) -- ++(50mm,-5mm)  -- ++(27mm,0) 
-  |- node [black, near end, yshift=0.75em, it]
+  |- node [black, near end, yshift=0.75em, xshift=5mm,  it]
     {Until User ID = \# Users} (p1);
 
 % -------------------------------------------------
