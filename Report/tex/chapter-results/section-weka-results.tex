@@ -1,9 +1,13 @@
 \section{Weka Results}
 \label{sect:weka-results}
-When running Weka, the results are not initially returned in an object. 
-Weka returns the data in the following way shown below.  Then ProGENitor parses
-the data and place the extracted insights into an object that can be returned to
-the end user as part of the overall object.
+Weka analysis is run upon user request for additional insights.  This is
+done due to the fact that it takes a significant amount of time to complete
+the analysis.  Section 4.2.2 details the overall performance and explains
+why the Weka tool is not run automatically when the career path graph is
+generated.  When running Weka, the results are not initially returned in an
+object.  Weka returns the data in the following way shown below.  Then
+ProGENitor parses the data and place the extracted insights into an object that
+can be returned to the end user as part of the overall object.
 
 \pagebreak 
 \begin{tt}
@@ -94,7 +98,7 @@ bachelor's degree.  The interesting thing of note between cluster columns 4 and
 5 is the slight drop in users who reached the goal who obtained the master's degree. 
 The drop is not significant which implies getting the master's degree is still
 very important for a user who wishes to reach the end goal.  One other thing to note,
-in the above group of data, important information has been chopped as the total
+in the above group of data, important information is not displayed as the total
 master's degrees does not match the ones displayed.  This data was simply
 shortened for the report, but would normally be displayed in the Weka results. 
 The same is true for the other clusters.  
