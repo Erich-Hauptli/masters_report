@@ -22,7 +22,7 @@ ranging from 0 and 10.
 \{"vertex A":"Block Owner","vertex B":"Design Owner","transition frequency":9\},\\*
 \ldots\\* 
 \{"vertex A":"Coder","vertex B":"Function Lead","transition frequency":0\},\\*
-\{"vertex A":"Function Lead","vertex B":"Masters","transition frequency":0\}\},\\*
+\{"vertex A":"Function Lead","vertex B":"Masters","transition frequency":0\}\}\\*
 \end{footnotesize}
 \end{tt}
 
@@ -46,7 +46,7 @@ edges flowing in the reverse direction.
 	\indent\{"vertex name":"Entry Coder","order":"1"\},\\*
 	\indent\ldots\\*
 	\indent\{"vertex name":"Block Owner","order":"6"\},\\*
-	\indent\{"vertex name":"Chiplet Designer","order":"1"\}]\},\\*
+	\indent\{"vertex name":"Chiplet Designer","order":"1"\}]\}\\*
 \end{footnotesize}
 \end{tt}
 
@@ -104,7 +104,7 @@ the company deploying ProGENitor if a greater difference was required for signif
 		\indent	\indent	\{"name":"AT\&T\_all","value":"8.430233\%"\},\\*
 		\indent"Data Point Name":"company"\},\\*
 		\indent\ldots\\*
-		\indent \{"Significant":Verizon\}\},\\*
+		\indent \{"Significant":Verizon\}\}\\*
 \end{footnotesize}
 \end{tt}
 
@@ -112,10 +112,10 @@ the company deploying ProGENitor if a greater difference was required for signif
 With the ProGENitor tool, several examples of functionality can easily be
 demonstrated.  In the first example, consider a user that is interested in
 what it takes to become a partner in an architecture firm.  The user would submit the query on
-partner and the career graph shown in Figure \ref{fig:partner nodal map} would
+partner and the career graph shown in Figure~\ref{fig:partner nodal map} would
 be returned.
 
-\usetikzlibrary{shapes,arrows,chains}
+\usetikzlibrary{shapes,arrows,chains,decorations.markings}
 
 \begin{figure}[H]
 	\centering
@@ -137,9 +137,15 @@ be returned.
   node/.style={base, circle, text width=5em},
   % Connector line styles for different parts of the diagram
   norm/.style={->, draw},
-  tn/.style={->,>=stealth',shorten >=1pt, loosely dotted},
-  nm/.style={->,>=stealth',shorten >=1pt,dashed},
-  to/.style={->,>=stealth',shorten >=1pt,thick},
+  tn/.style={->,>=stealth',shorten >=1pt, loosely
+  dotted,decoration={markings,mark=at position 1 with {\arrow[ultra thick]{>}}}, postaction={decorate}
+  },
+  nm/.style={->,>=stealth',shorten >=1pt,dashed,decoration={markings,mark=at
+  position 1 with {\arrow[ultra thick]{>}}}, postaction={decorate}
+  },
+  to/.style={->,>=stealth',shorten >=1pt,thick,decoration={markings,mark=at
+  position 1 with {\arrow[ultra thick]{>}}}, postaction={decorate}
+  },
   tk/.style={->,shorten >=1pt,ultra thick},
   it/.style={font={\small\itshape}}
 }
@@ -188,8 +194,8 @@ is not a common path to reaching partner, but still is an option that could be
 pursued.
 
 Next, the user could select one of the vertices to pull up additional
-information about that vertex.  The three pie charts below in Figure \ref{fig:Lead Arch} show
-the information that would be returned if the user were to select the lead
+information about that vertex.  The three pie charts below in
+Figure~\ref{fig:Lead Arch} show the information that would be returned if the user were to select the lead
 architect vertex.  These charts show that there were five key employers for all of
 the users who reached partner.  They also show that most of the partners were
 lead architects for less than five years, and it became increasingly rare to
@@ -390,7 +396,7 @@ script.
 
 
 
-\usetikzlibrary{shapes,arrows,chains}
+\usetikzlibrary{shapes,arrows,chains,decorations.markings}
 
 \begin{figure}[H]
 	\centering
@@ -413,9 +419,15 @@ script.
   node/.style={base, circle, text width=5em},
   % Connector line styles for different parts of the diagram
   norm/.style={->, draw},
-  tn/.style={->,>=stealth',shorten >=1pt, loosely dotted},
-  nm/.style={->,>=stealth',shorten >=1pt,dashed},
-  to/.style={->,>=stealth',shorten >=1pt,thick},
+  tn/.style={->,>=stealth',shorten >=1pt, loosely
+  dotted,decoration={markings,mark=at position 1 with {\arrow[ultra thick]{>}}}, postaction={decorate}
+  },
+  nm/.style={->,>=stealth',shorten >=1pt,dashed,decoration={markings,mark=at
+  position 1 with {\arrow[ultra thick]{>}}}, postaction={decorate}
+  },
+  to/.style={->,>=stealth',shorten >=1pt,thick,decoration={markings,mark=at
+  position 1 with {\arrow[ultra thick]{>}}}, postaction={decorate}
+  },
   tk/.style={->,shorten >=1pt,ultra thick},
   it/.style={font={\small\itshape}}
 }
@@ -477,14 +489,14 @@ vertex.
 \subsection{Example Career Path 2 }
 In the second example, consider another user who is interested in reaching the
 system chief engineering role.  They would input this query into the tool and
-Figure \ref{fig:node map sce} would be generated.  From this graph, the user
+Figure~\ref{fig:node map sce} would be generated.  From this graph, the user
 would quickly be able to see that obtaining an advanced degree was unnecessary
 to become a system chief engineer.  They could then delve deeper into each vertex
 if they wanted to learn more about users who did the various jobs that also
 became system chief engineers.
 
 
-\usetikzlibrary{shapes,arrows,chains}
+\usetikzlibrary{shapes,arrows,chains,decorations.markings}
 
 \begin{figure}[H]
 	\centering
@@ -506,9 +518,15 @@ became system chief engineers.
   node/.style={base, circle, text width=5em},
   % Connector line styles for different parts of the diagram
   norm/.style={->, draw},
-  tn/.style={->,>=stealth',shorten >=1pt, loosely dotted},
-  nm/.style={->,>=stealth',shorten >=1pt,dashed},
-  to/.style={->,>=stealth',shorten >=1pt,thick},
+  tn/.style={->,>=stealth',shorten >=1pt, loosely
+  dotted,decoration={markings,mark=at position 1 with {\arrow[ultra thick]{>}}}, postaction={decorate}
+  },
+  nm/.style={->,>=stealth',shorten >=1pt,dashed,decoration={markings,mark=at
+  position 1 with {\arrow[ultra thick]{>}}}, postaction={decorate}
+  },
+  to/.style={->,>=stealth',shorten >=1pt,thick,decoration={markings,mark=at
+  position 1 with {\arrow[ultra thick]{>}}}, postaction={decorate}
+  },
   tk/.style={->,shorten >=1pt,ultra thick},
   it/.style={font={\small\itshape}}
 }
@@ -551,7 +569,7 @@ as well.  In this case there was one of these such vertices, the platform chief
 engineer.  From the edges it is clear that not all system chief
 engineers reached this job.  If the user were interested then instead in the
 platform chief engineering role, they could re-run the query.  They would then
-be presented with the career graph shown in Figure \ref{fig:node map pce}.  This
+be presented with the career graph shown in Figure~\ref{fig:node map pce}.  This
 is obviously a much more complex graph, but it still yields the same capability
 of quickly showing users complex career paths to a particular goal.  In this
 case it shows that there are essentially three paths to this job.  The first
@@ -563,7 +581,7 @@ The other notable thing is the most common path taken to getting to the platform
 chief engineering job is through the design path.
 
 
-\usetikzlibrary{shapes,arrows,chains}
+\usetikzlibrary{shapes,arrows,chains,decorations.markings}
 
 \begin{figure}[H]
 	\centering
@@ -585,9 +603,15 @@ chief engineering job is through the design path.
   node/.style={base, circle, text width=5em},
   % Connector line styles for different parts of the diagram
   norm/.style={->, draw},
-  tn/.style={->,>=stealth',shorten >=1pt, loosely dotted},
-  nm/.style={->,>=stealth',shorten >=1pt,dashed},
-  to/.style={->,>=stealth',shorten >=1pt,thick},
+  tn/.style={->,>=stealth',shorten >=1pt, loosely
+  dotted,decoration={markings,mark=at position 1 with {\arrow[ultra thick]{>}}}, postaction={decorate}
+  },
+  nm/.style={->,>=stealth',shorten >=1pt,dashed,decoration={markings,mark=at
+  position 1 with {\arrow[ultra thick]{>}}}, postaction={decorate}
+  },
+  to/.style={->,>=stealth',shorten >=1pt,thick,decoration={markings,mark=at
+  position 1 with {\arrow[ultra thick]{>}}}, postaction={decorate}
+  },
   tk/.style={->,shorten >=1pt,ultra thick},
   it/.style={font={\small\itshape}}
 }
@@ -679,10 +703,10 @@ database itself.  As the database was on a local drive, the access times were
 much less in these run times than they could be with a remote database.  
 
 To estimate career path graph performance, 10 cases were run, as shown below in
-Table \ref{table:career performance}.  These 10 cases generate a range of
+Table~\ref{table:career performance}.  These 10 cases generate a range of
 matched users, total users, and number of vertices returned.  By doing this, a
 rough estimate as to how long a query to ProGENitor might take can be ascertained.  As
-seen in Table \ref{table:career performance}, an average query would take about
+seen in Table~\ref{table:career performance}, an average query would take about
 6.9 seconds, but might take much longer depending on the number of users in the
 database and the number that match the query.
 
@@ -714,7 +738,7 @@ database and the number that match the query.
   \label{table:career performance}
 \end{table}
 
-As seen in Table \ref{table:career performance}, more than half of the time that
+As seen in Table~\ref{table:career performance}, more than half of the time that
 ProGENitor runs is spent in querying the database and pulling in the data to be
 processed.  Then about 40\% of the time is spent generating the vertex
 edges. Finally, determining the order in which to display the vertices runs
@@ -751,11 +775,11 @@ expert who could help refine the database accesses.
   \label{table:node-perf}
 \end{table}
 
-In Table \ref{table:node-perf}, the vertex detail generation performance is shown
-for the same 10 cases run previously.  This is broken out separately because the
+In Table~\ref{table:node-perf}, the vertex detail generation performance is
+shown for the same 10 cases run previously.  This is broken out separately because the
 assumption is that when ProGENitor is deployed, the career path graph would be
 initially presented in the user interface and the details about each vertex would be
-displayed upon user request.  Looking at Table \ref{table:node-perf} shows that
+displayed upon user request.  Looking at Table~\ref{table:node-perf} shows that
 this would be done because if all the data were returned at once, it could
 potentially add 18 seconds to the overall run time.  This would be too slow and
 unnecessary for the end user.  By making each vertex call separate, the average

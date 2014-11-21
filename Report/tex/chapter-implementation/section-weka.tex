@@ -18,7 +18,7 @@ classification, which in ProGENitor's case is clustering.
 \subsection{Weka Data File Creation}
 Weka uses the .arff file format to feed data into the Weka tool set.  The arff
 file contains two major sections.  These sections are the header section and the
-data section \cite{arff}.  The header contains the name of the relation, a list
+data section~\cite{arff}.  The header contains the name of the relation, a list
 of attributes, and their types.  The data section contains the data that will
 be used for machine learning.  A sample .arff file would look like the
 following:\\*
@@ -100,11 +100,11 @@ database};
 
 \subsection{Clustering}
 One major advantage to using the Weka library is it takes complex code and makes
-it relatively simple.  As seen in Figure \ref{fig:clustering}, the process that is
-followed to analyze the data in the Weka data file is very simple and straight
+it relatively simple.  As seen in Figure~\ref{fig:clustering}, the process that
+is followed to analyze the data in the Weka data file is very simple and straight
 forward.  Once the Weka library is imported into the project, the code is very
-quick to implement, as good documentation is available for the API \cite{weka}.  The
-complex portion of work is then ensuring that the appropriate classification is
+quick to implement, as good documentation is available for the API~\cite{weka}. 
+The complex portion of work is then ensuring that the appropriate classification is
 applied and the data is parsed in a useful fashion.
 
 
@@ -149,7 +149,7 @@ The Weka data analysis can take many different forms as there are many different
 classifications that can be applied.  In the case of ProGENitor, EM (expectation
 maximization) clustering was chosen as it automatically determines the number of
 clusters required through cross validation.  The algorithm that EM follows is
-shown in Figure \ref{fig:EM} \cite{EM}.  EM differs from other clustering
+shown in Figure~\ref{fig:EM}~\cite{EM}.  EM differs from other clustering
 algorithms in that it uses probability of cluster membership instead of a
 distance method used by other clustering methods such as k-mean clustering.  EM
 starts with one cluster, then cross validates the data and applies the

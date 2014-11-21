@@ -115,16 +115,16 @@ but not required in reaching the goal vertex.
 
 \subsection{Weka Performance}
 For the Weka runs, the same 10 previous runs for the career path performance
-testing were also used to estimate the Weka performance.  In Figure
-\ref{tab:weka-perf}, a couple things can be observed.  First, generating the
-Weka data file takes an insignificant time compared to the time it takes Weka to
-analyze the data.  Second, the time it takes Weka to analyze the data takes far
-too long to be part of batched request.  This would have to be an option that a
-user specifically requests in addition to what ProGENitor typically runs.  Weka
-would be one of the most likely pieces of ProGENitor to be sped up by running on
-a server because it is strictly computational and not limited by database
-accesses.  That being said, the average run currently takes about seven and a
-half minutes, which would be far too long to ever be deployed to an end user. 
+testing were also used to estimate the Weka performance.  In
+Figure~\ref{tab:weka-perf}, a couple things can be observed.  First, generating
+the Weka data file takes an insignificant time compared to the time it takes
+Weka to analyze the data.  Second, the time it takes Weka to analyze the data
+takes far too long to be part of batched request.  This would have to be an
+option that a user specifically requests in addition to what ProGENitor
+typically runs.  Weka would be one of the most likely pieces of ProGENitor to be
+sped up by running on a server because it is strictly computational and not
+limited by database accesses.  That being said, the average run currently takes
+about seven and a half minutes, which would be far too long to ever be deployed to an end user.
 Thus, the server would have to significantly speed up the run over the
 development laptop used in this project to ever considering deploying Weka
 within the ProGENitor tool.
