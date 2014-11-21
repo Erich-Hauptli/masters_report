@@ -1,25 +1,31 @@
 \section{Career Paths}
 \label{sect:career-paths}
 The goal of the career paths module is to generate data, such that a web user
-interface could generate a nodal graph of the career paths taken to reach the
-specified career goal.  The vertex transitions along with the transition
-frequencies are returned to the user interface as objects.  Additionally,
+interface could generate a graph of the career paths taken to reach the
+specified career goal.  The vertex edge transitions along with the edge
+transition frequencies are returned to the user interface as objects.  Additionally,
 the vertex ordering and information about each individual vertex is also returned in
-an object.  This information can then be used to generate a nodal map
+an object.  This information can then be used to generate a graph
 depicting various ways of achieving a career goal.  
 
-An example is depicted in Figure~\ref{fig:nodal map}, which shows various
-interconnected vertices that eventually arrive at the goal vertex.  The vertices
+An example of one of these graphs depicted in Figure~\ref{fig:nodal map}, which
+shows various interconnected vertices that eventually arrive at the goal vertex.  The vertices
 are arranged such that the user most likely travels from left to right, but the
 occasional infrequently traveled transition may flow in the reverse direction. 
-The frequency that the the path is traveled is depicted through line thickness
-in this example.  Each vertex would then be able to display the individual vertex
-information upon user request; either through clicking on the vertex or through
-some other user action.  Note, that ProGENitor does not limit the method in
-which the user interface is displayed; it simply passes back statistical
-information about the vertices, the transitions between each vertex, and the
-individual data about each vertex.  It is up to the web user interface developer
-to determine how the end product is rendered.
+In this example, the frequency that the edge is traveled is depicted through
+line thickness.  This is done so that a visual representation is available to
+show approximately how many of the total returned users transition from one
+vertex to another.  A dotted line would be the least frequently traveled edge,
+then a dashed line, a thin line, and finally the most frequently traveled edge
+would be the thick line. 
+
+Each vertex would then be able to display the individual vertex information upon
+user request; either through clicking on the vertex or through some other user
+action.  Note, that ProGENitor does not limit the method in which the user
+interface is displayed; it simply passes back statistical information about the
+vertices, the transitions between each vertex, and the individual data about
+each vertex.  It is up to the web user interface developer to determine how the
+end product is rendered.
 
 
 \usetikzlibrary{shapes,arrows,chains,decorations.markings}
