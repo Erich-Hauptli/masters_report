@@ -134,11 +134,10 @@ applied and the data is parsed in a useful fashion.
 }
 % -------------------------------------------------
 % Start by placing the nodes
-\node [proc] (p0) {Read in Weka Data File};
+\node [proc] (p0) {Read in Data File};
 % Use join to connect a node to the previous one 
-\node [proc, join] (p1) {Setup Cluster Evaluation};
-\node [proc, join] (p2) {Evaluate Data in Data File Using Cluster Method};
-\node [proc, join] (p3) {Parse and Return Results};
+\node [proc, join] (p1) {Analyze Data in Data File, Cluster Data Using Weka};
+\node [proc, join] (p2) {Parse and Return Results};
 % -------------------------------------------------
 \end{tikzpicture}
 }
@@ -146,21 +145,22 @@ applied and the data is parsed in a useful fashion.
 	\label{fig:clustering}
 \end{figure}
 
-In the case of ProGENitor, EM (expectation maximization) clustering was chosen
-as it automatically determines the number of clusters required through cross
-validation.  The algorithm that EM follows is shown in figure
-\ref{fig:EM} \cite{EM}.  EM differs from other clustering algorithms in that it
-uses probability of cluster membership instead of a distance method used by
-other clustering methods such as k-mean clustering.  EM starts with one cluster,
-then cross validates the data and applies the probability of cluster membership
-classification.  It then calculates the log-likelihood for the set and if it
-increases, creates a new cluster and starts over.  It repeats this process until
-the log likelihood no longer increases.  The left over clusters will then be
-returned as the results.
+The Weka data analysis can take many different forms as there are many different
+classifications that can be applied.  In the case of ProGENitor, EM (expectation
+maximization) clustering was chosen as it automatically determines the number of
+clusters required through cross validation.  The algorithm that EM follows is
+shown in figure \ref{fig:EM} \cite{EM}.  EM differs from other clustering
+algorithms in that it uses probability of cluster membership instead of a
+distance method used by other clustering methods such as k-mean clustering.  EM
+starts with one cluster, then cross validates the data and applies the
+probability of cluster membership classification.  It then calculates the
+log-likelihood for the set and if it increases, creates a new cluster and starts
+over.  It repeats this process until the log likelihood no longer increases. 
+The left over clusters will then be returned as the results.
 
 \begin{figure}[H]
 	\centering
-	\resizebox {!} {145mm} {
+	\resizebox {!} {130mm} {
 % Start the picture
 \begin{tikzpicture}[%
     >=triangle 60,              % Nice arrows; your taste may be different
