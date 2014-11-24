@@ -151,9 +151,9 @@ maximization) clustering was chosen as it automatically determines the number of
 clusters required through cross validation.  The algorithm that EM follows is
 shown in Figure~\ref{fig:EM}~\cite{EM}.  EM differs from other clustering
 algorithms in that it uses probability of cluster membership instead of a
-distance method used by other clustering methods such as k-mean clustering.  EM
-starts with one cluster, then cross validates the data and applies the
-probability of cluster membership classification.  It then calculates the
+distance method used by other clustering methods such as k-mean
+clustering~\cite{EM_book}.  EM starts with one cluster, then cross validates the
+data and applies the probability of cluster membership classification.  It then calculates the
 log-likelihood for the set and if it increases, creates a new cluster and starts
 over.  It repeats this process until the log likelihood no longer increases. 
 The left over clusters will then be returned as the results.
