@@ -313,16 +313,19 @@ so instead many of the details are buried within each vertex and can be queried
 by the end user, by selecting the vertex of interest.  As each vertex contains
 additional details such as the place of employment or education, time spent at
 the school or job, or any other vertex relevant pieces of information; the data
-must be gathered upon user request, as to not slow down the overall graph
-generation.  Once the request is made, the data about the individuals who
-reached the goal vertex and the data about all of the users who passed through a
-particular vertex are pulled.  This data is then broken down into a statistic for
-both cases and compared against each other to determine if something occurred
-more frequently for the users who reached the goal vertex versus those who had
-not.  This way any significant differences could be raised to the end user's
-attention as potentially important steps to reaching the final goal.  The high
-level process to generating this data is depicted in Figure~\ref{fig:node
-details}.
+must be either gathered upon user request or each vertex must be pulled
+concurrently, as to not slow down the overall graph generation.  Once the
+request is made, the data about the individuals who reached the goal vertex and
+the data about all of the users who did not, but still passed through a
+particular vertex are pulled.  This is done because both the users who reached
+the goal and the users who did not need to be considered to determine what
+relevant pieces of data contributed to a user reaching the end goal.  This data
+is then broken down into a statistic for both cases and compared against each
+other to determine if something occurred more frequently for the users who
+reached the goal vertex versus those who had not.  This way any significant
+differences could be raised to the end user's attention as potentially important
+steps to reaching the final goal.  The high level process to generating this
+data is depicted in Figure~\ref{fig:node details}.
 
 \usetikzlibrary{shapes,arrows,chains}
 
