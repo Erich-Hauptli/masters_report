@@ -8,10 +8,11 @@ database.  The data in the database is loaded with synthetic data for testing
 purposes, but could easily be replaced with an actual database. The fetched data
 would then be passed to a block of code, that processes the data to produce a
 career path graph and then extracts the significant information about the graph
-points.  Additional information is also extracted by a tool called Weka, to
-provide more complex insights into the combinations of data points that may be
-relevant to reaching the queried goal.  This data is then returned to the user
-in a data object that can be rendered by a user interface.  See
+points.  Additional information is also extracted by a tool called Weka, which
+is a collection of machine learning algorithms for data mining tasks.  Weka is
+used to provide more complex insights into the combinations of data points that
+may be relevant to reaching the queried goal.  This data is then returned to the
+user in a data object that can be rendered by a user interface.  See
 Figure~\ref{fig:HighLevelProjectArchitecture} for a representation of this sequence.
 
 \usetikzlibrary{shapes,arrows,chains}
