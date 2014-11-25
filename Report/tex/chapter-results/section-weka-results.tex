@@ -74,12 +74,12 @@ of 1 for each element in the columns, thus the total instances of a value within
 a Weka data file would be the sum of the row minus the number of columns.  When
 it states that 212 instances reached the end goal, this does not mean there were
 212 users who reached the end goal, but instead there were 212 user educational instances.
-The Weka data file treats each educational instances as a new input, thus, when
+The Weka data file treats each educational instance as a new input, thus, when
 all is said in done for this particular data file there are 9481 educational
 instances with the database.  This makes sense if you add up all the rows for
 bachelor degrees, master degrees, and PhDs.  This math will also result in 9481
 instances, assuming you subtract one for each value.  One other odd piece about
-the data is the fact that the numbers are not crisp integers.  In the attempt to
+the data is the fact that the numbers are not integers.  In the attempt to
 generate the various clusters, Weka assigns a probability to each educational
 instance that it belongs in a cluster.  This means the math will get complex and
 not always place a value perfectly in only one cluster.  This causes the values
@@ -119,8 +119,8 @@ testing were also used to estimate the Weka performance.  In
 Figure~\ref{tab:weka-perf}, a couple things can be observed.  First, generating
 the Weka data file takes an insignificant time compared to the time it takes
 Weka to analyze the data.  Second, the time it takes Weka to analyze the data
-takes far too long to be part of batched request.  This would have to be an
-option that a user specifically requests in addition to what ProGENitor
+is far too long to be suitable for an interactive request.  The Weka request
+would have to be an option that a user specifically requests in addition to what ProGENitor
 typically runs.  Weka would be one of the most likely pieces of ProGENitor to be
 sped up by running on a server because it is strictly computational and not
 limited by database accesses.  That being said, the average run currently takes

@@ -94,7 +94,7 @@ the company deploying ProGENitor if a greater difference was required for signif
 		\indent	\indent	\{"name":"Verizon\_all","value":"11.33721\%"\},\\*
 		\indent	\indent	\{"name":"Cisco Systems\_all","value":"12.790698\%"\},\\*
 		\indent	\indent	\{"name":"Boeing\_all","value":"7.5581393\%"\},\\*
-		\indent	\indent	\{"name":"Hewlit-Packard\_all","value":"8.139535\%"\},\\*
+		\indent	\indent	\{"name":"Hewlett-Packard\_all","value":"8.139535\%"\},\\*
 		\indent	\indent	\{"name":"IBM\_all","value":"7.2674417\%"\},\\*
 		\indent	\indent	\{"name":"General Motors\_all","value":"8.72093\%"\},\\*
 		\indent	\indent	\{"name":"General Electric\_all","value":"7.2674417\%"\},\\*
@@ -776,12 +776,19 @@ expert who could help refine the database accesses.
 \end{table}
 
 In Table~\ref{table:node-perf}, the vertex detail generation performance is
-shown for the same 10 cases run previously.  This is broken out separately because the
-assumption is that when ProGENitor is deployed, the career path graph would be
-initially presented in the user interface and the details about each vertex would be
-displayed upon user request.  Looking at Table~\ref{table:node-perf} shows that
-this would be done because if all the data were returned at once, it could
-potentially add 18 seconds to the overall run time.  This would be too slow and
-unnecessary for the end user.  By making each vertex call separate, the average
-return time on the vertex information would be about half a second prior to
-rendering the data.  This would make the data much more user friendly.
+shown for the same 10 cases run previously.  The table shows that if all the
+data was returned serially it could potentially add 18 seconds to the overall
+run time.  This would be too slow and unnecessary for the end user.  By making
+each vertex call separate, the average return time on the vertex information
+would be about half a second prior to rendering the data.  This is broken out
+separately because the assumption is that when ProGENitor runs it would either
+make this data available upon user request for each vertex or it would have to
+run each vertex call concurrently, such that all calls were completed prior to
+the career graph function call completing.  This would have to be done to
+protect the user experience, as the total ProGENitor application call has to
+complete as quickly as possible.  The method chosen would depend upon how much
+hardware would be deployed to support ProGENitor, as threads would need to be
+available to process the concurrent function calls.  In either case, a method is
+available to allow for the vertex data retrieval without impacting overall
+system performance.
+
