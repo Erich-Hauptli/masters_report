@@ -5,11 +5,16 @@ there are still a lot of improvements that could be made.  For
 instance, creating a web user interface to visually demonstrate ProGENitor's
 capabilities would go a long way to helping sell it to future customers. 
 Another important work item would be to test and validate the software with
-several different database types such as a NoSQL database.  Focusing on code
-parallelization and on optimizing database pulls could greatly improve
-performance.  Further improvement could be gained by pulling the vertex detailed
-data only upon user request versus the current implementation, which pulls all
-vertex data at once.
+several different database types such as a NoSQL database and several live
+databases.  As ProGENitor has only been tested with synthetic data thus far,
+deploying it on an actual database could present some challenges that should be
+worked through.  For example, LinkedIn's Sensei database interface should have
+similar queries, but there may be some differences.  Additionally, the data
+returned may also take a bit of work to ensure it is in the proper format. 
+Focusing on code parallelization and on optimizing database pulls could greatly
+improve performance.  Further improvement could be gained by pulling the vertex
+detailed data only upon user request versus the current implementation, which
+pulls all vertex data at once.
 
 Currently, ProGENitor only looks at the education data for Weka.  Additional
 insights could be gathered by generating more .arff files to be fed into
